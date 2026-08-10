@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>갤러리 공유 · 바닐라 헤어</title>
+<meta name="description" content="바닐라 헤어 사진 갤러리 — 웹에서 사진을 압축해 올리고 인스타그램·블로그에 바로 복붙·공유하세요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Noto+Serif+KR:wght@400;500;600;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#e0006c;--pink-deep:#b60057;--pink-soft:#ffd9ea;
+    --ink:#241a1f;--ink-soft:#5a4c53;--cream:#fbf6f2;--cream-2:#f4ebe4;
+    --white:#fff;--line:rgba(36,26,31,.14);
+    --serif:"Noto Serif KR",serif;--display:"Cormorant Garamond",serif;--sans:"Gowun Dodum",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--serif);font-weight:500;color:var(--ink);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+  ::selection{background:var(--pink);color:#fff}
+
+  /* header */
+  header{position:sticky;top:0;z-index:50;background:rgba(251,246,242,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .brand{display:flex;align-items:center;gap:.6rem;font-family:var(--display);font-size:1.5rem;font-weight:600}
+  .brand img{height:34px}
+  .back{font-family:var(--sans);font-size:.9rem;color:var(--pink);border:1.5px solid var(--pink);padding:.5rem 1.2rem;border-radius:40px;transition:.25s}
+  .back:hover{background:var(--pink);color:#fff}
+
+  /* hero */
+  .top{padding:54px 0 30px;text-align:center}
+  .top .tag{font-family:var(--sans);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--pink);margin-bottom:.8rem}
+  .top h1{font-family:var(--display);font-size:clamp(2.2rem,6vw,3.2rem);font-weight:600;line-height:1.1}
+  .top h1 em{font-style:italic;color:var(--pink)}
+  .top p{color:var(--ink-soft);margin-top:.8rem;font-size:1rem}
+
+  section{padding:26px 0 40px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:30px 26px;box-shadow:0 24px 50px -34px rgba(36,26,31,.3)}
+  .card h2{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem}
+  .card .sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:1.4rem}
+
+  /* dropzone */
+  .drop{border:2px dashed rgba(224,0,108,.4);border-radius:16px;background:linear-gradient(160deg,#fff,var(--pink-soft));
+    padding:34px 20px;text-align:center;cursor:pointer;transition:.25s}
+  .drop:hover,.drop.over{border-color:var(--pink);background:linear-gradient(160deg,#fff,#ffcbe4)}
+  .drop .ic{font-size:2.4rem}
+  .drop b{font-family:var(--serif);font-weight:600;font-size:1.05rem;display:block;margin-top:.4rem}
+  .drop span{font-family:var(--sans);font-size:.84rem;color:var(--ink-soft)}
+  .drop input{display:none}
+
+  .opt{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:16px;font-family:var(--sans);font-size:.86rem;color:var(--ink-soft)}
+  .opt label{display:flex;align-items:center;gap:.4rem;cursor:pointer}
+
+  .stage{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:16px}
+  .stage:empty{display:none}
+  .stage .th{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+  .stage .th img{width:100%;height:100%;object-fit:cover}
+  .stage .th button{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;border:none;background:rgba(0,0,0,.55);color:#fff;cursor:pointer;font-size:.8rem;line-height:1}
+  .stage .th .sz{position:absolute;left:0;bottom:0;right:0;background:rgba(0,0,0,.5);color:#fff;font-family:var(--sans);font-size:.62rem;text-align:center;padding:2px}
+
+  textarea.cap{width:100%;margin-top:16px;min-height:96px;resize:vertical;font-family:var(--serif);font-weight:500;font-size:1rem;color:var(--ink);
+    border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--cream);line-height:1.7}
+  textarea.cap:focus{outline:none;border-color:var(--pink);background:#fff}
+
+  .btn{font-family:var(--sans);font-size:.92rem;border:none;border-radius:40px;padding:.7rem 1.4rem;cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+  .btn-primary{background:var(--pink);color:#fff;box-shadow:0 12px 26px -12px rgba(224,0,108,.6)}
+  .btn-primary:hover{background:var(--pink-deep)}
+  .btn-primary:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+  .btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--pink);color:var(--pink)}
+  .addrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+  .count{font-family:var(--sans);font-size:.82rem;color:var(--ink-soft)}
+
+  /* gallery */
+  .gtitle{display:flex;justify-content:space-between;align-items:baseline;margin:12px 0 20px}
+  .gtitle h2{font-family:var(--display);font-size:1.9rem;font-weight:600}
+  .gtitle h2 em{font-style:italic;color:var(--pink)}
+  .gtitle .n{font-family:var(--sans);font-size:.85rem;color:var(--ink-soft)}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .item{background:var(--white);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 20px 44px -32px rgba(36,26,31,.3);display:flex;flex-direction:column}
+  .item .ph{position:relative;aspect-ratio:1;background:var(--cream-2);overflow:hidden}
+  .item .ph img{width:100%;height:100%;object-fit:cover}
+  .item .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .item .txt{font-size:.96rem;color:var(--ink);white-space:pre-wrap;word-break:break-word;max-height:8.5em;overflow:auto}
+  .item .txt:empty::before{content:"글이 없습니다";color:var(--ink-soft);font-family:var(--sans);font-size:.85rem}
+  .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+  .acts .btn{font-size:.82rem;padding:.5rem 1rem}
+  .acts .del{margin-left:auto;color:#c0392b;border-color:rgba(192,57,43,.3)}
+  .acts .del:hover{border-color:#c0392b;color:#c0392b;background:rgba(192,57,43,.06)}
+
+  .empty{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--ink-soft);font-family:var(--sans);font-size:.95rem}
+  .empty .ic{font-size:2.4rem;opacity:.5}
+
+  /* social quick */
+  .social{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+  .social a{font-family:var(--sans);font-size:.88rem;padding:.7rem 1.5rem;border-radius:40px;display:inline-flex;align-items:center;gap:.5rem;color:#fff;transition:.25s}
+  .social a:hover{transform:translateY(-2px)}
+  .ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+  .bl{background:#03c75a}
+
+  .help{background:var(--cream-2);border-radius:16px;padding:22px 24px;margin-top:22px;font-family:var(--sans);font-size:.88rem;color:var(--ink-soft);line-height:1.9}
+  .help b{color:var(--ink)}
+  .help .h{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:1rem;margin-bottom:.4rem;display:block}
+
+  /* toast */
+  #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;
+    font-family:var(--sans);font-size:.9rem;padding:.85rem 1.4rem;border-radius:40px;box-shadow:0 16px 40px -12px rgba(0,0,0,.4);
+    z-index:100;opacity:0;transition:.35s cubic-bezier(.16,1,.3,1);max-width:90vw;text-align:center}
+  #toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+  footer{text-align:center;padding:30px 0 40px;font-family:var(--sans);font-size:.8rem;color:var(--ink-soft)}
+
+  @media(max-width:620px){
+    .grid{grid-template-columns:1fr}
+    .card{padding:24px 18px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="logo.png" alt="바닐라 헤어"></a>
+    <a class="back" href="index.html">← 홈으로</a>
+  </div>
+</header>
+
+<div class="top">
+  <div class="wrap">
+    <div class="tag">Gallery · Share</div>
+    <h1>사진 올리고 <em>공유</em>하기</h1>
+    <p>사진을 올리면 자동으로 압축돼요. 글과 사진을 복사해 인스타그램·블로그에 바로 붙여넣으세요.</p>
+  </div>
+</div>
+
+<!-- UPLOAD -->
+<section>
+  <div class="wrap">
+    <div class="card">
+      <h2>📷 사진 올리기</h2>
+      <p class="sub">사진을 끌어다 놓거나 눌러서 선택하세요. 여러 장도 한 번에 됩니다.</p>
+
+      <label class="drop" id="drop">
+        <div class="ic">🖼️</div>
+        <b>사진 선택 / 끌어다 놓기</b>
+        <span>JPG · PNG · 자동으로 웹용으로 압축됩니다</span>
+        <input type="file" id="file" accept="image/*" multiple>
+      </label>
+
+      <div class="opt">
+        <span>압축 화질:</span>
+        <label><input type="radio" name="q" value="high"> 고화질(큼)</label>
+        <label><input type="radio" name="q" value="mid" checked> 표준(권장)</label>
+        <label><input type="radio" name="q" value="low"> 가벼움(작음)</label>
+      </div>
+
+      <div class="stage" id="stage"></div>
+
+      <textarea class="cap" id="cap" placeholder="사진과 함께 올릴 글을 적어주세요. (인스타/블로그에 붙여넣을 문구)&#10;예) 오늘의 볼륨매직 ✨ #바닐라헤어 #광양미용실 #광양헤어"></textarea>
+
+      <div class="addrow">
+        <span class="count" id="stageCount">선택된 사진 없음</span>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-ghost" id="clearStage" type="button">비우기</button>
+          <button class="btn btn-primary" id="addBtn" type="button" disabled>＋ 갤러리에 추가</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="wrap">
+    <div class="gtitle">
+      <h2>내 <em>갤러리</em></h2>
+      <span class="n" id="galCount"></span>
+    </div>
+    <div class="grid" id="grid"></div>
+
+    <div class="social">
+      <a class="ig" href="https://www.instagram.com/" target="_blank" rel="noopener">📸 인스타그램 열기</a>
+      <a class="bl" href="https://blog.naver.com/" target="_blank" rel="noopener">📝 네이버 블로그 글쓰기</a>
+    </div>
+
+    <div class="help">
+      <span class="h">💡 인스타그램 · 블로그에 올리는 법</span>
+      <b>[사진 복사]</b> 후 인스타/블로그 글쓰기 화면에서 <b>붙여넣기(Ctrl+V)</b> → <b>[글 복사]</b>로 캡션도 붙여넣기.<br>
+      📱 휴대폰에서는 <b>[공유]</b> 버튼을 누르면 인스타그램·카카오톡·블로그 앱이 바로 떠요.<br>
+      사진이 복사가 안 되는 브라우저는 <b>[저장]</b>으로 내려받아 첨부하세요.
+    </div>
+  </div>
+</section>
+
+<div id="toast"></div>
+
+<footer>© 2025 Banilla Hair · 사진은 이 브라우저에만 저장됩니다</footer>
+
+<script>
+  const KEY='banilla_gallery_v1';
+  const $=s=>document.querySelector(s);
+  let items=[];
+  try{ items=JSON.parse(localStorage.getItem(KEY))||[]; }catch(e){ items=[]; }
+  let staged=[]; // {dataUrl,label}
+
+  const Q={high:{d:1920,q:.9},mid:{d:1440,q:.82},low:{d:1080,q:.72}};
+  function qsel(){ const v=document.querySelector('input[name=q]:checked').value; return Q[v]; }
+
+  function toast(msg){
+    const t=$('#toast'); t.textContent=msg; t.classList.add('show');
+    clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2600);
+  }
+  function fmtSize(bytes){ return bytes>=1024*1024 ? (bytes/1048576).toFixed(1)+'MB' : Math.max(1,Math.round(bytes/1024))+'KB'; }
+
+  function compress(file){
+    const {d,q}=qsel();
+    return new Promise((resolve,reject)=>{
+      const img=new Image();
+      img.onload=()=>{
+        let w=img.width,h=img.height;
+        if(Math.max(w,h)>d){ const s=d/Math.max(w,h); w=Math.round(w*s); h=Math.round(h*s); }
+        const c=document.createElement('canvas'); c.width=w; c.height=h;
+        const ctx=c.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,w,h);
+        ctx.drawImage(img,0,0,w,h);
+        const dataUrl=c.toDataURL('image/jpeg',q);
+        URL.revokeObjectURL(img.src);
+        resolve(dataUrl);
+      };
+      img.onerror=reject;
+      img.src=URL.createObjectURL(file);
+    });
+  }
+
+  async function handleFiles(files){
+    const list=[...files].filter(f=>f.type.startsWith('image/'));
+    if(!list.length) return;
+    for(const f of list){
+      try{
+        const dataUrl=await compress(f);
+        const approx=Math.round(dataUrl.length*0.75);
+        staged.push({dataUrl,label:fmtSize(f.size)+' → '+fmtSize(approx)});
+      }catch(e){ toast('불러올 수 없는 이미지가 있어요'); }
+    }
+    renderStage();
+  }
+
+  function renderStage(){
+    const s=$('#stage'); s.innerHTML='';
+    staged.forEach((it,i)=>{
+      const d=document.createElement('div'); d.className='th';
+      d.innerHTML='<img src="'+it.dataUrl+'"><span class="sz">'+it.label+'</span><button type="button" data-i="'+i+'">✕</button>';
+      s.appendChild(d);
+    });
+    $('#stageCount').textContent = staged.length ? staged.length+'장 선택됨 (압축 완료)' : '선택된 사진 없음';
+    $('#addBtn').disabled = staged.length===0;
+  }
+
+  function render(){
+    const g=$('#grid'); g.innerHTML='';
+    $('#galCount').textContent = items.length ? items.length+'장' : '';
+    if(!items.length){
+      g.innerHTML='<div class="empty"><div class="ic">🌸</div><br>아직 올린 사진이 없어요.<br>위에서 첫 사진을 올려보세요!</div>';
+      return;
+    }
+    items.forEach(it=>{
+      const el=document.createElement('div'); el.className='item';
+      el.innerHTML=
+        '<div class="ph"><img src="'+it.img+'" alt="갤러리 사진"></div>'+
+        '<div class="body">'+
+          '<div class="txt">'+escapeHtml(it.cap||'')+'</div>'+
+          '<div class="acts">'+
+            '<button class="btn btn-primary" data-act="copyimg">사진 복사</button>'+
+            '<button class="btn btn-ghost" data-act="copytext">글 복사</button>'+
+            '<button class="btn btn-ghost" data-act="share">공유</button>'+
+            '<button class="btn btn-ghost" data-act="save">저장</button>'+
+            '<button class="btn btn-ghost del" data-act="del">삭제</button>'+
+          '</div>'+
+        '</div>';
+      const [copyimg,copytext,share,saveb,del]=el.querySelectorAll('button');
+      copyimg.onclick=()=>copyImage(it.img);
+      copytext.onclick=()=>copyText(it.cap);
+      share.onclick=()=>shareItem(it);
+      saveb.onclick=()=>downloadImg(it.img);
+      del.onclick=()=>{ if(confirm('이 사진을 삭제할까요?')){ items=items.filter(x=>x.id!==it.id); persist(); render(); } };
+      g.appendChild(el);
+    });
+  }
+
+  function escapeHtml(s){ return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+  function persist(){
+    try{ localStorage.setItem(KEY, JSON.stringify(items)); return true; }
+    catch(e){ toast('⚠️ 저장 공간이 가득 찼어요. 사진을 삭제하거나 ‘가벼움’ 화질로 올려주세요'); return false; }
+  }
+
+  // actions
+  function copyText(text){
+    if(!text){ toast('복사할 글이 없어요'); return; }
+    navigator.clipboard.writeText(text).then(()=>toast('📋 글 복사 완료! 붙여넣기(Ctrl+V) 하세요'))
+      .catch(()=>toast('복사에 실패했어요'));
+  }
+  async function copyImage(dataUrl){
+    try{
+      const img=new Image();
+      await new Promise((r,j)=>{img.onload=r;img.onerror=j;img.src=dataUrl;});
+      const c=document.createElement('canvas'); c.width=img.width; c.height=img.height;
+      c.getContext('2d').drawImage(img,0,0);
+      const blob=await new Promise(res=>c.toBlob(res,'image/png'));
+      await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+      toast('🖼️ 사진 복사 완료! 인스타/블로그에 붙여넣기 하세요');
+    }catch(e){
+      toast('이 브라우저는 사진 복사를 지원 안 해요 → [저장] 사용');
+    }
+  }
+  function downloadImg(dataUrl){
+    const a=document.createElement('a');
+    a.href=dataUrl; a.download='banilla_'+Date.now()+'.jpg';
+    document.body.appendChild(a); a.click(); a.remove();
+    toast('💾 사진을 저장했어요');
+  }
+  async function shareItem(it){
+    try{
+      const blob=await (await fetch(it.img)).blob();
+      const file=new File([blob],'banilla.jpg',{type:blob.type});
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        await navigator.share({files:[file], text:it.cap||'바닐라 헤어', title:'바닐라 헤어'});
+      }else if(navigator.share){
+        await navigator.share({text:it.cap||'바닐라 헤어', title:'바닐라 헤어'});
+      }else{
+        toast('PC에서는 [사진 복사]·[글 복사]를 이용하세요');
+      }
+    }catch(e){ /* user canceled */ }
+  }
+
+  // add staged to gallery
+  $('#addBtn').onclick=()=>{
+    if(!staged.length) return;
+    const cap=$('#cap').value.trim();
+    staged.forEach(s=>{
+      items.unshift({ id:'i'+Date.now()+Math.random().toString(36).slice(2,6), img:s.dataUrl, cap });
+    });
+    if(persist()){
+      staged=[]; renderStage(); $('#cap').value=''; render();
+      toast('✅ 갤러리에 추가됐어요');
+      window.scrollTo({top:document.querySelector('.gtitle').offsetTop-80,behavior:'smooth'});
+    }else{
+      // rollback last adds if quota failed
+      // (persist already reverted nothing; reload from storage)
+      try{ items=JSON.parse(localStorage.getItem(KEY))||[]; }catch(e){}
+      render();
+    }
+  };
+  $('#clearStage').onclick=()=>{ staged=[]; renderStage(); };
+
+  // file input + drag/drop
+  $('#file').addEventListener('change',e=>{ handleFiles(e.target.files); e.target.value=''; });
+  const drop=$('#drop');
+  ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
+  ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
+  drop.addEventListener('drop',e=>{ handleFiles(e.dataTransfer.files); });
+
+  // stage thumb remove (delegated)
+  $('#stage').addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    e.preventDefault();
+    staged.splice(+b.dataset.i,1); renderStage();
+  });
+
+  render();
+</script>
+</body>
+</html>
