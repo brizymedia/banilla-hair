@@ -738,6 +738,29 @@
     });
   });
 
+  // 갤러리 페이지에서 올린 사진을 메인 '스타일 갤러리'에 표시 (같은 브라우저 저장소 공유)
+  (function(){
+    const grid=document.querySelector('.gal-grid');
+    if(!grid) return;
+    let uploaded=[];
+    try{ uploaded=JSON.parse(localStorage.getItem('banilla_gallery_v1'))||[]; }catch(e){ uploaded=[]; }
+    if(!uploaded.length) return;
+    const frag=document.createDocumentFragment();
+    uploaded.forEach(it=>{
+      if(!it||!it.img) return;
+      const d=document.createElement('div');
+      d.className='gal-item';
+      if(it.cap) d.title=it.cap;
+      const img=document.createElement('img');
+      img.src=it.img;
+      img.alt=it.cap ? it.cap.slice(0,60) : '바닐라 헤어 스타일';
+      img.loading='lazy';
+      d.appendChild(img);
+      frag.appendChild(d);
+    });
+    grid.insertBefore(frag, grid.firstChild);   // 최신 업로드가 맨 앞에
+  })();
+
   // hero 원장님 photo slideshow (위/아래 번갈아 슬라이드)
   const heroPhotos=document.querySelectorAll('.hero-photos img');
   if(heroPhotos.length){
