@@ -1,2 +1,9 @@
 node_modules/
+package-lock.json
 .DS_Store
+Thumbs.db
+
+# 작업용 원본·미사용 파일 (사이트에서 참조하지 않음)
+logo-original-backup.png
+바닐라헤어로고.png
+다운로드 (6).jpg
