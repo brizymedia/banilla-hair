@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>맞춤 헤어스타일 추천 · 바닐라 헤어</title>
+<meta name="description" content="사진 한 장으로 얼굴형을 분석하고 나에게 어울리는 헤어스타일을 추천받으세요. 광양 바닐라 헤어.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Noto+Serif+KR:wght@400;500;600;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#e0006c;--pink-deep:#b60057;--pink-soft:#ffd9ea;
+    --ink:#241a1f;--ink-soft:#5a4c53;--cream:#fbf6f2;--cream-2:#f4ebe4;
+    --white:#fff;--line:rgba(36,26,31,.14);
+    --serif:"Noto Serif KR",serif;--display:"Cormorant Garamond",serif;--sans:"Gowun Dodum",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--serif);font-weight:500;color:var(--ink);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:920px;margin:0 auto;padding:0 22px}
+  ::selection{background:var(--pink);color:#fff}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(251,246,242,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:12px}
+  .brand img{height:34px}
+  .back{font-family:var(--sans);font-size:.88rem;color:var(--pink);border:1.5px solid var(--pink);padding:.45rem 1.1rem;border-radius:40px;transition:.25s;white-space:nowrap}
+  .back:hover{background:var(--pink);color:#fff}
+
+  .top{padding:46px 0 24px;text-align:center}
+  .top .tag{font-family:var(--sans);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--pink);margin-bottom:.7rem}
+  .top h1{font-family:var(--display);font-size:clamp(2.1rem,6vw,3rem);font-weight:600;line-height:1.12}
+  .top h1 em{font-style:italic;color:var(--pink)}
+  .top p{color:var(--ink-soft);margin-top:.75rem;font-size:1rem;word-break:keep-all}
+
+  section{padding:14px 0 34px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:28px 24px;box-shadow:0 24px 50px -34px rgba(36,26,31,.3);margin-bottom:20px}
+  .card h2{font-family:var(--serif);font-weight:600;font-size:1.22rem;margin-bottom:.25rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+  .card .sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:1.25rem;word-break:keep-all}
+
+  .steps{display:flex;justify-content:center;gap:8px;margin-bottom:26px;flex-wrap:wrap}
+  .st{font-family:var(--sans);font-size:.8rem;padding:.4rem 1rem;border-radius:40px;background:var(--cream-2);color:var(--ink-soft)}
+  .st.on{background:var(--pink);color:#fff}
+  .st.done{background:var(--pink-soft);color:var(--pink-deep)}
+
+  .seg{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .seg button{font-family:var(--serif);font-weight:600;font-size:1.02rem;padding:.8rem 2.4rem;border-radius:44px;
+    border:1.5px solid var(--line);background:transparent;color:var(--ink-soft);cursor:pointer;transition:.25s}
+  .seg button:hover{border-color:var(--pink);color:var(--pink)}
+  .seg button.on{background:var(--pink);border-color:var(--pink);color:#fff;box-shadow:0 12px 26px -12px rgba(224,0,108,.5)}
+
+  .drop{border:2px dashed rgba(224,0,108,.4);border-radius:16px;background:linear-gradient(160deg,#fff,var(--pink-soft));
+    padding:34px 20px;text-align:center;cursor:pointer;transition:.25s;display:block}
+  .drop:hover,.drop.over{border-color:var(--pink);background:linear-gradient(160deg,#fff,#ffcbe4)}
+  .drop .ic{font-size:2.4rem}
+  .drop b{font-family:var(--serif);font-weight:600;font-size:1.05rem;display:block;margin-top:.35rem}
+  .drop span{font-family:var(--sans);font-size:.83rem;color:var(--ink-soft)}
+  .drop input{display:none}
+  .tip{font-family:var(--sans);font-size:.82rem;color:var(--ink-soft);margin-top:12px;text-align:center;word-break:keep-all}
+
+  .preview{display:none;margin-top:16px;text-align:center}
+  .preview.show{display:block}
+  .preview .pw{position:relative;display:inline-block;max-width:280px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 18px 40px -28px rgba(36,26,31,.4)}
+  .preview canvas{position:absolute;inset:0;width:100%;height:100%}
+  .preview img{width:100%}
+
+  .btn{font-family:var(--sans);font-size:.92rem;border:none;border-radius:40px;padding:.75rem 1.6rem;cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
+  .btn-primary{background:var(--pink);color:#fff;box-shadow:0 12px 26px -12px rgba(224,0,108,.6)}
+  .btn-primary:hover:not(:disabled){background:var(--pink-deep)}
+  .btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+  .btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--pink);color:var(--pink)}
+  .ctr{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+
+  .loading{display:none;text-align:center;padding:26px 10px}
+  .loading.show{display:block}
+  .spin{width:44px;height:44px;border:3px solid var(--pink-soft);border-top-color:var(--pink);border-radius:50%;margin:0 auto 14px;animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .loading p{font-family:var(--sans);font-size:.9rem;color:var(--ink-soft)}
+
+  /* manual pick */
+  .shapes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:6px}
+  .shape{border:1.5px solid var(--line);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;transition:.25s;background:var(--white)}
+  .shape:hover{border-color:var(--pink);transform:translateY(-3px);box-shadow:0 16px 34px -26px rgba(36,26,31,.4)}
+  .shape svg{margin:0 auto 8px;display:block}
+  .shape b{font-family:var(--serif);font-weight:600;font-size:.98rem;display:block}
+  .shape span{font-family:var(--sans);font-size:.76rem;color:var(--ink-soft)}
+
+  /* result */
+  #result{display:none}
+  #result.show{display:block}
+  .res-head{text-align:center;background:linear-gradient(155deg,var(--pink),var(--pink-deep));color:#fff;border-radius:20px;padding:34px 24px;margin-bottom:20px;position:relative;overflow:hidden}
+  .res-head::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.18) 1px,transparent 1px);background-size:26px 26px;opacity:.5;
+    -webkit-mask-image:radial-gradient(circle at 50% 45%,#000,transparent 72%);mask-image:radial-gradient(circle at 50% 45%,#000,transparent 72%)}
+  .res-head>*{position:relative}
+  .res-head .lb{font-family:var(--sans);font-size:.8rem;letter-spacing:.26em;opacity:.9}
+  .res-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(1.7rem,5vw,2.3rem);margin:.5rem 0 .3rem;color:#fff}
+  .res-head .desc{font-size:.98rem;opacity:.94;max-width:32rem;margin:0 auto;word-break:keep-all}
+  .conf{display:inline-block;font-family:var(--sans);font-size:.76rem;background:rgba(255,255,255,.2);padding:.3rem .9rem;border-radius:40px;margin-top:12px}
+
+  .reco{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .rbox{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .rbox h3{font-family:var(--serif);font-weight:600;font-size:1.05rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem}
+  .rbox ul{list-style:none;display:grid;gap:.55rem}
+  .rbox li{display:flex;gap:.5rem;font-size:.95rem;color:var(--ink-soft);word-break:keep-all}
+  .rbox li::before{content:"✦";color:var(--pink);flex-shrink:0}
+  .rbox.no li::before{content:"✕";color:#c0392b}
+
+  .chart{margin-top:16px;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--cream-2)}
+  .chart img{width:100%}
+  .chartcap{font-family:var(--sans);font-size:.82rem;color:var(--ink-soft);text-align:center;margin-top:8px}
+
+  .cta{background:var(--ink);color:#fff;border-radius:20px;padding:30px 24px;text-align:center;margin-top:20px}
+  .cta h3{font-family:var(--display);font-style:italic;font-size:1.9rem;color:#fff;margin-bottom:.4rem}
+  .cta p{opacity:.78;font-size:.95rem;margin-bottom:1.4rem;word-break:keep-all}
+  .cta .btn-white{background:#fff;color:var(--pink-deep);font-size:1rem;padding:.9rem 2rem}
+
+  .note{background:var(--cream-2);border-radius:14px;padding:16px 18px;font-family:var(--sans);font-size:.83rem;color:var(--ink-soft);line-height:1.8;margin-top:18px;word-break:keep-all}
+  .note b{color:var(--ink)}
+
+  #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;
+    font-family:var(--sans);font-size:.9rem;padding:.85rem 1.4rem;border-radius:40px;box-shadow:0 16px 40px -12px rgba(0,0,0,.4);
+    z-index:100;opacity:0;transition:.35s cubic-bezier(.16,1,.3,1);max-width:90vw;text-align:center}
+  #toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+  footer{text-align:center;padding:26px 0 36px;font-family:var(--sans);font-size:.8rem;color:var(--ink-soft)}
+  @media(max-width:600px){ .card{padding:22px 17px} .reco{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img src="logo.png" alt="바닐라 헤어"></a>
+    <a class="back" href="index.html">← 홈으로</a>
+  </div>
+</header>
+
+<div class="top">
+  <div class="wrap">
+    <div class="tag">AI Style Match</div>
+    <h1>내 얼굴형에 맞는 <em>헤어스타일</em></h1>
+    <p>사진 한 장이면 얼굴형을 분석해 어울리는 스타일을 추천해 드려요.<br>사진은 휴대폰 안에서만 분석되고 어디에도 저장되지 않습니다.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+
+    <div class="steps">
+      <span class="st on" id="s1">1. 성별 선택</span>
+      <span class="st" id="s2">2. 사진 올리기</span>
+      <span class="st" id="s3">3. 결과 확인</span>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="card" id="card1">
+      <h2>👤 어떤 스타일을 찾으세요?</h2>
+      <p class="sub">성별에 맞는 헤어스타일을 추천해 드립니다.</p>
+      <div class="seg" id="genderSeg">
+        <button type="button" data-g="female">여자</button>
+        <button type="button" data-g="male">남자</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="card" id="card2" style="display:none">
+      <h2>📷 얼굴 사진 올리기</h2>
+      <p class="sub">정면을 바라본 사진일수록 정확해요. 앞머리는 넘기고, 밝은 곳에서 찍어주세요.</p>
+
+      <label class="drop" id="drop">
+        <div class="ic">🤳</div>
+        <b>사진 찍기 / 선택하기</b>
+        <span>휴대폰이면 카메라가 바로 열려요</span>
+        <input type="file" id="file" accept="image/*" capture="user">
+      </label>
+      <p class="tip">💡 정면 · 밝은 곳 · 앞머리 넘기고 · 얼굴이 잘 보이게</p>
+
+      <div class="preview" id="preview">
+        <div class="pw"><img id="pimg" alt="업로드한 사진"><canvas id="pcv"></canvas></div>
+      </div>
+
+      <div class="loading" id="loading"><div class="spin"></div><p id="loadTxt">얼굴형을 분석하고 있어요…</p></div>
+
+      <div class="ctr" id="step2btns" style="display:none">
+        <button class="btn btn-ghost" id="retake" type="button">다시 선택</button>
+        <button class="btn btn-primary" id="analyze" type="button">✨ 얼굴형 분석하기</button>
+      </div>
+    </div>
+
+    <!-- MANUAL -->
+    <div class="card" id="cardManual" style="display:none">
+      <h2>🙂 얼굴형을 직접 골라주세요</h2>
+      <p class="sub" id="manualSub">사진에서 얼굴을 찾지 못했어요. 거울을 보고 가장 비슷한 얼굴형을 선택해 주세요.</p>
+      <div class="shapes" id="shapes"></div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result">
+      <div class="res-head">
+        <div class="lb">YOUR FACE SHAPE</div>
+        <h2 id="rName"></h2>
+        <p class="desc" id="rDesc"></p>
+        <span class="conf" id="rConf"></span>
+      </div>
+
+      <div class="reco">
+        <div class="rbox"><h3>💇 이런 스타일이 잘 어울려요</h3><ul id="rGood"></ul></div>
+        <div class="rbox no"><h3>⚠️ 이런 스타일은 주의</h3><ul id="rBad"></ul></div>
+      </div>
+
+      <div class="chart" id="rChartWrap"><img id="rChart" alt="추천 스타일 차트"></div>
+      <p class="chartcap">▲ 얼굴형별 추천 스타일 가이드</p>
+
+      <div class="cta">
+        <h3>이 스타일, 해볼까요?</h3>
+        <p>추천 결과를 보여주시면 원장님이 더 정확하게 상담해 드려요.</p>
+        <a href="tel:010-7137-6560" class="btn btn-white">☎ 010-7137-6560 예약하기</a>
+      </div>
+
+      <div class="ctr">
+        <button class="btn btn-ghost" id="again" type="button">↺ 다시 분석하기</button>
+        <a class="btn btn-ghost" href="index.html#gallery">갤러리 보기</a>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>안내</b> · 이 추천은 얼굴 비율을 기준으로 한 <b>참고용 가이드</b>예요. 모발 상태·생활 패턴에 따라 더 잘 어울리는 스타일이 있을 수 있으니, 정확한 추천은 매장에서 상담받아 보세요.<br>
+      📵 사진은 <b>휴대폰(브라우저) 안에서만</b> 분석되며, 서버로 전송되거나 저장되지 않습니다.
+    </div>
+
+  </div>
+</section>
+
+<div id="toast"></div>
+<footer>© 2025 Banilla Hair · 전남 광양시 광양읍 서평8길 23</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+let gender='female', imgEl=null, landmarker=null;
+
+function toast(m,ms){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),ms||2800);}
+function step(n){
+  ['s1','s2','s3'].forEach((id,i)=>{
+    const e=$('#'+id); e.className='st'+(i+1===n?' on':(i+1<n?' done':''));
+  });
+}
+
+/* ---------- 얼굴형 데이터 ---------- */
+const SHAPES={
+  round:{
+    name:'둥근 얼굴형', icon:'circle',
+    hint:'턱선이 부드럽고 볼이 통통한 편',
+    desc:'볼이 도톰하고 턱선이 둥글어 인상이 부드럽고 어려 보이는 얼굴형이에요.',
+    female:{chart:'여자스타일1.png',
+      good:['S컬 웨이브 + 레이어드 단발','앞머리는 사이드뱅(옆으로 흐르게)','어깨에 닿지 않는 짧은 기장','얼굴 옆을 살짝 덮는 층'],
+      bad:['층 없는 일자머리(레고머리)','귀 뒤로 완전히 넘긴 올백','볼륨 없이 납작한 스타일']},
+    male:{chart:'남자스타일1.jpg',
+      good:['윗머리 볼륨을 살린 애즈펌','옆은 짧게 정리한 투블럭','앞머리 살짝 내린 다운펌','세로 라인을 살린 리프컷'],
+      bad:['옆머리 부풀린 스타일','정수리 눌린 납작한 컷','둥근 바가지 라인']}
+  },
+  square:{
+    name:'각진 얼굴형', icon:'square',
+    hint:'턱뼈·광대가 또렷하고 각이 있는 편',
+    desc:'턱선이 또렷해 시원시원한 인상이에요. 곡선을 더하면 훨씬 부드러워집니다.',
+    female:{chart:'여자스타일4.png',
+      good:['윗볼륨을 살린 숏컷(베베컷·리프컷)','앞머리는 소프트 풀뱅으로','턱선을 감싸는 C컬 웨이브','뒷머리 층을 많이 낸 스타일'],
+      bad:['턱선에서 딱 끊기는 일자 단발','양옆을 바짝 붙인 스타일','각을 강조하는 직선 라인']},
+    male:{chart:'남자스타일2.jpg',
+      good:['자연스러운 가르마펌','부드러운 웨이브의 스왈로펌','옆라인을 살짝 남긴 컷','이마를 살짝 덮는 앞머리'],
+      bad:['각을 강조하는 크루컷','옆을 완전히 밀어버린 스타일','너무 짧은 상고머리']}
+  },
+  long:{
+    name:'세로로 긴 얼굴형', icon:'long',
+    hint:'얼굴 길이가 폭에 비해 긴 편',
+    desc:'이목구비가 또렷하고 성숙해 보이는 얼굴형이에요. 가로 볼륨을 더하면 균형이 잡힙니다.',
+    female:{chart:'여자스타일6.png',
+      good:['어깨 살짝 위로 올라오는 중단발','앞머리로 얼굴 길이를 짧아 보이게','흐르는 느낌의 웨이브','옆으로 퍼지는 가로 볼륨'],
+      bad:['앞머리 없이 긴 생머리','정수리만 높게 세운 스타일','세로로 길게 떨어지는 일자 장발']},
+    male:{chart:'남자스타일2.jpg',
+      good:['이마를 덮는 앞머리 스타일','옆 볼륨을 살린 가르마펌','댄디컷 계열의 차분한 컷','과하지 않은 윗볼륨'],
+      bad:['올백·포마드로 이마 완전 노출','정수리만 높이 세운 스타일','옆을 바짝 민 하이 투블럭']}
+  },
+  wide:{
+    name:'가로폭 긴 얼굴형', icon:'wide',
+    hint:'광대·볼 라인이 옆으로 넓은 편',
+    desc:'얼굴 가로 폭이 넓어 화사한 인상이에요. 세로 라인을 살리면 갸름해 보입니다.',
+    female:{chart:'여자스타일3.png',
+      good:['층을 적게 낸 중단발','뿌리볼륨 + C컬펌으로 시선 분산','길이는 턱선 아래~어깨 위','층 없는 일자 단발도 잘 어울림'],
+      bad:['옆으로 퍼지는 과한 볼륨','귀 위에서 부풀린 스타일','짧은 층을 많이 낸 커트']},
+    male:{chart:'남자스타일1.jpg',
+      good:['윗머리 높이를 살린 애즈펌','옆은 정리한 투블럭','세로 라인 강조하는 리프컷','앞머리 살짝 내린 스타일'],
+      bad:['옆으로 퍼지는 볼륨펌','바가지 라인의 둥근 컷','정수리 눌린 스타일']}
+  },
+  narrow:{
+    name:'가로폭 짧은 얼굴형', icon:'narrow',
+    hint:'얼굴 폭이 좁고 갸름한 편',
+    desc:'갸름하고 단정한 인상이에요. 부드러운 볼륨을 더하면 훨씬 화사해집니다.',
+    female:{chart:'여자스타일2.png',
+      good:['턱선 정도로 짧은 단발','똑단발보다는 웨이브 스타일','끝부분을 아웃컬로 살짝 뻗치게','옆 볼륨을 살리는 것이 포인트'],
+      bad:['양옆을 눌러 붙인 스타일','볼륨 없는 납작한 생머리','너무 긴 일자 장발']},
+    male:{chart:'남자스타일3.jpg',
+      good:['옆 볼륨을 살린 가르마펌','자연스러운 웨이브의 쉐도우펌','너무 짧지 않은 댄디컷','앞머리로 이마 라인 정리'],
+      bad:['옆을 바짝 민 하이 투블럭','정수리만 세운 스타일','너무 짧은 스포츠컷']}
+  },
+  oval:{
+    name:'계란형 얼굴형', icon:'oval',
+    hint:'이상적인 비율의 균형 잡힌 얼굴',
+    desc:'가로·세로 비율이 이상적인 얼굴형이에요. 대부분의 스타일이 잘 어울립니다!',
+    female:{chart:'여자스타일1.png',
+      good:['거의 모든 스타일 소화 가능','레이어드 컷으로 자연스러운 층','원하는 기장 자유롭게','트렌디한 컬러도 잘 어울림'],
+      bad:['얼굴을 과하게 가리는 스타일','볼륨이 한쪽으로만 쏠린 컷','너무 무거운 일자 라인']},
+    male:{chart:'남자스타일1.jpg',
+      good:['거의 모든 스타일 소화 가능','댄디컷·가르마펌 모두 잘 어울림','투블럭으로 깔끔하게','원하는 길이 자유롭게'],
+      bad:['얼굴형을 가리는 과한 앞머리','한쪽으로 쏠린 비대칭 컷','지나치게 무거운 스타일']}
+  }
+};
+
+/* ---------- STEP 1: 성별 ---------- */
+$('#genderSeg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  gender=b.dataset.g;
+  [...$('#genderSeg').children].forEach(x=>x.classList.toggle('on',x===b));
+  $('#card2').style.display='';
+  step(2);
+  $('#card2').scrollIntoView({behavior:'smooth',block:'center'});
+});
+
+/* ---------- STEP 2: 사진 ---------- */
+function loadImage(file){
+  return new Promise((res,rej)=>{
+    const img=new Image();
+    img.onload=()=>res(img); img.onerror=rej;
+    img.src=URL.createObjectURL(file);
+  });
+}
+async function handleFile(file){
+  if(!file||!file.type.startsWith('image/')){toast('이미지 파일을 선택해 주세요');return;}
+  try{
+    imgEl=await loadImage(file);
+    $('#pimg').src=imgEl.src;
+    $('#preview').classList.add('show');
+    $('#step2btns').style.display='flex';
+    $('#result').classList.remove('show');
+    $('#cardManual').style.display='none';
+    const cv=$('#pcv'); cv.getContext('2d').clearRect(0,0,cv.width,cv.height);
+  }catch(e){ toast('사진을 불러올 수 없어요'); }
+}
+$('#file').addEventListener('change',e=>{handleFile(e.target.files[0]);e.target.value='';});
+const drop=$('#drop');
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
+drop.addEventListener('drop',e=>handleFile(e.dataTransfer.files[0]));
+$('#retake').onclick=()=>{ $('#file').click(); };
+
+/* ---------- 얼굴 분석 ---------- */
+async function getLandmarker(){
+  if(landmarker) return landmarker;
+  const vision=await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.8');
+  const files=await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.8/wasm');
+  landmarker=await vision.FaceLandmarker.createFromOptions(files,{
+    baseOptions:{modelAssetPath:'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task'},
+    runningMode:'IMAGE', numFaces:1
+  });
+  return landmarker;
+}
+
+function classify(pts,w,h){
+  const P=i=>({x:pts[i].x*w,y:pts[i].y*h});
+  const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+  const faceLen  = dist(P(10),P(152));   // 이마 위 ~ 턱끝
+  const cheekW   = dist(P(234),P(454));  // 광대 폭
+  const jawW     = dist(P(172),P(397));  // 턱 폭
+  const foreheadW= dist(P(54),P(284));   // 이마 폭
+
+  const L=faceLen/cheekW;      // 길이 비율
+  const J=jawW/cheekW;         // 턱 비율
+  const F=foreheadW/cheekW;    // 이마 비율
+
+  let key,score;
+  if(L>=1.55){ key='long'; score=.9; }
+  else if(L<=1.18){ key='wide'; score=.88; }
+  else if(J>=.82 && L<1.42){ key='square'; score=.86; }
+  else if(L<1.32 && J>=.74){ key='round'; score=.85; }
+  else if(L>=1.42 && F<=.88){ key='narrow'; score=.83; }
+  else { key='oval'; score=.87; }
+  return {key,score,metrics:{L:L.toFixed(2),J:J.toFixed(2),F:F.toFixed(2)}};
+}
+
+function drawOverlay(pts){
+  const box=$('#pimg').getBoundingClientRect();
+  const cv=$('#pcv'); cv.width=box.width; cv.height=box.height;
+  const ctx=cv.getContext('2d');
+  ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.strokeStyle='rgba(224,0,108,.85)'; ctx.lineWidth=2; ctx.fillStyle='rgba(224,0,108,.9)';
+  const oval=[10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109];
+  ctx.beginPath();
+  oval.forEach((i,n)=>{const x=pts[i].x*cv.width,y=pts[i].y*cv.height;n?ctx.lineTo(x,y):ctx.moveTo(x,y);});
+  ctx.closePath(); ctx.stroke();
+  [10,152,234,454,172,397].forEach(i=>{
+    ctx.beginPath(); ctx.arc(pts[i].x*cv.width,pts[i].y*cv.height,3,0,7); ctx.fill();
+  });
+}
+
+$('#analyze').onclick=async()=>{
+  if(!imgEl){toast('먼저 사진을 올려주세요');return;}
+  $('#loading').classList.add('show'); $('#step2btns').style.display='none';
+  $('#loadTxt').textContent='분석 준비 중이에요…';
+  try{
+    const lm=await getLandmarker();
+    $('#loadTxt').textContent='얼굴형을 분석하고 있어요…';
+    const out=lm.detect(imgEl);
+    if(!out.faceLandmarks||!out.faceLandmarks.length) throw new Error('no-face');
+    const pts=out.faceLandmarks[0];
+    drawOverlay(pts);
+    const r=classify(pts,imgEl.naturalWidth,imgEl.naturalHeight);
+    showResult(r.key, Math.round(r.score*100)+'% 일치 · 자동 분석');
+  }catch(e){
+    $('#loading').classList.remove('show');
+    $('#step2btns').style.display='flex';
+    showManual(e.message==='no-face'
+      ? '사진에서 얼굴을 찾지 못했어요. 정면 사진으로 다시 시도하거나, 아래에서 직접 골라주세요.'
+      : '자동 분석을 사용할 수 없어요. 아래에서 얼굴형을 직접 골라주세요.');
+  }finally{
+    $('#loading').classList.remove('show');
+  }
+};
+
+/* ---------- 수동 선택 ---------- */
+const ICONS={
+  circle:'<circle cx="26" cy="30" r="20" />',
+  square:'<rect x="8" y="10" width="36" height="40" rx="7" />',
+  long:'<ellipse cx="26" cy="30" rx="15" ry="23" />',
+  wide:'<ellipse cx="26" cy="30" rx="23" ry="17" />',
+  narrow:'<ellipse cx="26" cy="30" rx="13" ry="21" />',
+  oval:'<ellipse cx="26" cy="30" rx="18" ry="22" />'
+};
+function showManual(msg){
+  $('#manualSub').textContent=msg;
+  const box=$('#shapes'); box.innerHTML='';
+  Object.entries(SHAPES).forEach(([k,v])=>{
+    const d=document.createElement('div'); d.className='shape';
+    d.innerHTML='<svg width="52" height="60" viewBox="0 0 52 60" fill="none" stroke="#e0006c" stroke-width="2.4">'+ICONS[v.icon]+'</svg>'+
+      '<b>'+v.name+'</b><span>'+v.hint+'</span>';
+    d.onclick=()=>showResult(k,'직접 선택');
+    box.appendChild(d);
+  });
+  $('#cardManual').style.display='';
+  $('#cardManual').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* ---------- 결과 ---------- */
+function showResult(key,conf){
+  const s=SHAPES[key], g=s[gender];
+  $('#rName').textContent=s.name;
+  $('#rDesc').textContent=s.desc;
+  $('#rConf').textContent=conf;
+  $('#rGood').innerHTML=g.good.map(t=>'<li>'+t+'</li>').join('');
+  $('#rBad').innerHTML=g.bad.map(t=>'<li>'+t+'</li>').join('');
+  const c=$('#rChart'); c.src=g.chart; c.alt=s.name+' 추천 스타일';
+  $('#result').classList.add('show');
+  $('#cardManual').style.display='none';
+  step(3);
+  $('#result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('#again').onclick=()=>{
+  $('#result').classList.remove('show');
+  $('#cardManual').style.display='none';
+  $('#preview').classList.remove('show');
+  $('#step2btns').style.display='none';
+  imgEl=null; step(2);
+  $('#card2').scrollIntoView({behavior:'smooth',block:'center'});
+};
+</script>
+</body>
+</html>
