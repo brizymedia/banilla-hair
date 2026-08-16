@@ -999,12 +999,16 @@ $$('.fq').forEach(b=>{
   };
 });
 
-/* ===== 갤러리: 업로드된 사진 ===== */
+/* ===== 갤러리: 관리자가 올린 사진 =====
+   사진은 gallery 브랜치에 따로 쌓인다. 홈페이지를 다시 빌드하지 않으므로
+   올리는 즉시 보인다. 목록은 원본에서, 사진은 CDN에서 가져온다. */
 (async function loadUploaded(){
   const grid=$('#galGrid');
   if(!grid) return;
+  const 목록주소='https://raw.githubusercontent.com/brizymedia/banilla-hair/gallery/photos/photos.json';
+  const 사진주소='https://cdn.jsdelivr.net/gh/brizymedia/banilla-hair@gallery/photos/';
   try{
-    const res=await fetch('gallery/photos.json?t='+Date.now(),{cache:'no-store'});
+    const res=await fetch(목록주소+'?t='+Date.now(),{cache:'no-store'});
     if(!res.ok) return;
     const photos=await res.json();
     if(!Array.isArray(photos)||!photos.length) return;
@@ -1015,9 +1019,10 @@ $$('.fq').forEach(b=>{
       d.className='gal-item';
       if(p.cap) d.title=p.cap;
       const img=document.createElement('img');
-      img.src='gallery/'+p.file;
+      img.src=사진주소+p.file;
       img.alt=p.cap?p.cap.slice(0,60):'바닐라 헤어 스타일';
       img.loading='lazy';
+      img.onerror=()=>d.remove();
       d.appendChild(img);
       frag.appendChild(d);
     });

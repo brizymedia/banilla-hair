@@ -190,6 +190,7 @@ footer{text-align:center;padding:26px 0 40px;font-size:.79rem;color:var(--text-s
       <label class="fl" for="pw">업로드 비밀번호</label>
       <input type="password" id="pw" placeholder="설정해 두신 비밀번호" autocomplete="current-password">
       <label class="chk"><input type="checkbox" id="pwSave" checked> 이 기기에 비밀번호 기억</label>
+      <label class="chk"><input type="checkbox" id="origSave"> 원본 사진도 구글 드라이브에 백업 (설정해 두신 경우)</label>
 
       <div class="bar" id="bar"><i id="barIn"></i></div>
       <p class="note" id="status"></p>
@@ -216,8 +217,10 @@ footer{text-align:center;padding:26px 0 40px;font-size:.79rem;color:var(--text-s
 
     <div class="help">
       <b>알아두실 점</b><br>
-      올리고 나면 홈페이지에 보이기까지 <b>1분에서 2분</b> 걸립니다. 바로 안 보인다고 다시 올리지 마세요.<br>
-      비밀번호는 이 기기에만 저장되고, GitHub 토큰은 구글 서버에만 있어서 휴대폰에는 남지 않습니다.
+      사진은 홈페이지와 <b>분리된 곳</b>에 쌓이기 때문에, 올리면 <b>바로</b> 갤러리에 나타납니다.
+      홈페이지가 다시 만들어지길 기다릴 필요가 없습니다.<br>
+      비밀번호는 이 기기에만 저장되고, GitHub 토큰은 구글 서버에만 있어서 휴대폰에는 남지 않습니다.<br>
+      이 갤러리는 <b>바닐라 헤어 전용</b>입니다. 다른 사업장과 저장 공간이 완전히 나뉘어 있습니다.
     </div>
 
   </div>
@@ -351,7 +354,7 @@ $('#upBtn').onclick=async()=>{
   const cap=$('#cap').value.trim();
   const 버튼=$('#upBtn'); 버튼.disabled=true;
   $('#bar').classList.add('show');
-  let 성공=0, 실패=0, 사유='', 올린것=[];
+  let 성공=0, 실패=0, 사유='', 경고='', 올린것=[];
 
   const 대기=staged.filter(p=>p.state!=='완료');
   for(let i=0;i<대기.length;i++){
@@ -359,9 +362,12 @@ $('#upBtn').onclick=async()=>{
     안내('올리는 중… '+(i+1)+' / '+대기.length);
     p.state='전송중'; 그리기();
     try{
-      const 결과=await 보내기({pw:pw,action:'photo',web:await base64(p.web),origName:p.file.name});
+      const 몸통={pw:pw,action:'photo',web:await base64(p.web),origName:p.file.name};
+      if($('#origSave').checked) 몸통.orig=await base64(p.file);
+      const 결과=await 보내기(몸통);
       if(!결과.ok) throw new Error(결과.error||'알 수 없는 오류');
       p.state='완료'; 성공++;
+      if(결과.원본경고) 경고=결과.원본경고;
       올린것.push({file:결과.file,cap:cap,at:new Date().toISOString().slice(0,10)});
     }catch(err){
       p.state='실패'; 실패++; 사유=err.message||String(err);
@@ -384,16 +390,20 @@ $('#upBtn').onclick=async()=>{
   const 말=[];
   if(성공) 말.push(성공+'장 올렸습니다.');
   if(실패) 말.push(실패+'장 실패 — '+사유);
-  if(성공&&!실패) 말.push('홈페이지에 1~2분 뒤 보입니다.');
+  if(경고) 말.push('('+경고+')');
+  if(성공&&!실패) 말.push('홈페이지 갤러리에서 바로 확인하실 수 있습니다.');
   안내(말.join(' '), 실패?'warn':'ok');
   if(성공){ staged=staged.filter(p=>p.state!=='완료'); 그리기(); $('#cap').value=''; 목록불러오기(); }
 };
 
 /* ---------- 올린 사진 목록 ---------- */
+const 목록주소='https://raw.githubusercontent.com/brizymedia/banilla-hair/gallery/photos/photos.json';
+const 사진주소='https://cdn.jsdelivr.net/gh/brizymedia/banilla-hair@gallery/photos/';
+
 async function 목록불러오기(){
   const g=$('#grid');
   try{
-    const r=await fetch('gallery/photos.json?t='+Date.now(),{cache:'no-store'});
+    const r=await fetch(목록주소+'?t='+Date.now(),{cache:'no-store'});
     photos = r.ok ? (await r.json()) : [];
     if(!Array.isArray(photos)) photos=[];
   }catch(e){ photos=[]; }
@@ -407,7 +417,7 @@ async function 목록불러오기(){
   photos.forEach(p=>{
     if(!p||!p.file) return;
     const d=document.createElement('div'); d.className='item';
-    d.innerHTML='<div class="ph"><img src="gallery/'+p.file+'" alt="" loading="lazy"></div>'+
+    d.innerHTML='<div class="ph"><img src="'+사진주소+p.file+'" alt="" loading="lazy"></div>'+
       '<div class="bd"><div class="tx">'+(p.cap?p.cap.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])):'<span style="opacity:.6">설명 없음</span>')+'</div>'+
       '<div class="ac"><button class="btn btn-ghost del" type="button">삭제</button></div></div>';
     d.querySelector('.del').onclick=()=>지우기(p.file);
