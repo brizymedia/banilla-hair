@@ -3,778 +3,1065 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>바닐라 헤어 · Banilla Hair | 광양 광양읍 미용실</title>
-<meta name="description" content="광양읍 서평8길, 바닐라 헤어. 커트·펌·염색·클리닉까지 나에게 꼭 맞는 스타일을 찾아드립니다. 예약 문의 010-7137-6560">
+<title>바닐라 헤어 · 광양읍 헤어살롱</title>
+<meta name="description" content="광양읍 서평8길 바닐라 헤어. 유행을 얹지 않고 어울리는 결을 찾습니다. 커트, 펌, 염색, 클리닉. 예약 010-7137-6560">
+<meta name="theme-color" content="#17110f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2317110f'/%3E%3Cpath d='M9 7c6-2 13 1 15 7-3-2-6-2-8 0 3 1 5 3 5 6-3-4-8-4-12-6' fill='%23e0006c'/%3E%3Cpath d='M9 7c-3 2-4 6-4 9 0 4 2 7 6 8' stroke='%23e0006c' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<!-- og 태그는 실제 배포 주소로 적용 완료 -->
+<meta property="og:title" content="바닐라 헤어 · 광양읍 헤어살롱">
+<meta property="og:description" content="유행을 얹지 않고 어울리는 결을 찾습니다. 광양읍 서평8길.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://brizymedia.github.io/banilla-hair/">
+<meta property="og:image" content="https://brizymedia.github.io/banilla-hair/assets/hero-ending.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+KR:wght@300;400;500;600;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Nanum+Myeongjo:wght@700;800&family=Noto+Sans+KR:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --pink:#e0006c;
-    --pink-deep:#b60057;
-    --pink-soft:#ffd9ea;
-    --ink:#241a1f;
-    --ink-soft:#5a4c53;
-    --cream:#fbf6f2;
-    --cream-2:#f4ebe4;
-    --white:#ffffff;
-    --line:rgba(36,26,31,.12);
-    --serif:"Noto Serif KR", serif;
-    --display:"Cormorant Garamond", serif;
-    --sans:"Gowun Dodum", sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:var(--serif);
-    color:var(--ink);
-    background:var(--cream);
-    line-height:1.75;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  ::selection{background:var(--pink);color:#fff}
-  a{color:inherit;text-decoration:none}
-  img{max-width:100%;display:block}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+:root{
+  --canvas:#17110f;
+  --panel:#211a17;
+  --panel-2:#2b2220;
+  --accent:#e0006c;
+  --accent-hover:#ff2d87;
+  --accent-muted:#5d2740;
+  --text-primary:#f5ede6;
+  --text-secondary:#b9a99f;
+  --gold:#d9a878;
+  --line:rgba(245,237,230,.14);
+  --display:"Italiana",serif;
+  --kr:"Nanum Myeongjo",serif;
+  --body:"Noto Sans KR",sans-serif;
+  --mono:"Space Mono",monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-soft:cubic-bezier(.4,0,.2,1);
+  --tshadow:0 1px 2px rgba(5,5,10,.95),0 3px 12px rgba(5,5,10,.78),0 10px 44px rgba(5,5,10,.8);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow-x:hidden;overflow-x:clip}
+html{scroll-behavior:smooth}
+body{
+  background:var(--canvas);color:var(--text-primary);
+  font-family:var(--body);font-weight:400;line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent-hover);outline-offset:3px;border-radius:3px}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--accent);color:#fff;padding:.8rem 1.4rem;border-radius:0 0 10px 0;font-family:var(--body)}
+.skip:focus{left:0}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+.kr-keep{word-break:keep-all}
 
-  /* ---------- NAV ---------- */
-  header{
-    position:fixed;top:0;left:0;right:0;z-index:100;
-    transition:.4s ease;
-    background:transparent;
-  }
-  header.scrolled{
-    background:rgba(251,246,242,.9);
-    backdrop-filter:blur(14px);
-    box-shadow:0 1px 0 var(--line);
-  }
-  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
-  .logo{
-    font-family:var(--display);
-    font-size:1.7rem;font-weight:600;letter-spacing:.5px;
-    color:var(--ink);
-    display:flex;align-items:center;gap:.55rem;
-  }
-  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--pink);display:inline-block}
-  .brand-logo{height:40px;width:auto;display:block}
-  .hero-feature{
-    position:relative;width:min(440px,94%);border-radius:22px;overflow:hidden;
-    margin:.5rem 0 2.3rem;box-shadow:0 36px 70px -28px rgba(182,0,87,.55);
-  }
-  .hero-feature img{
-    display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 30%;
-    transition:transform 7s ease;
-  }
-  .hero-feature:hover img{transform:scale(1.06)}
-  .hero-feature-cap{
-    position:absolute;left:0;right:0;bottom:0;padding:2.8rem 1.8rem 1.6rem;
-    background:linear-gradient(transparent,rgba(36,26,31,.74));color:#fff;
-  }
-  .hero .hero-feature-cap h1{font-family:var(--display);font-style:italic;font-weight:600;font-size:2.7rem;letter-spacing:0;line-height:1;margin:0;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.35)}
-  .hero-feature-cap span{display:block;font-family:var(--sans);font-size:.8rem;letter-spacing:.24em;margin-top:.5rem;opacity:.92}
-  .foot-logo-img{height:58px;width:auto;display:block}
-  .nav-links{display:flex;gap:2.4rem;list-style:none}
-  .nav-links a{
-    font-family:var(--sans);font-size:.92rem;letter-spacing:.02em;
-    color:var(--ink-soft);position:relative;padding:4px 0;transition:.25s;
-  }
-  .nav-links a::after{
-    content:"";position:absolute;left:0;bottom:-2px;width:0;height:1.5px;
-    background:var(--pink);transition:.3s;
-  }
-  .nav-links a:hover{color:var(--pink)}
-  .nav-links a:hover::after{width:100%}
-  .nav-call{
-    font-family:var(--sans);font-size:.9rem;
-    border:1.5px solid var(--pink);color:var(--pink);
-    padding:.55rem 1.3rem;border-radius:40px;transition:.3s;
-  }
-  .nav-call:hover{background:var(--pink);color:#fff}
-  .menu-toggle{display:none;background:none;border:none;font-size:1.6rem;color:var(--ink);cursor:pointer}
+/* ---------- 환경 레이어 (페이지 전체가 하나의 공간) ---------- */
+.env{position:fixed;inset:0;z-index:0;pointer-events:none}
+.env::before{
+  content:"";position:absolute;inset:-20%;
+  background:
+    radial-gradient(38% 30% at 22% 18%,rgba(224,0,108,.13),transparent 70%),
+    radial-gradient(34% 28% at 80% 72%,rgba(217,168,120,.09),transparent 70%);
+  animation:envDrift 96s var(--ease-soft) -24s infinite alternate;
+}
+.env::after{
+  content:"";position:absolute;inset:0;opacity:.30;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+@keyframes envDrift{
+  from{transform:translate3d(-2%,-1%,0) scale(1)}
+  to{transform:translate3d(3%,2%,0) scale(1.08)}
+}
+main,header,footer{position:relative;z-index:1}
 
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative;min-height:100vh;display:flex;align-items:center;
-    background:
-      radial-gradient(120% 90% at 85% 10%, rgba(224,0,108,.10), transparent 55%),
-      radial-gradient(90% 80% at 0% 100%, rgba(224,0,108,.07), transparent 60%),
-      var(--cream);
-    overflow:hidden;
-  }
-  .hero::before{
-    content:"";position:absolute;inset:0;
-    background-image:radial-gradient(var(--line) 1px, transparent 1px);
-    background-size:26px 26px;opacity:.4;
-    mask-image:radial-gradient(circle at 70% 40%, #000, transparent 75%);
-  }
-  .hero-grid{
-    position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;
-    gap:60px;align-items:center;width:100%;
-  }
-  .hero-eyebrow{
-    font-family:var(--sans);font-size:.85rem;letter-spacing:.35em;
-    text-transform:uppercase;color:var(--pink);margin-bottom:1.6rem;
-    display:flex;align-items:center;gap:.9rem;
-  }
-  .hero-eyebrow::before{content:"";width:44px;height:1px;background:var(--pink)}
-  .hero h1{
-    font-family:var(--display);
-    font-size:clamp(3.4rem,8vw,6.4rem);
-    font-weight:600;line-height:.98;letter-spacing:-.5px;color:var(--ink);
-  }
-  .hero h1 em{font-style:italic;color:var(--pink);display:block}
-  .hero .kr-title{
-    font-family:var(--serif);font-weight:500;font-size:clamp(1.2rem,2.4vw,1.7rem);
-    letter-spacing:.5em;margin:1.4rem 0 0;color:var(--ink);padding-left:.5em;
-  }
-  .hero p.lead{
-    font-family:var(--serif);font-weight:500;
-    font-size:1.08rem;color:var(--ink-soft);margin:2rem 0 2.6rem;max-width:30rem;
-  }
-  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
-  .btn{
-    font-family:var(--sans);font-size:.95rem;letter-spacing:.02em;
-    padding:.95rem 2rem;border-radius:44px;transition:.3s;cursor:pointer;border:1.5px solid transparent;
-    display:inline-flex;align-items:center;gap:.55rem;
-  }
-  .btn-primary{background:var(--pink);color:#fff;box-shadow:0 12px 30px -12px rgba(224,0,108,.6)}
-  .btn-primary:hover{background:var(--pink-deep);transform:translateY(-2px);box-shadow:0 18px 36px -12px rgba(224,0,108,.7)}
-  .btn-ghost{border-color:var(--line);color:var(--ink)}
-  .btn-ghost:hover{border-color:var(--pink);color:var(--pink)}
+/* ---------- 네비게이션 ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  transition:background .45s var(--ease),backdrop-filter .45s var(--ease),border-color .45s var(--ease);
+  border-bottom:1px solid transparent;
+}
+.nav.solid{background:rgba(23,17,15,.82);backdrop-filter:blur(16px);border-bottom-color:var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:76px;gap:16px}
+.brand{display:flex;align-items:center;gap:.6rem}
+.brand img{height:34px;width:auto}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.9rem;color:var(--text-secondary);position:relative;padding:6px 0;transition:color .3s var(--ease)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent-hover);transition:width .35s var(--ease)}
+.nav-links a:hover{color:var(--text-primary)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  font-size:.88rem;border:1px solid var(--accent);color:var(--accent-hover);
+  padding:.55rem 1.3rem;border-radius:40px;transition:.32s var(--ease);white-space:nowrap;
+}
+.nav-cta:hover{background:var(--accent);color:#fff}
+.burger{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer;padding:6px}
 
-  /* hero visual card */
-  .hero-visual{position:relative}
-  .hero-photos{
-    position:relative;aspect-ratio:3/4;overflow:hidden;
-    width:100%;max-width:360px;margin:0 auto;
-    border-radius:200px 200px 16px 16px;
-    background:var(--pink-deep);
-    box-shadow:0 40px 80px -30px rgba(182,0,87,.5);
-  }
-  .hero-photos img{
-    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;
-    opacity:0;z-index:1;
-    transition:transform 1.2s cubic-bezier(.16,1,.3,1), opacity .9s ease;
-  }
-  .hero-photos img:nth-of-type(odd){transform:translateY(-104%)}   /* 1,3 → 위에서 */
-  .hero-photos img:nth-of-type(even){transform:translateY(104%)}   /* 2 → 아래에서 */
-  .hero-photos img.active{transform:translateY(0);opacity:1;z-index:2}
-  .hp-cap{
-    position:absolute;left:0;bottom:0;width:100%;z-index:3;
-    padding:2.8rem 1.5rem 1.9rem;text-align:center;color:#fff;
-    background:linear-gradient(transparent,rgba(36,26,31,.6));pointer-events:none;
-  }
-  .hp-cap .en{font-family:var(--display);font-style:italic;font-size:2rem;line-height:1}
-  .hp-cap .sub{font-family:var(--sans);font-size:.72rem;letter-spacing:.28em;opacity:.9;margin-top:.5rem}
-  .hero-card{
-    position:relative;border-radius:200px 200px 14px 14px;overflow:hidden;
-    aspect-ratio:3/4;
-    background:linear-gradient(155deg,var(--pink) 0%, var(--pink-deep) 100%);
-    box-shadow:0 40px 80px -30px rgba(182,0,87,.55);
-    display:flex;align-items:flex-end;justify-content:center;
-  }
-  .hero-card svg{position:absolute;bottom:0;right:-6%;width:82%;height:auto;opacity:.92}
-  .hero-card .card-cap{
-    position:relative;z-index:2;color:#fff;text-align:center;padding:0 0 2.4rem;
-  }
-  .hero-card .card-cap .en{font-family:var(--display);font-style:italic;font-size:2.4rem;line-height:1}
-  .hero-card .card-cap .sub{font-family:var(--sans);font-size:.8rem;letter-spacing:.3em;opacity:.85;margin-top:.5rem}
-  .badge{
-    position:absolute;top:26px;left:-22px;z-index:3;
-    background:var(--white);border-radius:50%;width:104px;height:104px;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    box-shadow:0 20px 40px -18px rgba(36,26,31,.4);
-    font-family:var(--display);
-    animation:spinBadge 26s linear infinite;
-  }
-  .badge span{font-family:var(--sans);font-size:.62rem;letter-spacing:.15em;color:var(--pink);position:absolute}
-  @keyframes spinBadge{to{transform:rotate(360deg)}}
-  .badge .core{font-size:1.4rem;color:var(--ink);line-height:1;text-align:center}
-  .badge .core small{display:block;font-family:var(--sans);font-size:.55rem;letter-spacing:.1em;color:var(--ink-soft);margin-top:3px}
+.msheet{
+  position:fixed;inset:0;z-index:70;background:rgba(23,17,15,.97);backdrop-filter:blur(20px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.7rem;
+  transform:translateY(-100%);transition:transform .5s var(--ease);
+}
+.msheet.open{transform:none}
+.msheet a{font-family:var(--kr);font-weight:700;font-size:1.45rem}
+.msheet a.accent{color:var(--accent-hover)}
+.msheet .x{position:absolute;top:22px;right:26px;background:none;border:none;color:var(--text-primary);font-size:2rem;cursor:pointer;line-height:1}
 
-  /* ---------- SECTION SHELL ---------- */
-  section{padding:120px 0;position:relative}
-  .sec-head{max-width:640px;margin:0 auto 68px;text-align:center}
-  .sec-tag{
-    font-family:var(--sans);font-size:.82rem;letter-spacing:.32em;text-transform:uppercase;
-    color:var(--pink);margin-bottom:1rem;
-  }
-  .sec-title{
-    font-family:var(--display);font-size:clamp(2.3rem,5vw,3.4rem);font-weight:600;
-    line-height:1.08;color:var(--ink);
-  }
-  .sec-title em{font-style:italic;color:var(--pink)}
-  .sec-sub{font-weight:500;color:var(--ink-soft);margin-top:1.1rem;font-size:1.02rem}
+/* ---------- 히어로 ---------- */
+.hero{position:relative;height:560vh}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--canvas)}
+.poster,.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.poster{background-size:cover;background-position:center;transition:opacity .8s var(--ease)}
+.hero video{opacity:0;transition:opacity .8s var(--ease);will-change:transform;transform:translateZ(0)}
+.stage.video-ready video{opacity:1}
+.stage.video-ready .poster{opacity:0}
+.scrim{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 120% 90% at 50% 45%,rgba(10,8,10,0) 32%,rgba(10,8,10,.66) 100%)}
+.vig{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(10,8,10,.6) 0%,rgba(10,8,10,0) 22%,rgba(10,8,10,0) 62%,rgba(10,8,10,.72) 100%)}
 
-  /* ---------- ABOUT ---------- */
-  .about{background:var(--white)}
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
-  .about-visual{
-    position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;
-    background:linear-gradient(150deg,var(--cream-2),var(--pink-soft));
-    display:flex;align-items:center;justify-content:center;
-  }
-  .about-visual .mono{
-    font-family:var(--display);font-size:clamp(5rem,14vw,10rem);font-style:italic;
-    color:var(--pink);opacity:.9;line-height:.8;text-align:center;
-  }
-  .about-visual .mono small{display:block;font-family:var(--sans);font-style:normal;font-size:.9rem;letter-spacing:.5em;color:var(--ink);opacity:.6;margin-top:1rem}
-  .about-visual .hook{position:relative;text-align:center;padding:3rem 2.4rem}
-  .hook-quotemark{font-family:var(--display);font-size:5.5rem;line-height:.6;color:var(--pink);opacity:.22;display:block;margin-bottom:.4rem}
-  .hook-eyebrow{font-family:var(--sans);font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--pink)}
-  .hook-quote{font-family:var(--serif);font-weight:600;font-size:clamp(1.85rem,4.6vw,2.6rem);line-height:1.42;color:var(--ink);margin:1.3rem 0 1.4rem;word-break:keep-all}
-  .hook-quote em{font-style:normal;color:var(--pink)}
-  .hook-sub{font-family:var(--serif);font-weight:500;font-size:1rem;color:var(--ink-soft);word-break:keep-all}
-  .about-text h3{
-    font-family:var(--serif);font-weight:600;font-size:1.7rem;line-height:1.5;margin-bottom:1.4rem;
-  }
-  .about-text h3 b{color:var(--pink);font-weight:600}
-  .about-text p{font-weight:500;color:var(--ink-soft);margin-bottom:1.1rem}
-  .about-points{list-style:none;margin-top:2rem;display:grid;gap:1rem}
-  .about-points li{display:flex;gap:.9rem;align-items:flex-start;font-size:.98rem}
-  .about-points li::before{content:"✦";color:var(--pink);font-size:1rem;line-height:1.7}
+.band{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(760px,88vw);text-align:center;opacity:0;pointer-events:none;
+  text-shadow:var(--tshadow);
+}
+.band::before{
+  content:"";position:absolute;inset:-14% -10%;pointer-events:none;z-index:-1;
+  opacity:calc(.25 + .75*var(--k,1));
+  background:radial-gradient(ellipse 74% 62% at 50% 50%,rgba(5,4,8,.68) 0%,rgba(5,4,8,.46) 46%,rgba(5,4,8,0) 76%);
+}
+.band.on{pointer-events:auto}
+.band h2,.band .h2{
+  font-family:var(--kr);font-weight:800;
+  font-size:clamp(2rem,5.4vw,3.5rem);line-height:1.32;letter-spacing:-.01em;
+  word-break:keep-all;
+}
+.band .sub{
+  font-size:clamp(.94rem,1.7vw,1.06rem);color:var(--text-primary);opacity:.9;
+  margin-top:1.1rem;word-break:keep-all;
+}
+.band .w{display:inline-block;white-space:nowrap}
+.band .c{display:inline-block;will-change:transform,opacity}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-  /* ---------- SERVICES ---------- */
-  .services{background:var(--cream)}
-  .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;align-items:start}
-  .svc-card{
-    background:var(--white);border:1px solid var(--line);border-radius:16px;
-    padding:38px 32px;transition:.35s ease;position:relative;overflow:hidden;
-  }
-  .svc-card::before{
-    content:"";position:absolute;top:0;left:0;width:100%;height:3px;
-    background:var(--pink);transform:scaleX(0);transform-origin:left;transition:.4s;
-  }
-  .svc-card:hover{transform:translateY(-8px);box-shadow:0 30px 60px -30px rgba(36,26,31,.25);border-color:transparent}
-  .svc-card:hover::before{transform:scaleX(1)}
-  .svc-num{font-family:var(--display);font-style:italic;font-size:1.3rem;color:var(--pink-soft);position:absolute;top:24px;right:28px}
-  .svc-card:hover .svc-num{color:var(--pink)}
-  .svc-card h4{font-family:var(--serif);font-weight:600;font-size:1.4rem;margin-bottom:.4rem}
-  .svc-card .en{font-family:var(--display);font-style:italic;color:var(--pink);font-size:1.05rem;margin-bottom:1.1rem}
-  .svc-card p{font-weight:500;color:var(--ink-soft);font-size:.95rem;margin-bottom:1.3rem}
-  .svc-price{font-family:var(--sans);font-size:.9rem;color:var(--ink);border-top:1px dashed var(--line);padding-top:1rem}
-  .svc-price b{color:var(--pink);font-weight:500}
-  .price-list{list-style:none;margin-top:1.4rem;display:grid}
-  .price-list li{display:flex;justify-content:space-between;align-items:baseline;gap:.9rem;padding:.66rem 0;border-bottom:1px dashed var(--line)}
-  .price-list li:last-child{border-bottom:none}
-  .price-list .pname{font-family:var(--serif);font-size:1.03rem;color:var(--ink)}
-  .price-list .pprice{font-family:var(--sans);font-size:.98rem;color:var(--pink-deep);white-space:nowrap}
-  .svc-note{text-align:center;margin-top:2.6rem;font-family:var(--sans);font-size:.86rem;color:var(--ink-soft)}
+/* 밴드1 drift-down */
+#b1 .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*2.8,1);opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc))*-26px))}
+/* 밴드2 word-punch */
+#b2 .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*3,1);
+  --ks:clamp(0,(var(--k,0) - var(--th,0) - var(--sd,.1))*var(--ss,3.2),1);
+  opacity:var(--kc);
+  transform:scale(calc(0.62 + (0.38 + var(--ov,.12))*var(--kc) - var(--ov,.12)*var(--ks)))}
+#b2 .w.em{--ov:.24;--sd:.16;--ss:2.6;color:var(--accent-hover)}
+/* 밴드3 blur-to-sharp */
+#b3 .stack{position:relative}
+#b3 .soft{position:absolute;inset:0;filter:blur(11px);opacity:calc(1 - var(--k,0))}
+#b3 .sharp{opacity:var(--k,0)}
+/* 밴드4 staged settle */
+#b4 .w{--kc:clamp(0,(var(--k,0) - var(--th,0))*2.6,1);opacity:var(--kc);
+  transform:translateY(calc((1 - var(--kc))*22px))}
+#b4 .sub{--ks:clamp(0,(var(--k,0) - .60)*3.4,1);opacity:var(--ks);
+  transform:translateY(calc((1 - var(--ks))*14px))}
+#b4 .cta-row{--kb:clamp(0,(var(--k,0) - .76)*4.4,1);opacity:var(--kb);
+  transform:translateY(calc((1 - var(--kb))*16px));
+  display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:1.8rem}
+#b4 .brandline{font-family:var(--display);font-size:clamp(1rem,2vw,1.2rem);letter-spacing:.42em;
+  color:var(--gold);margin-bottom:1rem;opacity:calc(var(--k,0))}
 
-  /* ---------- STYLE GALLERY ---------- */
-  .gallery{background:var(--white)}
-  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-  .gal-item{
-    position:relative;overflow:hidden;border-radius:16px;aspect-ratio:3/4;
-    background:var(--cream-2);
-    box-shadow:0 22px 46px -30px rgba(36,26,31,.35);
-  }
-  .gal-item img{
-    width:100%;height:100%;object-fit:cover;display:block;
-    transition:transform .9s cubic-bezier(.16,1,.3,1);
-  }
-  .gal-item::after{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(transparent 55%,rgba(224,0,108,.32));
-    opacity:0;transition:.45s ease;
-  }
-  .gal-item:hover img{transform:scale(1.08)}
-  .gal-item:hover::after{opacity:1}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.45rem;
+  font-family:var(--body);font-size:.95rem;font-weight:500;
+  padding:.92rem 2rem;border-radius:44px;border:1px solid transparent;
+  cursor:pointer;transition:.34s var(--ease);text-shadow:none;
+}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 14px 34px -14px rgba(224,0,108,.8)}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 20px 42px -14px rgba(255,45,135,.75)}
+.btn-ghost{border-color:rgba(245,237,230,.32);color:var(--text-primary)}
+.btn-ghost:hover{border-color:var(--accent-hover);color:var(--accent-hover)}
+@media (pointer:coarse){.btn{min-height:44px}}
 
-  /* ---------- STYLE FINDER ---------- */
-  .finder{background:var(--cream)}
-  .finder .sec-head{margin-bottom:40px}
-  .finder-tabs{display:flex;justify-content:center;gap:14px;margin-bottom:48px}
-  .finder-tab{
-    font-family:var(--serif);font-weight:600;font-size:1.05rem;
-    padding:.85rem 2.8rem;border-radius:44px;border:1.5px solid var(--line);
-    background:transparent;color:var(--ink-soft);cursor:pointer;transition:.3s ease;
-  }
-  .finder-tab:hover{border-color:var(--pink);color:var(--pink)}
-  .finder-tab.active{background:var(--pink);border-color:var(--pink);color:#fff;box-shadow:0 12px 28px -12px rgba(224,0,108,.5)}
-  .finder-panel{display:none}
-  .finder-panel.active{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;animation:finderFade .55s ease}
-  .finder-panel .gal-item{flex:1 1 260px;max-width:320px;aspect-ratio:auto}
-  .finder-panel .gal-item img{height:auto}
-  @keyframes finderFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.ring-wrap{position:absolute;left:50%;bottom:52px;transform:translateX(-50%);z-index:5;color:var(--text-primary);opacity:.72}
+.ring{width:34px;height:34px;transform:rotate(-90deg)}
+.ring circle{transition:stroke-dashoffset .18s linear}
+.cue{position:absolute;left:50%;bottom:46px;transform:translateX(-50%);z-index:4;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.3em;color:var(--text-secondary);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.85}
+.cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--accent-hover),transparent);animation:cueRun 2.6s var(--ease-soft) -.6s infinite}
+@keyframes cueRun{0%{transform:scaleY(.2);transform-origin:top;opacity:0}40%{opacity:1}100%{transform:scaleY(1);transform-origin:top;opacity:0}}
+.stage.video-ready .ring-wrap{opacity:0;pointer-events:none;transition:opacity .5s var(--ease)}
 
-  /* ---------- INFO / HOURS ---------- */
-  .info{background:var(--ink);color:#fff}
-  .info .sec-title,.info .about-text h3{color:#fff}
-  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-  .hours-box{display:grid;gap:0}
-  .hours-row{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:1.15rem 0;border-bottom:1px solid rgba(255,255,255,.14);
-    font-family:var(--sans);font-size:1rem;
-  }
-  .hours-row:last-child{border-bottom:none}
-  .hours-row .day{letter-spacing:.05em}
-  .hours-row .time{color:var(--pink-soft)}
-  .hours-row.closed .time{color:rgba(255,255,255,.4)}
-  .info-side .en-big{
-    font-family:var(--display);font-style:italic;font-size:clamp(2.4rem,5vw,3.6rem);
-    line-height:1.1;margin-bottom:1.5rem;
-  }
-  .info-side .en-big b{color:var(--pink-soft);font-weight:500}
-  .info-side p{font-weight:500;color:rgba(255,255,255,.72);margin-bottom:1.8rem}
-  .info-chip{
-    display:inline-flex;align-items:center;gap:.6rem;font-family:var(--sans);font-size:.95rem;
-    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
-    padding:.7rem 1.3rem;border-radius:40px;margin:0 .5rem .6rem 0;
-  }
-  .info-chip .ic{color:var(--pink-soft)}
+/* 정적 히어로 (휴대폰·모션최소화) */
+.static-hero{display:none;position:relative;min-height:100vh;align-items:flex-end;overflow:hidden}
+.static-hero .bg{position:absolute;inset:0;background-size:cover;background-position:center 42%}
+.static-hero .bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(10,8,10,.62) 0%,rgba(10,8,10,.2) 34%,rgba(10,8,10,.9) 100%)}
+.static-hero .sh-in{position:relative;padding:0 26px 84px;width:100%;text-align:center}
+.static-hero .brandline{font-family:var(--display);font-size:1rem;letter-spacing:.42em;color:var(--gold);margin-bottom:.9rem}
+.static-hero h1{font-family:var(--kr);font-weight:800;font-size:clamp(1.9rem,7.6vw,2.6rem);line-height:1.34;word-break:keep-all;text-shadow:var(--tshadow)}
+.static-hero p{color:var(--text-secondary);margin:1.1rem auto 1.9rem;max-width:30ch;word-break:keep-all;font-size:.98rem}
 
-  /* ---------- LOCATION / CTA ---------- */
-  .contact{background:var(--white)}
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:stretch}
-  .contact-card{
-    background:var(--cream);border-radius:20px;padding:48px 44px;
-    display:flex;flex-direction:column;justify-content:center;
-  }
-  .contact-card .label{font-family:var(--sans);font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:var(--pink);margin-bottom:.7rem}
-  .contact-card h4{font-family:var(--serif);font-weight:600;font-size:1.35rem;margin-bottom:.4rem}
-  .contact-card .val{font-family:var(--display);font-size:2rem;color:var(--ink)}
-  .contact-card .val a{color:var(--ink);transition:.25s}
-  .contact-card .val a:hover{color:var(--pink)}
-  .contact-card .addr{font-weight:500;color:var(--ink-soft);font-size:1.05rem;line-height:1.7}
-  .contact-card + .contact-card{}
-  .contact-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
-  .map-embed{
-    grid-column:1/-1;margin-top:0;border-radius:20px;overflow:hidden;
-    border:1px solid var(--line);
-    background:linear-gradient(135deg,var(--cream-2),var(--pink-soft));
-    aspect-ratio:21/7;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;
-  }
-  .map-embed .pin{font-family:var(--serif);color:var(--ink)}
-  .map-embed .pin .en{font-family:var(--display);font-style:italic;font-size:2rem;color:var(--pink)}
-  .map-embed .pin p{font-weight:500;color:var(--ink-soft);margin-top:.4rem}
-  .map-embed a{margin-top:1.2rem;display:inline-block}
+/* ---------- 공통 섹션 ---------- */
+section{position:relative;padding:132px 0}
+.kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.34em;text-transform:uppercase;color:var(--accent-hover);margin-bottom:1.1rem}
+.h-sec{font-family:var(--kr);font-weight:800;font-size:clamp(1.85rem,4.4vw,2.9rem);line-height:1.34;word-break:keep-all}
+.h-sec em{font-style:normal;color:var(--accent-hover)}
+.lede{color:var(--text-secondary);margin-top:1.2rem;font-size:1.03rem;word-break:keep-all;max-width:56ch}
 
-  /* ---------- FINAL CTA ---------- */
-  .final{
-    background:linear-gradient(155deg,var(--pink) 0%,var(--pink-deep) 100%);
-    color:#fff;text-align:center;position:relative;overflow:hidden;
-  }
-  .final::before{
-    content:"";position:absolute;inset:0;
-    background-image:radial-gradient(rgba(255,255,255,.16) 1px,transparent 1px);
-    background-size:30px 30px;opacity:.5;
-    mask-image:radial-gradient(circle at 50% 50%,#000,transparent 70%);
-  }
-  .final .wrap{position:relative;z-index:2}
-  .final h2{font-family:var(--display);font-size:clamp(2.4rem,6vw,4rem);font-weight:600;line-height:1.05}
-  .final h2 em{font-style:italic}
-  .final p{font-weight:500;font-size:1.1rem;opacity:.9;margin:1.4rem auto 2.4rem;max-width:32rem}
-  .btn-white{background:#fff;color:var(--pink-deep);font-size:1.05rem;padding:1.1rem 2.6rem}
-  .btn-white:hover{transform:translateY(-3px);box-shadow:0 18px 40px -14px rgba(0,0,0,.35)}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .95s var(--ease),transform .95s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.stag>*{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.stag.in>*{opacity:1;transform:none}
+.stag.in>*:nth-child(1){transition-delay:.02s}
+.stag.in>*:nth-child(2){transition-delay:.1s}
+.stag.in>*:nth-child(3){transition-delay:.18s}
+.stag.in>*:nth-child(4){transition-delay:.26s}
+.stag.in>*:nth-child(5){transition-delay:.34s}
+.stag.in>*:nth-child(6){transition-delay:.42s}
+.stag.done>*:nth-child(1),.stag.done>*:nth-child(2),.stag.done>*:nth-child(3),
+.stag.done>*:nth-child(4),.stag.done>*:nth-child(5),.stag.done>*:nth-child(6){transition-delay:0s}
 
-  /* ---------- FOOTER ---------- */
-  footer{background:var(--ink);color:rgba(255,255,255,.6);padding:56px 0 40px}
-  .foot-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap}
-  .foot-logo{font-family:var(--display);font-size:1.6rem;color:#fff;margin-bottom:.8rem}
-  .foot-info{font-family:var(--sans);font-size:.9rem;line-height:1.9}
-  .foot-info b{color:var(--pink-soft);font-weight:500}
-  .foot-bottom{margin-top:44px;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);font-family:var(--sans);font-size:.82rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+/* 시그니처: 흐르는 결 선 */
+.gyeol{display:block;width:100%;height:74px;overflow:visible}
+.gyeol path{fill:none;stroke:var(--accent-muted);stroke-width:1.1;
+  stroke-dasharray:var(--len,600);stroke-dashoffset:var(--len,600);
+  transition:stroke-dashoffset 1.9s var(--ease)}
+.gyeol.in path{stroke-dashoffset:0}
+.gyeol.in path:nth-child(2){transition-delay:.14s}
+.gyeol.in path:nth-child(3){transition-delay:.28s}
+.gyeol.in path:nth-child(4){transition-delay:.42s}
+.gyeol path:nth-child(2){stroke:var(--accent);opacity:.55}
+.gyeol path:nth-child(3){stroke:var(--gold);opacity:.34}
 
-  /* reveal animation */
-  .reveal{opacity:0;transform:translateY(30px);transition:.9s cubic-bezier(.16,1,.3,1)}
-  .reveal.in{opacity:1;transform:none}
+/* 소개 */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:72px;align-items:center}
+.about-visual{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--panel)}
+.about-visual img{width:100%;height:100%;object-fit:cover;transition:transform 1.6s var(--ease)}
+.about-visual:hover img{transform:scale(1.05)}
+.about-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,8,10,.55),transparent 52%)}
+.dust{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.dust i{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.42;
+  animation:dustUp 15s linear infinite}
+@keyframes dustUp{from{transform:translateY(0);opacity:0}12%{opacity:.5}88%{opacity:.35}to{transform:translateY(-320px);opacity:0}}
+.pts{list-style:none;margin-top:2.2rem;display:grid;gap:1rem}
+.pts li{display:flex;gap:.85rem;align-items:flex-start;color:var(--text-secondary);word-break:keep-all}
+.pts li::before{content:"";flex-shrink:0;width:16px;height:1px;background:var(--accent);margin-top:.85rem}
 
-  /* ---------- RESPONSIVE ---------- */
-  @media(max-width:900px){
-    .nav-links,.nav-call{display:none}
-    .menu-toggle{display:block}
-    .hero-grid,.about-grid,.info-grid,.contact-grid,.svc-grid{grid-template-columns:1fr}
-    .gal-grid{grid-template-columns:1fr 1fr;gap:12px}
-    .svc-grid{gap:18px}
-    section{padding:84px 0}
-    .hero{padding-top:120px;min-height:auto;padding-bottom:80px}
-    .contact-card{padding:36px 30px}
-    .badge{width:88px;height:88px;left:-10px}
-    .map-embed{aspect-ratio:auto;min-height:0;padding:40px 24px}
-    .map-embed .pin .en{font-size:1.7rem}
-  }
-  @media(max-width:560px){
-    .wrap{padding:0 20px}
-    .hero-cta{flex-direction:column}
-    .btn{justify-content:center}
-    .foot-bottom{flex-direction:column}
-  }
+/* 인터랙티브: 결 정돈하기 */
+.hold-sec{text-align:center}
+.hold-stage{position:relative;max-width:1000px;margin:52px auto 0;height:250px}
+.hold-svg{width:100%;height:100%;overflow:visible}
+.hold-svg path{fill:none;stroke-linecap:round;
+  transform-box:fill-box;transform-origin:center;
+  transition:transform .34s var(--ease-soft),opacity .34s var(--ease-soft),stroke .34s var(--ease-soft)}
+.hold-btn{
+  margin-top:30px;background:transparent;border:1px solid var(--line);color:var(--text-primary);
+  font-family:var(--body);font-size:.94rem;padding:.9rem 2.1rem;border-radius:44px;cursor:pointer;
+  transition:.3s var(--ease);position:relative;overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:none;
+}
+.hold-btn:hover{border-color:var(--accent-hover)}
+.hold-btn span{position:relative;z-index:2}
+.hold-btn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--accent);
+  transform:scaleX(var(--hp,0));transform-origin:left;transition:transform .1s linear;z-index:1;opacity:.85}
+.hold-out{margin-top:26px;min-height:3.4em}
+.hold-out p{font-family:var(--kr);font-weight:700;font-size:clamp(1.15rem,2.6vw,1.5rem);
+  opacity:var(--ho,0);transform:translateY(calc((1 - var(--ho,0))*12px));
+  transition:opacity .5s var(--ease),transform .5s var(--ease);word-break:keep-all}
+@media (pointer:coarse){.hold-btn{min-height:44px}}
 
-  /* mobile menu */
-  .mobile-menu{
-    position:fixed;inset:0;background:var(--cream);z-index:99;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;
-    transform:translateY(-100%);transition:.45s cubic-bezier(.16,1,.3,1);
-  }
-  .mobile-menu.open{transform:none}
-  .mobile-menu a{font-family:var(--serif);font-size:1.6rem;color:var(--ink)}
-  .mobile-menu a:hover{color:var(--pink)}
-  .mobile-menu .close{position:absolute;top:24px;right:28px;font-size:2rem;background:none;border:none;cursor:pointer}
+/* 메뉴 */
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.mcard{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:34px 30px;position:relative;overflow:hidden;
+  transition:border-color .4s var(--ease),transform .5s var(--ease)}
+.mcard:hover{border-color:var(--accent-muted);transform:translateY(-4px)}
+.mcard .no{position:absolute;top:26px;right:28px;font-family:var(--mono);font-size:.72rem;color:var(--accent-muted)}
+.mcard h3{font-family:var(--kr);font-weight:700;font-size:1.36rem}
+.mcard .en{font-family:var(--display);font-size:1.02rem;letter-spacing:.22em;color:var(--gold);margin:.15rem 0 1.5rem}
+.plist{list-style:none;display:grid}
+.plist li{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.66rem 0;border-bottom:1px solid rgba(245,237,230,.08)}
+.plist li:last-child{border-bottom:none}
+.plist .n{font-size:.99rem}
+.plist .p{font-family:var(--mono);font-size:.9rem;color:var(--accent-hover);white-space:nowrap}
+.mnote{margin-top:2.2rem;font-size:.87rem;color:var(--text-secondary);text-align:center;word-break:keep-all}
+
+/* 갤러리 */
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.gal-item{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:3/4;background:var(--panel)}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.gal-item::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity .45s var(--ease);
+  background:linear-gradient(transparent 52%,rgba(224,0,108,.42))}
+.gal-item:hover img{transform:scale(1.08)}
+.gal-item:hover::after{opacity:1}
+
+/* 추천 카드 */
+.rec{display:grid;grid-template-columns:1.1fr .9fr;gap:0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--panel)}
+.rec-txt{padding:56px 48px}
+.rec-img{position:relative;min-height:290px;background:var(--panel-2)}
+.rec-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.rec-img::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,var(--panel),transparent 42%)}
+
+/* 후기 */
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:34px 30px;position:relative}
+.q .mark{font-family:var(--display);font-size:3.4rem;line-height:.6;color:var(--accent-muted);display:block;margin-bottom:.7rem}
+.q p{font-family:var(--kr);font-weight:700;font-size:1.14rem;line-height:1.7;word-break:keep-all}
+.q .who{font-family:var(--mono);font-size:.74rem;color:var(--text-secondary);margin-top:1.3rem;letter-spacing:.1em}
+
+/* FAQ */
+.faq{max-width:820px;margin:0 auto}
+.fitem{border-bottom:1px solid var(--line)}
+.fq{width:100%;background:none;border:none;color:var(--text-primary);text-align:left;cursor:pointer;
+  font-family:var(--kr);font-weight:700;font-size:1.09rem;padding:1.5rem 3rem 1.5rem 0;position:relative;
+  display:block;word-break:keep-all;line-height:1.6}
+.fq::after{content:"";position:absolute;right:6px;top:50%;width:11px;height:11px;
+  border-right:1.5px solid var(--accent-hover);border-bottom:1.5px solid var(--accent-hover);
+  transform:translateY(-70%) rotate(45deg);transition:transform .4s var(--ease)}
+.fitem.open .fq::after{transform:translateY(-30%) rotate(225deg)}
+.fa{max-height:0;overflow:hidden;transition:max-height .55s var(--ease),opacity .45s var(--ease);opacity:0}
+.fitem.open .fa{max-height:340px;opacity:1}
+.fa p{color:var(--text-secondary);padding:0 2rem 1.7rem 0;word-break:keep-all}
+
+/* 오시는 길 */
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.vcard{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:40px 34px}
+.vcard .lb{font-family:var(--mono);font-size:.7rem;letter-spacing:.28em;color:var(--accent-hover);margin-bottom:.9rem}
+.vcard h3{font-family:var(--kr);font-weight:700;font-size:1.24rem;margin-bottom:.7rem}
+.vcard .big{font-family:var(--display);font-size:2.1rem;letter-spacing:.06em}
+.vcard .big a:hover{color:var(--accent-hover)}
+.vcard p{color:var(--text-secondary);word-break:keep-all}
+.hours{list-style:none;display:grid;margin-top:.4rem}
+.hours li{display:flex;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid rgba(245,237,230,.08);font-size:.96rem}
+.hours li:last-child{border-bottom:none}
+.hours .off{color:var(--accent-hover)}
+
+/* 마지막 CTA */
+.final{text-align:center;padding:150px 0}
+.final .h-sec{font-size:clamp(2rem,5.6vw,3.4rem)}
+.final p{color:var(--text-secondary);margin:1.3rem auto 2.4rem;max-width:34ch;word-break:keep-all}
+
+footer{border-top:1px solid var(--line);padding:56px 0 44px;color:var(--text-secondary);font-size:.88rem}
+.foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.foot img{height:40px;opacity:.9;margin-bottom:1rem}
+.foot b{color:var(--text-primary);font-weight:500}
+.foot-b{margin-top:34px;padding-top:22px;border-top:1px solid rgba(245,237,230,.08);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.8rem}
+.foot-b a{color:var(--text-secondary);opacity:.6}
+.foot-b a:hover{opacity:1;color:var(--accent-hover)}
+
+/* ---------- 반응형 ---------- */
+@media (max-width:1024px){
+  .about-grid,.rec,.visit,.quotes{grid-template-columns:1fr}
+  .rec-txt{padding:44px 34px}
+  .rec-img{min-height:230px;order:-1}
+  .rec-img::after{background:linear-gradient(to top,var(--panel),transparent 52%)}
+  .gal-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:860px){
+  .nav-links,.nav-cta{display:none}
+  .burger{display:block}
+  .menu-grid{grid-template-columns:1fr}
+  section{padding:96px 0}
+}
+@media (max-width:600px){
+  .wrap{padding:0 20px}
+  .gal-grid{grid-template-columns:1fr 1fr;gap:11px}
+  .mcard,.vcard,.q{padding:28px 22px}
+  .final{padding:104px 0}
+}
+/* 짧은 화면: 스크롤 오버레이 숨김 */
+@media (max-height:560px){.cue,.ring-wrap{display:none}}
+
+/* ---------- 정적 히어로 게이트 (JS와 문자 단위로 동일) ---------- */
+@media (max-width:720px),
+       (orientation:portrait) and (max-width:1024px),
+       (orientation:portrait) and (pointer:coarse),
+       (orientation:landscape) and (pointer:coarse) and (max-height:560px),
+       (prefers-reduced-motion:reduce){
+  .hero{display:none}
+  .static-hero{display:flex}
+}
+
+/* ---------- 모션 최소화 ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;transition-delay:0s!important}
+  .reveal{opacity:1;transform:none}
+  .stag>*{opacity:1;transform:none}
+  .gyeol path{stroke-dashoffset:0}
+  .env::before{transform:none}
+  .hold-out p{opacity:1;transform:none}
+  .band{transform:translate(-50%,-50%)}
+}
+body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<div class="env" aria-hidden="true"></div>
 
-<header id="header">
-  <div class="wrap nav">
-    <a href="#top" class="logo"><img class="brand-logo" src="logo.png" alt="바닐라 헤어 · Banilla Hair"></a>
-    <ul class="nav-links">
-      <li><a href="#about">소개</a></li>
-      <li><a href="#services">시술 메뉴</a></li>
-      <li><a href="#gallery">스타일</a></li>
-      <li><a href="#info">영업 안내</a></li>
-      <li><a href="#contact">오시는 길</a></li>
-      <li><a href="추천.html" style="color:var(--pink)">✨ 스타일 추천</a></li>
-    </ul>
-    <a href="tel:010-7137-6560" class="nav-call">☎ 010-7137-6560</a>
-    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">☰</button>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="바닐라 헤어 홈"><img src="logo.png" alt="바닐라 헤어"></a>
+    <nav aria-label="주요 메뉴">
+      <ul class="nav-links">
+        <li><a href="#about">소개</a></li>
+        <li><a href="#menu">시술 메뉴</a></li>
+        <li><a href="#gallery">갤러리</a></li>
+        <li><a href="추천.html">스타일 추천</a></li>
+        <li><a href="#visit">오시는 길</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="tel:010-7137-6560">예약 010-7137-6560</a>
+    <button class="burger" id="burger" aria-label="메뉴 열기" aria-expanded="false">☰</button>
   </div>
 </header>
 
-<div class="mobile-menu" id="mobileMenu">
-  <button class="close" id="menuClose" aria-label="닫기">×</button>
+<div class="msheet" id="msheet">
+  <button class="x" id="msheetX" aria-label="메뉴 닫기">×</button>
   <a href="#about">소개</a>
-  <a href="#services">시술 메뉴</a>
-  <a href="#gallery">스타일</a>
-  <a href="#info">영업 안내</a>
-  <a href="#contact">오시는 길</a>
-  <a href="추천.html" style="color:var(--pink)">✨ 스타일 추천</a>
-  <a href="tel:010-7137-6560" style="color:var(--pink)">☎ 예약 문의</a>
+  <a href="#menu">시술 메뉴</a>
+  <a href="#gallery">갤러리</a>
+  <a href="추천.html">스타일 추천</a>
+  <a href="#visit">오시는 길</a>
+  <a class="accent" href="tel:010-7137-6560">예약 010-7137-6560</a>
 </div>
 
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div class="hero-text">
-      <div class="hero-eyebrow">광양읍 · 프리미엄 헤어살롱</div>
-      <div class="hero-feature">
-        <img src="바닐라헤어.jpg" alt="바닐라 헤어" loading="lazy">
-        <div class="hero-feature-cap">
-          <h1>Banilla Hair</h1>
-          <span>바닐라 헤어 · 광양읍 헤어살롱</span>
-        </div>
-      </div>
-      <p class="lead">매일의 스타일이 특별해지는 곳. 얼굴형과 라이프스타일에 꼭 맞는 디자인으로, 당신의 아름다움을 완성합니다.</p>
-      <div class="hero-cta">
-        <a href="tel:010-7137-6560" class="btn btn-primary">☎ 전화 예약하기</a>
-        <a href="#services" class="btn btn-ghost">시술 메뉴 보기</a>
+<main id="main" tabindex="-1">
+
+<!-- 스크럽 히어로 -->
+<section class="hero" id="top" aria-label="바닐라 헤어 소개">
+  <div class="stage" id="stage">
+    <div class="poster" id="poster" aria-hidden="true"></div>
+    <video id="hero" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="vig" aria-hidden="true"></div>
+
+    <div class="band" id="b1" data-a="0" data-b="0.17" data-ramp="0.030">
+      <span class="sr">결이 살아나면 표정이 달라집니다</span>
+      <div class="h2" aria-hidden="true" data-split="word">결이 살아나면 표정이 달라집니다</div>
+    </div>
+
+    <div class="band" id="b2" data-a="0.22" data-b="0.44" data-ramp="0.032">
+      <span class="sr">잘라내는 게 아니라 찾아내는 일</span>
+      <div class="h2" aria-hidden="true" data-split="word" data-em="찾아내는">잘라내는 게 아니라 찾아내는 일</div>
+    </div>
+
+    <div class="band" id="b3" data-a="0.50" data-b="0.70" data-ramp="0.034">
+      <span class="sr">내일 아침이 편해집니다</span>
+      <div class="stack" aria-hidden="true">
+        <div class="h2 soft">내일 아침이 편해집니다</div>
+        <div class="h2 sharp">내일 아침이 편해집니다</div>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-photos" aria-label="바닐라 헤어 원장님">
-        <img src="원장님1.jpg" alt="바닐라 헤어 원장님 1">
-        <img src="원장님2.jpg" alt="바닐라 헤어 원장님 2">
-        <img src="원장님3.jpg" alt="바닐라 헤어 원장님 3">
-        <div class="hp-cap">
-          <div class="en">since 바닐라</div>
-          <div class="sub">GWANGYANG · HAIR SALON</div>
-        </div>
+
+    <div class="band" id="b4" data-a="0.78" data-b="1" data-ramp="0.045">
+      <div class="brandline" aria-hidden="true">BANILLA HAIR</div>
+      <span class="sr">바닐라 헤어. 광양읍 서평8길 23.</span>
+      <div class="h2" aria-hidden="true" data-split="word">바닐라 헤어</div>
+      <p class="sub">광양읍 서평8길 23 · 매주 화요일 휴무</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="tel:010-7137-6560">예약하기 010-7137-6560</a>
+        <a class="btn btn-ghost" href="#menu">시술 메뉴 보기</a>
       </div>
     </div>
+
+    <div class="ring-wrap" id="ringWrap" aria-hidden="true">
+      <svg class="ring" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="126" style="stroke-dashoffset:var(--ld,126)"/></svg>
+    </div>
+    <div class="cue" id="cue" aria-hidden="true"><i></i>SCROLL</div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="about" id="about">
+<!-- 정적 히어로 (휴대폰·모션최소화) -->
+<section class="static-hero" id="staticHero" aria-label="바닐라 헤어 소개">
+  <div class="bg" id="staticBg" aria-hidden="true"></div>
+  <div class="sh-in">
+    <div class="brandline">BANILLA HAIR</div>
+    <h1>결이 살아나면<br>표정이 달라집니다</h1>
+    <p>광양읍 서평8길, 유행을 얹지 않고 어울리는 결을 찾는 동네 살롱</p>
+    <a class="btn btn-primary" href="tel:010-7137-6560">예약하기 010-7137-6560</a>
+  </div>
+</section>
+
+<!-- 소개 -->
+<section id="about">
   <div class="wrap">
-    <div class="about-grid">
+    <svg class="gyeol" viewBox="0 0 1200 74" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 52 C220 12 420 66 620 34 C820 4 1010 46 1200 20"/>
+      <path d="M0 62 C230 26 430 74 640 44 C840 16 1020 56 1200 32"/>
+      <path d="M0 42 C210 6 400 56 610 26 C810 0 1000 38 1200 12"/>
+    </svg>
+    <div class="about-grid" style="margin-top:56px">
+      <div class="reveal">
+        <div class="kicker">Our Way</div>
+        <h2 class="h-sec">유행을 얹지 않고<br><em>어울리는 결</em>을 찾습니다</h2>
+        <p class="lede">잡지에서 본 스타일을 그대로 올리면 처음 한 주는 예쁩니다. 문제는 그다음입니다. 아침마다 삼십 분씩 붙잡고 있어야 하는 머리는 오래가지 못합니다.</p>
+        <p class="lede">그래서 먼저 묻습니다. 모발 상태는 어떤지, 얼굴형은 어떤지, 아침에 머리에 쓸 수 있는 시간이 몇 분인지. 그 답 안에 이미 어울리는 결이 들어 있습니다.</p>
+        <ul class="pts stag">
+          <li>시술 전 상담으로 원하는 모습을 먼저 맞춥니다</li>
+          <li>모발 손상을 줄이는 쪽으로 시술 순서를 잡습니다</li>
+          <li>집에서 혼자 손질할 수 있는 선까지만 만듭니다</li>
+          <li>길이에 따른 추가 요금은 시술 전에 알려드립니다</li>
+        </ul>
+      </div>
       <div class="about-visual reveal">
-        <div class="hook">
-          <span class="hook-quotemark">&ldquo;</span>
-          <span class="hook-eyebrow">Banilla Hair</span>
-          <p class="hook-quote">당신은 생각보다<br>훨씬 더 <em>아름다워요.</em></p>
-          <span class="hook-sub">그 아름다움을 완성하는 곳,<br>광양 바닐라 헤어</span>
-        </div>
+        <img src="assets/hero-ending.jpg" alt="윤기 있는 머릿결" loading="lazy">
+        <div class="dust" aria-hidden="true"></div>
       </div>
-      <div class="about-text reveal">
-        <div class="sec-tag">About Us</div>
-        <h3>한 사람, 한 사람에게<br><b>가장 잘 어울리는 스타일</b>을 찾습니다.</h3>
-        <p>바닐라 헤어는 광양읍 서평길에 자리한 동네 단골 미용실입니다. 유행을 따르기보다, 손님의 모발 상태와 얼굴형·생활 패턴을 먼저 살펴 오래도록 예쁜 스타일을 제안합니다.</p>
-        <p>편안한 분위기 속에서 충분한 상담을 거쳐 진행하기에, 첫 방문부터 만족스러운 결과를 경험하실 수 있습니다.</p>
-        <ul class="about-points">
-          <li>1:1 맞춤 상담 후 시술 진행</li>
-          <li>손상을 최소화하는 두피·모발 케어</li>
-          <li>남녀노소 누구나 편안한 동네 살롱</li>
-          <li>합리적인 가격, 정직한 시술</li>
+    </div>
+  </div>
+</section>
+
+<!-- 인터랙티브: 결 정돈하기 -->
+<section id="hold">
+  <div class="wrap hold-sec">
+    <div class="kicker reveal">Try It</div>
+    <h2 class="h-sec reveal">버튼을 누르고 있어 보세요</h2>
+    <p class="lede reveal" style="margin-left:auto;margin-right:auto">흩어진 결이 정돈되는 데 걸리는 시간, 그게 저희가 하는 일입니다.</p>
+    <div class="hold-stage reveal">
+      <svg class="hold-svg" id="holdSvg" viewBox="0 0 1000 250" preserveAspectRatio="none" aria-hidden="true"></svg>
+    </div>
+    <button class="hold-btn" id="holdBtn" aria-label="누르고 있으면 결이 정돈됩니다"><span>꾹 누르고 있기</span></button>
+    <div class="hold-out"><p id="holdOut">결이 정돈되었습니다</p></div>
+  </div>
+</section>
+
+<!-- 시술 메뉴 -->
+<section id="menu">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:56px">
+      <div class="kicker">Price</div>
+      <h2 class="h-sec">시술 <em>메뉴</em></h2>
+      <p class="lede" style="margin-left:auto;margin-right:auto">매장에 붙어 있는 가격표 그대로입니다</p>
+    </div>
+    <div class="menu-grid">
+      <div class="mcard reveal">
+        <span class="no">01</span>
+        <h3>커트 &amp; 드라이</h3>
+        <div class="en">CUT &amp; DRY</div>
+        <ul class="plist">
+          <li><span class="n">남자 컷</span><span class="p">15,000원</span></li>
+          <li><span class="n">여자 컷</span><span class="p">18,000원</span></li>
+          <li><span class="n">주니어 컷</span><span class="p">12,000원</span></li>
+          <li><span class="n">앞머리 컷</span><span class="p">5,000원</span></li>
+          <li><span class="n">샴푸</span><span class="p">10,000원</span></li>
+          <li><span class="n">드라이</span><span class="p">15,000 ~ 20,000원</span></li>
         </ul>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-tag">Our Menu</div>
-      <h2 class="sec-title">시술 <em>메뉴</em></h2>
-      <p class="sec-sub">커트 &amp; 드라이 · 펌 · 염색 · 클리닉<br>당신에게 필요한 모든 것</p>
-    </div>
-    <div class="svc-grid">
-      <div class="svc-card reveal">
-        <span class="svc-num">01</span>
-        <h4>커트 &amp; 드라이</h4>
-        <div class="en">Cut &amp; Dry</div>
-        <ul class="price-list">
-          <li><span class="pname">남자 컷</span><span class="pprice">15,000원</span></li>
-          <li><span class="pname">여자 컷</span><span class="pprice">18,000원</span></li>
-          <li><span class="pname">주니어 컷</span><span class="pprice">12,000원</span></li>
-          <li><span class="pname">앞머리 컷</span><span class="pprice">5,000원</span></li>
-          <li><span class="pname">샴푸</span><span class="pprice">10,000원</span></li>
-          <li><span class="pname">드라이</span><span class="pprice">15,000 ~ 20,000원</span></li>
+      <div class="mcard reveal">
+        <span class="no">02</span>
+        <h3>펌</h3>
+        <div class="en">PERM</div>
+        <ul class="plist">
+          <li><span class="n">남자 베이직</span><span class="p">40,000원</span></li>
+          <li><span class="n">컷 + 다운펌</span><span class="p">35,000원</span></li>
+          <li><span class="n">여자 베이직 펌</span><span class="p">50,000원</span></li>
+          <li><span class="n">직펌</span><span class="p">60,000원</span></li>
+          <li><span class="n">셋팅 펌</span><span class="p">80,000원</span></li>
+          <li><span class="n">매직 펌</span><span class="p">100,000원</span></li>
+          <li><span class="n">매직 셋팅</span><span class="p">120,000원 ~</span></li>
         </ul>
       </div>
-      <div class="svc-card reveal">
-        <span class="svc-num">02</span>
-        <h4>펌</h4>
-        <div class="en">Perm</div>
-        <ul class="price-list">
-          <li><span class="pname">남자 베이직</span><span class="pprice">40,000원</span></li>
-          <li><span class="pname">컷 + 다운펌</span><span class="pprice">35,000원</span></li>
-          <li><span class="pname">여자 베이직 펌</span><span class="pprice">50,000원</span></li>
-          <li><span class="pname">직펌</span><span class="pprice">60,000원</span></li>
-          <li><span class="pname">셋팅 펌</span><span class="pprice">80,000원</span></li>
-          <li><span class="pname">매직 펌</span><span class="pprice">100,000원</span></li>
-          <li><span class="pname">매직 셋팅</span><span class="pprice">120,000원 ~</span></li>
+      <div class="mcard reveal">
+        <span class="no">03</span>
+        <h3>염색</h3>
+        <div class="en">COLOR</div>
+        <ul class="plist">
+          <li><span class="n">리터치</span><span class="p">40,000원</span></li>
+          <li><span class="n">염색</span><span class="p">50,000원</span></li>
+          <li><span class="n">탈색</span><span class="p">50,000원</span></li>
+          <li><span class="n">디자인 염색</span><span class="p">80,000원</span></li>
         </ul>
       </div>
-      <div class="svc-card reveal">
-        <span class="svc-num">03</span>
-        <h4>염색</h4>
-        <div class="en">Color</div>
-        <ul class="price-list">
-          <li><span class="pname">리터치</span><span class="pprice">40,000원</span></li>
-          <li><span class="pname">염색</span><span class="pprice">50,000원</span></li>
-          <li><span class="pname">탈색</span><span class="pprice">50,000원</span></li>
-          <li><span class="pname">디자인 염색</span><span class="pprice">80,000원</span></li>
+      <div class="mcard reveal">
+        <span class="no">04</span>
+        <h3>클리닉</h3>
+        <div class="en">CLINIC</div>
+        <ul class="plist">
+          <li><span class="n">두피 · 모발 클리닉</span><span class="p">50,000 ~ 100,000원</span></li>
         </ul>
+        <p style="color:var(--text-secondary);font-size:.93rem;margin-top:1.4rem;word-break:keep-all">손상 정도에 맞춰 집중 케어로 진행합니다. 시술을 자주 받으신 모발일수록 차이가 크게 납니다.</p>
       </div>
-      <div class="svc-card reveal">
-        <span class="svc-num">04</span>
-        <h4>클리닉</h4>
-        <div class="en">Clinic</div>
-        <ul class="price-list">
-          <li><span class="pname">두피 · 모발 클리닉</span><span class="pprice">50,000 ~ 100,000원</span></li>
+    </div>
+    <p class="mnote">길이에 따라 추가 요금이 생길 수 있습니다. 시술 전에 미리 알려드리니 전화로 편하게 물어보세요.</p>
+  </div>
+</section>
+
+<!-- 갤러리 -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:52px">
+      <div class="kicker">Gallery</div>
+      <h2 class="h-sec">바닐라 헤어가 만든 <em>결</em></h2>
+    </div>
+    <div class="gal-grid" id="galGrid">
+      <div class="gal-item"><img src="갤러리1.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리2.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리3.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리4.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리5.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리6.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리11.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리12.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리13.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리14.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리15.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+      <div class="gal-item"><img src="갤러리16.jpg" alt="바닐라 헤어 스타일" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 스타일 추천 -->
+<section id="recommend">
+  <div class="wrap">
+    <div class="rec reveal">
+      <div class="rec-txt">
+        <div class="kicker">Find My Style</div>
+        <h2 class="h-sec">어떤 머리가<br><em>어울릴지</em> 모르겠다면</h2>
+        <p class="lede">사진 한 장이면 얼굴형을 살펴보고 어울리는 스타일을 알려드립니다. 사진은 손님 휴대폰 안에서만 확인하고 어디에도 저장하지 않습니다.</p>
+        <a class="btn btn-primary" href="추천.html" style="margin-top:2rem">내 스타일 찾아보기</a>
+      </div>
+      <div class="rec-img"><img src="여자스타일1.png" alt="얼굴형별 추천 스타일 안내" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 후기 -->
+<section id="voices">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:52px">
+      <div class="kicker">Voices</div>
+      <h2 class="h-sec">손님들이 <em>남긴 말</em></h2>
+    </div>
+    <div class="quotes">
+      <div class="q reveal">
+        <span class="mark" aria-hidden="true">&ldquo;</span>
+        <p>파마하면 늘 실패했는데, 이번엔 자연스럽고 손질이 편해요.</p>
+        <div class="who">펌 시술 손님</div>
+      </div>
+      <div class="q reveal">
+        <span class="mark" aria-hidden="true">&ldquo;</span>
+        <p>마음에 드는 미용실 찾기가 참 어려운데, 여기서 멈췄어요.</p>
+        <div class="who">단골 손님</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:48px">
+      <div class="kicker">FAQ</div>
+      <h2 class="h-sec">망설이게 되는 <em>것들</em></h2>
+    </div>
+    <div class="faq">
+      <div class="fitem reveal">
+        <button class="fq" aria-expanded="false">처음 가는데 어떤 스타일이 어울릴지 모르겠어요</button>
+        <div class="fa"><p>그 상태로 오셔도 됩니다. 가위를 들기 전에 먼저 이야기부터 합니다. 평소 머리를 어떻게 넘기시는지, 어떤 스타일이 불편했는지만 말씀해 주시면 거기서 찾아갑니다.</p></div>
+      </div>
+      <div class="fitem reveal">
+        <button class="fq" aria-expanded="false">원하는 걸 말해도 다르게 나올까 봐 걱정돼요</button>
+        <div class="fa"><p>가장 많이 듣는 걱정입니다. 그래서 시술 전에 길이와 층을 어디까지 낼지 손으로 짚어 확인하고 시작합니다. 중간에도 한 번 더 보여드립니다.</p></div>
+      </div>
+      <div class="fitem reveal">
+        <button class="fq" aria-expanded="false">손질이 어려운 스타일이 될까 봐요</button>
+        <div class="fa"><p>아침에 머리에 쓸 수 있는 시간을 여쭤보는 이유가 그것입니다. 오 분이면 오 분에 맞는 스타일이 따로 있습니다. 집에서 혼자 되는 선까지만 만듭니다.</p></div>
+      </div>
+      <div class="fitem reveal">
+        <button class="fq" aria-expanded="false">가격이 얼마나 나올지 모르겠어요</button>
+        <div class="fa"><p>메뉴에 적힌 가격이 기본입니다. 머리 길이가 길면 약과 시간이 더 들어 추가 요금이 생기는데, 시술 전에 먼저 알려드립니다. 끝나고 놀라실 일은 없습니다.</p></div>
+      </div>
+      <div class="fitem reveal">
+        <button class="fq" aria-expanded="false">예약을 꼭 해야 하나요</button>
+        <div class="fa"><p>그냥 오셔도 됩니다. 다만 시간대에 따라 기다리실 수 있어서, 전화 한 통 주시면 대기 없이 바로 봐드립니다.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 오시는 길 -->
+<section id="visit">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:52px">
+      <div class="kicker">Visit</div>
+      <h2 class="h-sec">오시는 <em>길</em></h2>
+    </div>
+    <div class="visit">
+      <div class="vcard reveal">
+        <div class="lb">RESERVATION</div>
+        <h3>전화 한 통이면 됩니다</h3>
+        <div class="big"><a href="tel:010-7137-6560">010 7137 6560</a></div>
+        <p style="margin-top:1.4rem">예약 없이 오셔도 좋습니다. 미리 전화 주시면 기다리지 않으셔도 됩니다.</p>
+        <a class="btn btn-primary" href="tel:010-7137-6560" style="margin-top:1.8rem">지금 전화하기</a>
+      </div>
+      <div class="vcard reveal">
+        <div class="lb">ADDRESS &amp; HOURS</div>
+        <h3>전라남도 광양시 광양읍 서평8길 23</h3>
+        <ul class="hours">
+          <li><span>월 · 수 · 목 · 금</span><span>10:00 - 19:00</span></li>
+          <li><span>토 · 일</span><span>10:00 - 19:00</span></li>
+          <li><span>화요일</span><span class="off">휴무</span></li>
         </ul>
-        <p style="font-weight:500;color:var(--ink-soft);font-size:.93rem;margin-top:1.3rem">손상 정도와 모발 상태에 맞춰 집중 케어로 진행되며, 건강한 윤기를 되찾아 드립니다.</p>
-      </div>
-    </div>
-    <p class="svc-note">※ 모든 시술은 모발 길이에 따라 추가 요금이 발생할 수 있습니다. 정확한 가격은 전화 상담으로 안내해 드립니다.</p>
-  </div>
-</section>
-
-<!-- STYLE GALLERY -->
-<section class="gallery" id="gallery">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-tag">Style Gallery</div>
-      <h2 class="sec-title">스타일 <em>갤러리</em></h2>
-      <p class="sec-sub">바닐라 헤어가 완성한 다양한 스타일을 만나보세요</p>
-    </div>
-    <div class="gal-grid">
-      <div class="gal-item reveal"><img src="갤러리1.jpg" alt="바닐라 헤어 스타일 1" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리2.jpg" alt="바닐라 헤어 스타일 2" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리3.jpg" alt="바닐라 헤어 스타일 3" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리4.jpg" alt="바닐라 헤어 스타일 4" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리5.jpg" alt="바닐라 헤어 스타일 5" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리6.jpg" alt="바닐라 헤어 스타일 6" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리11.jpg" alt="바닐라 헤어 스타일 7" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리12.jpg" alt="바닐라 헤어 스타일 8" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리13.jpg" alt="바닐라 헤어 스타일 9" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리14.jpg" alt="바닐라 헤어 스타일 10" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리15.jpg" alt="바닐라 헤어 스타일 11" loading="lazy"></div>
-      <div class="gal-item reveal"><img src="갤러리16.jpg" alt="바닐라 헤어 스타일 12" loading="lazy"></div>
-    </div>
-  </div>
-</section>
-
-<!-- STYLE FINDER -->
-<section class="finder" id="finder">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-tag">Find My Style</div>
-      <h2 class="sec-title">내 스타일 <em>찾기</em></h2>
-      <p class="sec-sub">원하는 스타일을 선택하고<br>다양한 예시를 확인해 보세요</p>
-    </div>
-    <div class="finder-tabs reveal">
-      <button class="finder-tab active" type="button" data-target="panel-man">남자</button>
-      <button class="finder-tab" type="button" data-target="panel-woman">여자</button>
-    </div>
-    <div class="finder-panel active" id="panel-man">
-      <div class="gal-item"><img src="남자스타일1.jpg" alt="남자 스타일 1" loading="lazy"></div>
-      <div class="gal-item"><img src="남자스타일2.jpg" alt="남자 스타일 2" loading="lazy"></div>
-      <div class="gal-item"><img src="남자스타일3.jpg" alt="남자 스타일 3" loading="lazy"></div>
-    </div>
-    <div class="finder-panel" id="panel-woman">
-      <div class="gal-item"><img src="여자스타일1.png" alt="여자 스타일 1" loading="lazy"></div>
-      <div class="gal-item"><img src="여자스타일2.png" alt="여자 스타일 2" loading="lazy"></div>
-      <div class="gal-item"><img src="여자스타일3.png" alt="여자 스타일 3" loading="lazy"></div>
-      <div class="gal-item"><img src="여자스타일4.png" alt="여자 스타일 4" loading="lazy"></div>
-      <div class="gal-item"><img src="여자스타일5.png" alt="여자 스타일 5" loading="lazy"></div>
-      <div class="gal-item"><img src="여자스타일6.png" alt="여자 스타일 6" loading="lazy"></div>
-    </div>
-  </div>
-</section>
-
-<!-- INFO / HOURS -->
-<section class="info" id="info">
-  <div class="wrap">
-    <div class="info-grid">
-      <div class="info-side reveal">
-        <div class="sec-tag">Business Hours</div>
-        <div class="en-big">언제든<br>편하게 <b>방문하세요</b></div>
-        <p>예약 없이 방문하셔도 좋습니다. 대기 없이 편안한 시술을 원하시면 미리 전화 예약을 권해드려요.</p>
-        <div>
-          <span class="info-chip"><span class="ic">☎</span> 010-7137-6560</span>
-          <span class="info-chip"><span class="ic">📍</span> 광양읍 서평8길 23</span>
-        </div>
-      </div>
-      <div class="hours-box reveal">
-        <div class="hours-row"><span class="day">월 · 수 · 목 · 금</span><span class="time">오전 10:00 – 오후 7:00</span></div>
-        <div class="hours-row"><span class="day">토 · 일</span><span class="time">오전 10:00 – 오후 7:00</span></div>
-        <div class="hours-row closed"><span class="day">화요일</span><span class="time">휴무</span></div>
-        <div class="hours-row"><span class="day">점심시간</span><span class="time">별도 문의</span></div>
+        <a class="btn btn-ghost" href="https://map.naver.com/p/entry/place/1018376739" target="_blank" rel="noopener" style="margin-top:1.6rem">네이버 지도로 길찾기</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT / LOCATION -->
-<section class="contact" id="contact">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-tag">Find Us</div>
-      <h2 class="sec-title">오시는 <em>길</em></h2>
-      <p class="sec-sub">광양읍 서평8길, 바닐라 헤어에서 기다리겠습니다</p>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-card reveal">
-        <div class="label">Reservation</div>
-        <h4>전화 예약 · 문의</h4>
-        <div class="val"><a href="tel:010-7137-6560">010·7137·6560</a></div>
-        <div class="contact-actions">
-          <a href="tel:010-7137-6560" class="btn btn-primary">☎ 지금 전화하기</a>
-        </div>
-      </div>
-      <div class="contact-card reveal">
-        <div class="label">Address</div>
-        <h4>매장 위치</h4>
-        <div class="addr">전라남도 광양시 광양읍<br>서평8길 23<br><span style="font-size:.9rem;opacity:.75">바닐라 헤어 (Banilla Hair)</span></div>
-        <div class="contact-actions">
-          <a href="https://map.naver.com/p/entry/place/1018376739" target="_blank" rel="noopener" class="btn btn-ghost">🗺 네이버 지도</a>
-        </div>
-      </div>
-      <div class="map-embed reveal">
-        <div class="pin">
-          <div class="en">Banilla Hair</div>
-          <p>전남 광양시 광양읍 서평8길 23</p>
-          <a href="https://map.naver.com/p/entry/place/1018376739" target="_blank" rel="noopener" class="btn btn-primary">네이버 지도에서 길찾기 →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
+<!-- 마지막 -->
 <section class="final">
   <div class="wrap">
-    <h2>오늘, <em>변화</em>를<br>시작해 보세요</h2>
-    <p>새로운 스타일이 필요한 순간, 바닐라 헤어가 함께합니다. 전화 한 통이면 예약 완료.</p>
-    <a href="tel:010-7137-6560" class="btn btn-white">☎ 010-7137-6560 예약하기</a>
+    <svg class="gyeol reveal" viewBox="0 0 1200 74" preserveAspectRatio="none" aria-hidden="true" style="margin-bottom:52px">
+      <path d="M0 52 C220 12 420 66 620 34 C820 4 1010 46 1200 20"/>
+      <path d="M0 62 C230 26 430 74 640 44 C840 16 1020 56 1200 32"/>
+      <path d="M0 42 C210 6 400 56 610 26 C810 0 1000 38 1200 12"/>
+    </svg>
+    <h2 class="h-sec reveal">다음 머리는<br><em>편한 머리</em>로</h2>
+    <p class="reveal">아침이 달라지는 스타일, 바닐라 헤어에서 찾아드립니다.</p>
+    <a class="btn btn-primary reveal" href="tel:010-7137-6560">예약하기 010-7137-6560</a>
   </div>
 </section>
 
-<!-- FOOTER -->
+</main>
+
 <footer>
   <div class="wrap">
-    <div class="foot-grid">
+    <div class="foot">
       <div>
-        <img class="foot-logo-img" src="logo.png" alt="바닐라 헤어 · Banilla Hair">
-        <div class="foot-info" style="opacity:.7;margin-top:1rem">광양읍 헤어살롱</div>
+        <img src="logo.png" alt="바닐라 헤어">
+        <div>광양읍 헤어살롱</div>
       </div>
-      <div class="foot-info">
+      <div>
         <b>주소</b> 전남 광양시 광양읍 서평8길 23<br>
-        <b>전화</b> 010-7137-6560<br>
-        <b>영업</b> 10:00 – 19:00 (매주 화요일 휴무)
+        <b>전화</b> <a href="tel:010-7137-6560">010-7137-6560</a><br>
+        <b>영업</b> 10:00 - 19:00 (매주 화요일 휴무)
       </div>
     </div>
-    <div class="foot-bottom">
-      <span>© 2025 Banilla Hair. All rights reserved. · <a href="갤러리.html" style="opacity:.55">갤러리 관리</a></span>
-      <span>바닐라 헤어 · Gwangyang</span>
+    <div class="foot-b">
+      <span>© 2025 Banilla Hair</span>
+      <span><a href="갤러리.html">갤러리 관리</a></span>
     </div>
   </div>
 </footer>
 
 <script>
-  // header scroll state
-  const header=document.getElementById('header');
-  window.addEventListener('scroll',()=>{
-    header.classList.toggle('scrolled',window.scrollY>40);
+(function(){
+'use strict';
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+
+/* ===== 네비게이션 ===== */
+const nav=$('#nav');
+addEventListener('scroll',()=>{nav.classList.toggle('solid',scrollY>40)},{passive:true});
+const msheet=$('#msheet'),burger=$('#burger');
+burger.onclick=()=>{msheet.classList.add('open');burger.setAttribute('aria-expanded','true')};
+$('#msheetX').onclick=close;
+msheet.querySelectorAll('a').forEach(a=>a.onclick=close);
+function close(){msheet.classList.remove('open');burger.setAttribute('aria-expanded','false')}
+
+/* ===== 히어로 스크럽 ===== */
+const VIDEO_URL='assets/hero-scrub.mp4';
+const VIDEO_BYTES=3941070;
+const POSTER='assets/hero-poster.jpg';
+const hero=$('.hero'),stage=$('#stage'),video=$('#hero'),poster=$('#poster');
+const ring=$('#ringWrap .ring circle'),ringWrap=$('#ringWrap'),cue=$('#cue');
+const bands=$$('.band').map(el=>({
+  el,a:+el.dataset.a,b:+el.dataset.b,
+  ramp:el.dataset.ramp?+el.dataset.ramp:null,
+  op:-1,k:-1
+}));
+
+/* 글자 쪼개기 (시드 고정 난수) */
+function rng(seed){let s=seed>>>0;return()=>(s=(s*1664525+1013904223)>>>0)/4294967296}
+$$('[data-split="word"]').forEach((el,idx)=>{
+  const rand=rng(1234+idx*77);
+  const words=el.textContent.trim().split(/\s+/);
+  const em=el.dataset.em;
+  el.textContent='';
+  words.forEach((w,i)=>{
+    const s=document.createElement('span');
+    s.className='w'+(em&&w.indexOf(em)>-1?' em':'');
+    s.style.setProperty('--th',(i/Math.max(1,words.length)*0.45+rand()*0.06).toFixed(3));
+    s.textContent=w;
+    el.appendChild(s);
+    if(i<words.length-1) el.appendChild(document.createTextNode(' '));
   });
+});
 
-  // mobile menu
-  const mm=document.getElementById('mobileMenu');
-  document.getElementById('menuToggle').onclick=()=>mm.classList.add('open');
-  document.getElementById('menuClose').onclick=()=>mm.classList.remove('open');
-  mm.querySelectorAll('a').forEach(a=>a.onclick=()=>mm.classList.remove('open'));
+const smoothstep=(p,e0,e1)=>{const t=Math.min(1,Math.max(0,(p-e0)/(e1-e0)));return t*t*(3-2*t)};
+const clamp=(v,lo,hi)=>Math.min(hi,Math.max(lo,v));
 
-  // reveal on scroll
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-  },{threshold:.15});
-  document.querySelectorAll('.reveal').forEach((el,i)=>{
-    el.style.transitionDelay=(i%3*0.08)+'s';
-    io.observe(el);
-  });
+function heroProgress(){
+  const r=hero.getBoundingClientRect();
+  const range=hero.offsetHeight-innerHeight;
+  if(range<=0) return 0;
+  return clamp(-r.top/range,0,1);
+}
 
-  // 내 스타일 찾기 탭
-  document.querySelectorAll('.finder-tab').forEach(tab=>{
-    tab.addEventListener('click',()=>{
-      const target=tab.dataset.target;
-      document.querySelectorAll('.finder-tab').forEach(b=>b.classList.toggle('active',b===tab));
-      document.querySelectorAll('.finder-panel').forEach(p=>p.classList.toggle('active',p.id===target));
-    });
-  });
+let target=0,shown=0,rafId=null,lastTick=0,heroOnScreen=true;
+let seekBusy=false,pendingTime=null;
+let loadK=0,loadStart=0,loadRunning=false;
 
-  // 갤러리 관리 페이지에서 올린 사진을 메인 '스타일 갤러리'에 표시 (모든 방문자에게 공개)
-  (async function(){
-    const grid=document.querySelector('.gal-grid');
-    if(!grid) return;
-    try{
-      const res=await fetch('gallery/photos.json?t='+Date.now(),{cache:'no-store'});
-      if(!res.ok) return;
-      const photos=await res.json();
-      if(!Array.isArray(photos)||!photos.length) return;
-      const frag=document.createDocumentFragment();
-      photos.forEach(p=>{
-        if(!p||!p.file) return;
-        const d=document.createElement('div');
-        d.className='gal-item';
-        if(p.cap) d.title=p.cap;
-        const img=document.createElement('img');
-        img.src='gallery/'+p.file;
-        img.alt=p.cap ? p.cap.slice(0,60) : '바닐라 헤어 스타일';
-        img.loading='lazy';
-        d.appendChild(img);
-        frag.appendChild(d);
-      });
-      grid.insertBefore(frag, grid.firstChild);   // 최신 업로드가 맨 앞에
-    }catch(e){ /* 목록이 없으면 기존 갤러리만 표시 */ }
-  })();
+function requestSeek(t){
+  if(!video.duration||isNaN(video.duration)) return;
+  if(seekBusy){pendingTime=t;return}
+  seekBusy=true;
+  try{video.currentTime=t}catch(e){seekBusy=false}
+}
+video.addEventListener('seeked',()=>{
+  seekBusy=false;
+  if(pendingTime!==null){const t=pendingTime;pendingTime=null;requestSeek(t)}
+});
+video.addEventListener('error',()=>{seekBusy=false;pendingTime=null;failVideo()});
 
-  // hero 원장님 photo slideshow (위/아래 번갈아 슬라이드)
-  const heroPhotos=document.querySelectorAll('.hero-photos img');
-  if(heroPhotos.length){
-    let hp=0;
-    heroPhotos[0].classList.add('active');
-    setInterval(()=>{
-      heroPhotos[hp].classList.remove('active');
-      hp=(hp+1)%heroPhotos.length;
-      heroPhotos[hp].classList.add('active');
-    },3400);
+function updateCaptions(p){
+  for(const b of bands){
+    const f=Math.min(0.02,(b.b-b.a)/3);
+    const isFirst=b.a<=0, isLast=b.b>=1;
+    const inE=isFirst?1:smoothstep(p,b.a,b.a+f);
+    const outE=isLast?1:(1-smoothstep(p,b.b-f,b.b));
+    let op=inE*outE;
+    let k=clamp((p-b.a)/(b.ramp||Math.min(0.025,(b.b-b.a)*0.35)),0,1);
+    if(isFirst) k=Math.max(k,loadK);
+    if(Math.abs(op-b.op)>0.004){
+      b.op=op;
+      b.el.style.opacity=op.toFixed(3);
+      b.el.classList.toggle('on',op>0.5);
+    }
+    if(Math.abs(k-b.k)>0.008){b.k=k;b.el.style.setProperty('--k',k.toFixed(3))}
   }
+}
+
+function tick(now){
+  const dt=Math.min(100,now-(lastTick||now));
+  lastTick=now;
+  const kk=0.16;
+  shown+=(target-shown)*(1-Math.pow(1-kk,dt/16.667));
+  let more=Math.abs(target-shown)>=0.0005;
+  if(!more){shown=target;lastTick=0}
+  if(loadRunning){
+    loadK=clamp((now-loadStart)/900,0,1);
+    if(loadK>=1) loadRunning=false; else more=true;
+  }
+  requestSeek(shown*(video.duration||0));
+  updateCaptions(shown);
+  rafId=more?requestAnimationFrame(tick):null;
+}
+function onScroll(){
+  target=heroProgress();
+  if(rafId===null&&heroOnScreen) rafId=requestAnimationFrame(tick);
+}
+
+if('IntersectionObserver' in window){
+  new IntersectionObserver(es=>{heroOnScreen=es[0].isIntersecting},{threshold:0})
+    .observe(hero);
+}
+
+/* Blob 스트리밍 + 로딩 링 */
+let started=false;
+function startBlobFetch(){if(started)return;started=true;loadHeroBlob().catch(failVideo)}
+async function loadHeroBlob(){
+  const ctrl=new AbortController();
+  let wd=setTimeout(()=>ctrl.abort(),20000);
+  const res=await fetch(VIDEO_URL,{signal:ctrl.signal});
+  if(!res.ok) throw new Error('http');
+  const total=Number(res.headers.get('Content-Length'))||VIDEO_BYTES;
+  const reader=res.body.getReader();
+  const chunks=[];let got=0,lastRing=0;
+  for(;;){
+    const {done,value}=await reader.read();
+    if(done) break;
+    clearTimeout(wd);wd=setTimeout(()=>ctrl.abort(),20000);
+    chunks.push(value);got+=value.length;
+    const frac=Math.min(1,got/total),now=performance.now();
+    if(now-lastRing>100||frac===1){lastRing=now;ring.style.setProperty('--ld',Math.round(126*(1-frac)))}
+  }
+  clearTimeout(wd);
+  ring.style.setProperty('--ld',0);
+  video.src=URL.createObjectURL(new Blob(chunks));
+  video.load();
+  video.addEventListener('canplay',()=>{
+    requestSeek(heroProgress()*video.duration);
+    stage.classList.add('video-ready');
+  },{once:true});
+}
+function failVideo(){
+  if(ringWrap) ringWrap.style.display='none';
+  video.style.display='none';
+  stage.classList.add('video-failed');
+}
+
+function initHeroOnce(){
+  if(initHeroOnce.done) return;initHeroOnce.done=true;
+  poster.style.backgroundImage="url('"+POSTER+"')";
+  const pi=new Image();
+  pi.onload=startBlobFetch;pi.onerror=startBlobFetch;pi.src=POSTER;
+  setTimeout(startBlobFetch,4000);
+  loadStart=performance.now();loadRunning=true;
+}
+
+/* 다섯 개 게이트 (CSS와 문자 단위로 동일) */
+const GATES=[
+  '(max-width: 720px)',
+  '(orientation: portrait) and (max-width: 1024px)',
+  '(orientation: portrait) and (pointer: coarse)',
+  '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)',
+  '(prefers-reduced-motion: reduce)'
+];
+let scrubOn=false;
+function enableScrub(){
+  if(scrubOn) return;scrubOn=true;
+  initHeroOnce();
+  addEventListener('scroll',onScroll,{passive:true});
+  bands.forEach(b=>{b.op=-1;b.k=-1});
+  unpinFinalStates();
+  updateCaptions(heroProgress());
+  onScroll();
+}
+function disableScrub(){
+  if(!scrubOn) return;scrubOn=false;
+  removeEventListener('scroll',onScroll);
+  if(rafId!==null){cancelAnimationFrame(rafId);rafId=null}
+}
+const MQLS=GATES.map(q=>matchMedia(q));
+function applyHeroMode(){
+  if(MQLS.some(m=>m.matches)) disableScrub(); else enableScrub();
+}
+MQLS.forEach(m=>m.addEventListener('change',applyHeroMode));
+$('#staticBg').style.backgroundImage="url('assets/hero-ending.jpg')";
+
+/* ===== 섹션 등장 ===== */
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    e.target.classList.add('in');
+    if(e.target.classList.contains('stag')){
+      setTimeout(()=>e.target.classList.add('done'),1200);
+    }
+    io.unobserve(e.target);
+  });
+},{threshold:.16,rootMargin:'0px 0px -8% 0px'});
+$$('.reveal,.stag,.gyeol').forEach(el=>io.observe(el));
+
+/* 결 선 길이 계산 */
+$$('.gyeol path').forEach(p=>{
+  const L=Math.ceil(p.getTotalLength());
+  p.style.setProperty('--len',L);
+});
+
+/* 먼지 입자 */
+const dust=$('.dust');
+if(dust){
+  const r=rng(99);
+  for(let i=0;i<9;i++){
+    const d=document.createElement('i');
+    d.style.left=(r()*100).toFixed(1)+'%';
+    d.style.top=(60+r()*40).toFixed(1)+'%';
+    d.style.animationDelay=(-r()*15).toFixed(1)+'s';
+    d.style.animationDuration=(11+r()*8).toFixed(1)+'s';
+    dust.appendChild(d);
+  }
+}
+
+/* ===== 인터랙티브: 결 정돈하기 ===== */
+const holdSvg=$('#holdSvg'),holdBtn=$('#holdBtn'),holdOut=$('#holdOut');
+const STRANDS=17;
+const strandData=[];
+(function buildStrands(){
+  const r=rng(2024);
+  const NS='http://www.w3.org/2000/svg';
+  for(let i=0;i<STRANDS;i++){
+    const y=20+i*(210/(STRANDS-1));
+    const p=document.createElementNS(NS,'path');
+    const wob=(r()-.5)*62;
+    p.setAttribute('d','M10 '+y.toFixed(1)+' C 265 '+(y+wob).toFixed(1)+', 590 '+(y-wob).toFixed(1)+', 990 '+y.toFixed(1));
+    p.setAttribute('stroke',i%4===0?'var(--accent)':(i%3===0?'var(--gold)':'var(--accent-muted)'));
+    p.setAttribute('stroke-width',(1+r()*0.8).toFixed(2));
+    const jy=(r()-.5)*42,jr=(r()-.5)*8;
+    strandData.push({p,jy,jr,op:.30+r()*.28});
+    holdSvg.appendChild(p);
+  }
+  applyHold(0);
+})();
+function applyHold(v){
+  strandData.forEach(s=>{
+    const t=1-v;
+    s.p.style.transform='translateY('+(s.jy*t).toFixed(2)+'px) rotate('+(s.jr*t).toFixed(2)+'deg)';
+    s.p.style.opacity=(s.op+(1-s.op)*v*0.9).toFixed(3);
+  });
+  holdBtn.style.setProperty('--hp',v.toFixed(3));
+  holdOut.style.setProperty('--ho',v>=0.995?1:0);
+}
+let hp=0,holding=false,holdRaf=null,holdDone=false;
+function holdTick(){
+  hp=holding?Math.min(1,hp+0.018):Math.max(0,hp-0.024);
+  applyHold(hp);
+  if(hp>=1&&!holdDone){holdDone=true;holdBtn.querySelector('span').textContent='정돈 완료'}
+  if(hp<1&&holdDone&&!holding){holdDone=false;holdBtn.querySelector('span').textContent='꾹 누르고 있기'}
+  holdRaf=(holding&&hp<1)||(!holding&&hp>0)?requestAnimationFrame(holdTick):null;
+}
+function holdStart(e){e.preventDefault();holding=true;if(holdRaf===null)holdRaf=requestAnimationFrame(holdTick)}
+function holdEnd(){holding=false;if(holdRaf===null)holdRaf=requestAnimationFrame(holdTick)}
+holdBtn.addEventListener('mousedown',holdStart);
+holdBtn.addEventListener('touchstart',holdStart,{passive:false});
+addEventListener('mouseup',holdEnd);
+addEventListener('touchend',holdEnd);
+holdBtn.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){holdStart(e)}});
+holdBtn.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter'){holdEnd()}});
+
+/* ===== FAQ ===== */
+$$('.fq').forEach(b=>{
+  b.onclick=()=>{
+    const it=b.parentElement,open=it.classList.toggle('open');
+    b.setAttribute('aria-expanded',open?'true':'false');
+  };
+});
+
+/* ===== 갤러리: 업로드된 사진 ===== */
+(async function loadUploaded(){
+  const grid=$('#galGrid');
+  if(!grid) return;
+  try{
+    const res=await fetch('gallery/photos.json?t='+Date.now(),{cache:'no-store'});
+    if(!res.ok) return;
+    const photos=await res.json();
+    if(!Array.isArray(photos)||!photos.length) return;
+    const frag=document.createDocumentFragment();
+    photos.forEach(p=>{
+      if(!p||!p.file) return;
+      const d=document.createElement('div');
+      d.className='gal-item';
+      if(p.cap) d.title=p.cap;
+      const img=document.createElement('img');
+      img.src='gallery/'+p.file;
+      img.alt=p.cap?p.cap.slice(0,60):'바닐라 헤어 스타일';
+      img.loading='lazy';
+      d.appendChild(img);
+      frag.appendChild(d);
+    });
+    grid.insertBefore(frag,grid.firstChild);
+  }catch(e){}
+})();
+
+/* ===== 모션 최소화: 양방향 ===== */
+function pinToFinalStates(){
+  $$('.reveal,.stag,.gyeol').forEach(el=>el.classList.add('in'));
+  $$('.stag').forEach(el=>el.classList.add('done'));
+  applyHold(1);
+  if(holdRaf!==null){cancelAnimationFrame(holdRaf);holdRaf=null}
+  holding=false;hp=1;
+  bands.forEach(b=>{b.el.style.opacity='';b.el.style.removeProperty('--k')});
+}
+function unpinFinalStates(){
+  applyHold(hp);
+}
+matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{
+  if(e.matches){disableScrub();pinToFinalStates()}
+  else applyHeroMode();
+});
+
+/* ===== 탭 숨김 시 정지 ===== */
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('paused',document.hidden);
+});
+
+applyHeroMode();
+})();
 </script>
 </body>
 </html>
