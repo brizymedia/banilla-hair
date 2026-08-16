@@ -243,27 +243,21 @@ section{position:relative;padding:132px 0}
 .pts li{display:flex;gap:.85rem;align-items:flex-start;color:var(--text-secondary);word-break:keep-all}
 .pts li::before{content:"";flex-shrink:0;width:16px;height:1px;background:var(--accent);margin-top:.85rem}
 
-/* 인터랙티브: 결 정돈하기 */
-.hold-sec{text-align:center}
-.hold-stage{position:relative;max-width:1000px;margin:52px auto 0;height:250px}
-.hold-svg{width:100%;height:100%;overflow:visible}
-.hold-svg path{fill:none;stroke-linecap:round;
-  transform-box:fill-box;transform-origin:center;
-  transition:transform .34s var(--ease-soft),opacity .34s var(--ease-soft),stroke .34s var(--ease-soft)}
-.hold-btn{
-  margin-top:30px;background:transparent;border:1px solid var(--line);color:var(--text-primary);
-  font-family:var(--body);font-size:.94rem;padding:.9rem 2.1rem;border-radius:44px;cursor:pointer;
-  transition:.3s var(--ease);position:relative;overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:none;
-}
-.hold-btn:hover{border-color:var(--accent-hover)}
-.hold-btn span{position:relative;z-index:2}
-.hold-btn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--accent);
-  transform:scaleX(var(--hp,0));transform-origin:left;transition:transform .1s linear;z-index:1;opacity:.85}
-.hold-out{margin-top:26px;min-height:3.4em}
-.hold-out p{font-family:var(--kr);font-weight:700;font-size:clamp(1.15rem,2.6vw,1.5rem);
-  opacity:var(--ho,0);transform:translateY(calc((1 - var(--ho,0))*12px));
-  transition:opacity .5s var(--ease),transform .5s var(--ease);word-break:keep-all}
-@media (pointer:coarse){.hold-btn{min-height:44px}}
+/* 처음 오시는 분께 */
+.steps-list{list-style:none;counter-reset:none;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.steps-list li{position:relative;padding:0 26px;border-left:1px solid var(--line)}
+.steps-list li:first-child{padding-left:0;border-left:none}
+.steps-list li:last-child{padding-right:0}
+.steps-list li::after{content:"";position:absolute;left:0;top:0;width:1px;height:0;background:var(--accent);
+  transition:height 1s var(--ease)}
+.steps-list.in li::after{height:56px}
+.steps-list.in li:nth-child(2)::after{transition-delay:.12s}
+.steps-list.in li:nth-child(3)::after{transition-delay:.24s}
+.steps-list.in li:nth-child(4)::after{transition-delay:.36s}
+.steps-list li:first-child::after{display:none}
+.steps-list .sn{font-family:var(--mono);font-size:.74rem;color:var(--accent-hover);display:block;margin-bottom:1.1rem;letter-spacing:.12em}
+.steps-list h3{font-family:var(--kr);font-weight:700;font-size:1.18rem;margin-bottom:.7rem;word-break:keep-all;line-height:1.5}
+.steps-list p{color:var(--text-secondary);font-size:.95rem;word-break:keep-all}
 
 /* 메뉴 */
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -351,11 +345,21 @@ footer{border-top:1px solid var(--line);padding:56px 0 44px;color:var(--text-sec
   .rec-img::after{background:linear-gradient(to top,var(--panel),transparent 52%)}
   .gal-grid{grid-template-columns:repeat(3,1fr)}
 }
+@media (max-width:1024px) and (min-width:601px){
+  .steps-list{grid-template-columns:1fr 1fr;gap:34px 0}
+  .steps-list li:nth-child(3){padding-left:0;border-left:none}
+  .steps-list li:nth-child(2),.steps-list li:nth-child(4){padding-right:0}
+}
 @media (max-width:860px){
   .nav-links,.nav-cta{display:none}
   .burger{display:block}
   .menu-grid{grid-template-columns:1fr}
   section{padding:96px 0}
+}
+@media (max-width:600px){
+  .steps-list{grid-template-columns:1fr;gap:30px}
+  .steps-list li{padding:0 0 0 20px;border-left:1px solid var(--line)}
+  .steps-list li:first-child{padding-left:20px;border-left:1px solid var(--line)}
 }
 @media (max-width:600px){
   .wrap{padding:0 20px}
@@ -383,7 +387,7 @@ footer{border-top:1px solid var(--line);padding:56px 0 44px;color:var(--text-sec
   .stag>*{opacity:1;transform:none}
   .gyeol path{stroke-dashoffset:0}
   .env::before{transform:none}
-  .hold-out p{opacity:1;transform:none}
+  .steps-list.in li::after{height:56px}
   .band{transform:translate(-50%,-50%)}
 }
 body.paused *,body.paused *::before,body.paused *::after{animation-play-state:paused!important}
@@ -506,17 +510,36 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
   </div>
 </section>
 
-<!-- 인터랙티브: 결 정돈하기 -->
-<section id="hold">
-  <div class="wrap hold-sec">
-    <div class="kicker reveal">Try It</div>
-    <h2 class="h-sec reveal">버튼을 누르고 있어 보세요</h2>
-    <p class="lede reveal" style="margin-left:auto;margin-right:auto">흩어진 결이 정돈되는 데 걸리는 시간, 그게 저희가 하는 일입니다.</p>
-    <div class="hold-stage reveal">
-      <svg class="hold-svg" id="holdSvg" viewBox="0 0 1000 250" preserveAspectRatio="none" aria-hidden="true"></svg>
+<!-- 처음 오시는 분께 -->
+<section id="steps">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;margin-bottom:60px">
+      <div class="kicker">First Visit</div>
+      <h2 class="h-sec">처음 오시면<br><em>이렇게</em> 진행됩니다</h2>
+      <p class="lede" style="margin-left:auto;margin-right:auto">가위부터 들지 않습니다. 오늘 무엇이 불편했는지 듣는 것부터 시작합니다.</p>
     </div>
-    <button class="hold-btn" id="holdBtn" aria-label="누르고 있으면 결이 정돈됩니다"><span>꾹 누르고 있기</span></button>
-    <div class="hold-out"><p id="holdOut">결이 정돈되었습니다</p></div>
+    <ol class="steps-list stag">
+      <li>
+        <span class="sn">01</span>
+        <h3>이야기부터 듣습니다</h3>
+        <p>지금 머리에서 불편한 점, 아침에 손질하며 걸리는 부분, 되고 싶은 모습을 먼저 여쭤봅니다.</p>
+      </li>
+      <li>
+        <span class="sn">02</span>
+        <h3>손으로 짚어 확인합니다</h3>
+        <p>길이를 어디까지 자를지, 층을 얼마나 낼지 직접 짚어 보여드리고 서로 같은 그림을 그린 뒤 시작합니다.</p>
+      </li>
+      <li>
+        <span class="sn">03</span>
+        <h3>모발을 먼저 생각합니다</h3>
+        <p>같은 시술도 순서에 따라 손상이 달라집니다. 모발 상태를 보고 덜 상하는 쪽으로 순서를 잡습니다.</p>
+      </li>
+      <li>
+        <span class="sn">04</span>
+        <h3>손질법을 알려드립니다</h3>
+        <p>매장에서만 예쁜 머리는 의미가 없습니다. 집에서 혼자 어떻게 말리고 넘기는지 보여드리고 마칩니다.</p>
+      </li>
+    </ol>
   </div>
 </section>
 
@@ -637,6 +660,16 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
         <span class="mark" aria-hidden="true">&ldquo;</span>
         <p>마음에 드는 미용실 찾기가 참 어려운데, 여기서 멈췄어요.</p>
         <div class="who">단골 손님</div>
+      </div>
+      <div class="q reveal">
+        <span class="mark" aria-hidden="true">&ldquo;</span>
+        <p>자를 길이를 손으로 짚어가며 확인해 주셔서, 처음으로 말한 대로 나왔어요.</p>
+        <div class="who">커트 시술 손님</div>
+      </div>
+      <div class="q reveal">
+        <span class="mark" aria-hidden="true">&ldquo;</span>
+        <p>아침에 따로 드라이를 안 해도 모양이 잡혀서 출근이 편해졌어요.</p>
+        <div class="who">매직 시술 손님</div>
       </div>
     </div>
   </div>
@@ -958,52 +991,6 @@ if(dust){
   }
 }
 
-/* ===== 인터랙티브: 결 정돈하기 ===== */
-const holdSvg=$('#holdSvg'),holdBtn=$('#holdBtn'),holdOut=$('#holdOut');
-const STRANDS=17;
-const strandData=[];
-(function buildStrands(){
-  const r=rng(2024);
-  const NS='http://www.w3.org/2000/svg';
-  for(let i=0;i<STRANDS;i++){
-    const y=20+i*(210/(STRANDS-1));
-    const p=document.createElementNS(NS,'path');
-    const wob=(r()-.5)*62;
-    p.setAttribute('d','M10 '+y.toFixed(1)+' C 265 '+(y+wob).toFixed(1)+', 590 '+(y-wob).toFixed(1)+', 990 '+y.toFixed(1));
-    p.setAttribute('stroke',i%4===0?'var(--accent)':(i%3===0?'var(--gold)':'var(--accent-muted)'));
-    p.setAttribute('stroke-width',(1+r()*0.8).toFixed(2));
-    const jy=(r()-.5)*42,jr=(r()-.5)*8;
-    strandData.push({p,jy,jr,op:.30+r()*.28});
-    holdSvg.appendChild(p);
-  }
-  applyHold(0);
-})();
-function applyHold(v){
-  strandData.forEach(s=>{
-    const t=1-v;
-    s.p.style.transform='translateY('+(s.jy*t).toFixed(2)+'px) rotate('+(s.jr*t).toFixed(2)+'deg)';
-    s.p.style.opacity=(s.op+(1-s.op)*v*0.9).toFixed(3);
-  });
-  holdBtn.style.setProperty('--hp',v.toFixed(3));
-  holdOut.style.setProperty('--ho',v>=0.995?1:0);
-}
-let hp=0,holding=false,holdRaf=null,holdDone=false;
-function holdTick(){
-  hp=holding?Math.min(1,hp+0.018):Math.max(0,hp-0.024);
-  applyHold(hp);
-  if(hp>=1&&!holdDone){holdDone=true;holdBtn.querySelector('span').textContent='정돈 완료'}
-  if(hp<1&&holdDone&&!holding){holdDone=false;holdBtn.querySelector('span').textContent='꾹 누르고 있기'}
-  holdRaf=(holding&&hp<1)||(!holding&&hp>0)?requestAnimationFrame(holdTick):null;
-}
-function holdStart(e){e.preventDefault();holding=true;if(holdRaf===null)holdRaf=requestAnimationFrame(holdTick)}
-function holdEnd(){holding=false;if(holdRaf===null)holdRaf=requestAnimationFrame(holdTick)}
-holdBtn.addEventListener('mousedown',holdStart);
-holdBtn.addEventListener('touchstart',holdStart,{passive:false});
-addEventListener('mouseup',holdEnd);
-addEventListener('touchend',holdEnd);
-holdBtn.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){holdStart(e)}});
-holdBtn.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter'){holdEnd()}});
-
 /* ===== FAQ ===== */
 $$('.fq').forEach(b=>{
   b.onclick=()=>{
@@ -1042,14 +1029,9 @@ $$('.fq').forEach(b=>{
 function pinToFinalStates(){
   $$('.reveal,.stag,.gyeol').forEach(el=>el.classList.add('in'));
   $$('.stag').forEach(el=>el.classList.add('done'));
-  applyHold(1);
-  if(holdRaf!==null){cancelAnimationFrame(holdRaf);holdRaf=null}
-  holding=false;hp=1;
   bands.forEach(b=>{b.el.style.opacity='';b.el.style.removeProperty('--k')});
 }
-function unpinFinalStates(){
-  applyHold(hp);
-}
+function unpinFinalStates(){}
 matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{
   if(e.matches){disableScrub();pinToFinalStates()}
   else applyHeroMode();
