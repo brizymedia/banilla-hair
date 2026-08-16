@@ -499,7 +499,7 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
         </ul>
       </div>
       <div class="about-visual reveal">
-        <img src="assets/hero-ending.jpg" alt="윤기 있는 머릿결" loading="lazy">
+        <img src="assets/about-wave.jpg" alt="웨이브 시술을 마친 머릿결" loading="lazy">
         <div class="dust" aria-hidden="true"></div>
       </div>
     </div>
@@ -756,7 +756,7 @@ function close(){msheet.classList.remove('open');burger.setAttribute('aria-expan
 
 /* ===== 히어로 스크럽 ===== */
 const VIDEO_URL='assets/hero-scrub.mp4';
-const VIDEO_BYTES=2159746;
+const VIDEO_BYTES=1925647;
 const POSTER='assets/hero-poster.jpg';
 const hero=$('.hero'),stage=$('#stage'),video=$('#hero'),poster=$('#poster');
 const ring=$('#ringWrap .ring circle'),ringWrap=$('#ringWrap'),cue=$('#cue');
@@ -830,7 +830,7 @@ function updateCaptions(p){
 function tick(now){
   const dt=Math.min(100,now-(lastTick||now));
   lastTick=now;
-  const kk=0.16;
+  const kk=0.22;
   shown+=(target-shown)*(1-Math.pow(1-kk,dt/16.667));
   let more=Math.abs(target-shown)>=0.0005;
   if(!more){shown=target;lastTick=0}
