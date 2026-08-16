@@ -123,9 +123,9 @@ main,header,footer{position:relative;z-index:1}
   text-shadow:var(--tshadow);
 }
 .band::before{
-  content:"";position:absolute;inset:-14% -10%;pointer-events:none;z-index:-1;
+  content:"";position:absolute;inset:-150% -60%;pointer-events:none;z-index:-1;
   opacity:calc(.25 + .75*var(--k,1));
-  background:radial-gradient(ellipse 74% 62% at 50% 50%,rgba(5,4,8,.68) 0%,rgba(5,4,8,.46) 46%,rgba(5,4,8,0) 76%);
+  background:radial-gradient(ellipse 44% 30% at 50% 50%,rgba(4,3,6,.88) 0%,rgba(4,3,6,.72) 38%,rgba(4,3,6,.36) 64%,rgba(4,3,6,0) 92%);
 }
 .band.on{pointer-events:auto}
 .band h2,.band .h2{
@@ -756,7 +756,7 @@ function close(){msheet.classList.remove('open');burger.setAttribute('aria-expan
 
 /* ===== 히어로 스크럽 ===== */
 const VIDEO_URL='assets/hero-scrub.mp4';
-const VIDEO_BYTES=3941070;
+const VIDEO_BYTES=2159746;
 const POSTER='assets/hero-poster.jpg';
 const hero=$('.hero'),stage=$('#stage'),video=$('#hero'),poster=$('#poster');
 const ring=$('#ringWrap .ring circle'),ringWrap=$('#ringWrap'),cue=$('#cue');
