@@ -5,452 +5,431 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>갤러리 관리 · 바닐라 헤어</title>
 <meta name="robots" content="noindex">
+<meta name="description" content="바닐라 헤어 갤러리 관리. 사진을 올리면 웹용으로 줄여서 홈페이지 갤러리에 바로 공개됩니다.">
+<meta name="theme-color" content="#17110f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2317110f'/%3E%3Cpath d='M9 7c6-2 13 1 15 7-3-2-6-2-8 0 3 1 5 3 5 6-3-4-8-4-12-6' fill='%23e0006c'/%3E%3Cpath d='M9 7c-3 2-4 6-4 9 0 4 2 7 6 8' stroke='%23e0006c' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
-<meta name="description" content="바닐라 헤어 갤러리 관리 — 사진을 올리면 웹용으로 압축되어 홈페이지 갤러리에 바로 공개됩니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Noto+Serif+KR:wght@400;500;600;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Nanum+Myeongjo:wght@700&family=Noto+Sans+KR:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --pink:#e0006c;--pink-deep:#b60057;--pink-soft:#ffd9ea;
-    --ink:#241a1f;--ink-soft:#5a4c53;--cream:#fbf6f2;--cream-2:#f4ebe4;
-    --white:#fff;--line:rgba(36,26,31,.14);--ok:#03a55a;--warn:#c0392b;
-    --serif:"Noto Serif KR",serif;--display:"Cormorant Garamond",serif;--sans:"Gowun Dodum",sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:var(--serif);font-weight:500;color:var(--ink);background:var(--cream);line-height:1.7;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  img{display:block;max-width:100%}
-  .wrap{max-width:1000px;margin:0 auto;padding:0 22px}
-  ::selection{background:var(--pink);color:#fff}
+:root{
+  --canvas:#17110f;--panel:#211a17;--panel-2:#2b2220;
+  --accent:#e0006c;--accent-hover:#ff2d87;--accent-muted:#5d2740;
+  --text-primary:#f5ede6;--text-secondary:#b9a99f;--gold:#d9a878;
+  --line:rgba(245,237,230,.14);--ok:#38c172;--warn:#ff6b6b;
+  --display:"Italiana",serif;--kr:"Nanum Myeongjo",serif;
+  --body:"Noto Sans KR",sans-serif;--mono:"Space Mono",monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow-x:hidden;overflow-x:clip}
+body{background:var(--canvas);color:var(--text-primary);font-family:var(--body);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent-hover);outline-offset:3px;border-radius:4px}
+.wrap{max-width:940px;margin:0 auto;padding:0 22px}
+.keep{word-break:keep-all}
 
-  header{position:sticky;top:0;z-index:50;background:rgba(251,246,242,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-  .nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:12px}
-  .brand img{height:34px}
-  .navr{display:flex;align-items:center;gap:10px}
-  .pill{font-family:var(--sans);font-size:.82rem;padding:.4rem .9rem;border-radius:40px;border:1px solid var(--line);color:var(--ink-soft);white-space:nowrap}
-  .pill.on{border-color:var(--ok);color:var(--ok)}
-  .pill.off{border-color:var(--warn);color:var(--warn)}
-  .back{font-family:var(--sans);font-size:.88rem;color:var(--pink);border:1.5px solid var(--pink);padding:.45rem 1.1rem;border-radius:40px;transition:.25s;white-space:nowrap}
-  .back:hover{background:var(--pink);color:#fff}
+header{position:sticky;top:0;z-index:50;background:rgba(23,17,15,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:14px}
+.nav img{height:32px}
+.navr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{font-family:var(--mono);font-size:.72rem;padding:.35rem .85rem;border-radius:40px;border:1px solid var(--line);color:var(--text-secondary);white-space:nowrap}
+.pill.on{border-color:var(--ok);color:var(--ok)}
+.pill.off{border-color:var(--warn);color:var(--warn)}
+.back{font-size:.86rem;color:var(--accent-hover);border:1px solid var(--accent);padding:.42rem 1.05rem;border-radius:40px;transition:.28s var(--ease);white-space:nowrap}
+.back:hover{background:var(--accent);color:#fff}
 
-  .top{padding:48px 0 26px;text-align:center}
-  .top .tag{font-family:var(--sans);font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--pink);margin-bottom:.7rem}
-  .top h1{font-family:var(--display);font-size:clamp(2.1rem,6vw,3rem);font-weight:600;line-height:1.1}
-  .top h1 em{font-style:italic;color:var(--pink)}
-  .top p{color:var(--ink-soft);margin-top:.7rem;font-size:1rem}
+.top{padding:52px 0 22px;text-align:center}
+.top .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--accent-hover);margin-bottom:.8rem}
+.top h1{font-family:var(--kr);font-weight:700;font-size:clamp(1.9rem,5.4vw,2.7rem);line-height:1.28}
+.top h1 em{font-style:normal;color:var(--accent-hover)}
+.top p{color:var(--text-secondary);margin-top:.8rem;font-size:.99rem}
 
-  section{padding:20px 0 34px}
-  .card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:28px 24px;box-shadow:0 24px 50px -34px rgba(36,26,31,.3);margin-bottom:22px}
-  .card h2{font-family:var(--serif);font-weight:600;font-size:1.25rem;margin-bottom:.25rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-  .card .sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:1.3rem}
+section{padding:14px 0 40px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:30px 26px;margin-bottom:20px}
+.card h2{font-family:var(--kr);font-weight:700;font-size:1.2rem;margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.card .sub{color:var(--text-secondary);font-size:.92rem;margin-bottom:1.4rem}
 
-  input[type=text],input[type=password],textarea{width:100%;font-family:var(--serif);font-weight:500;font-size:1rem;color:var(--ink);
-    border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--cream);line-height:1.6}
-  input:focus,textarea:focus{outline:none;border-color:var(--pink);background:#fff}
-  textarea{min-height:92px;resize:vertical;margin-top:14px}
-  label.fl{display:block;font-family:var(--sans);font-size:.85rem;color:var(--ink-soft);margin-bottom:.4rem}
+label.fl{display:block;font-size:.85rem;color:var(--text-secondary);margin-bottom:.45rem;margin-top:1rem}
+label.fl:first-of-type{margin-top:0}
+input[type=text],input[type=password],textarea{
+  width:100%;font-family:var(--body);font-size:1rem;color:var(--text-primary);
+  border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--panel-2);line-height:1.6}
+input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{min-height:88px;resize:vertical}
+.chk{display:flex;align-items:center;gap:.45rem;margin-top:.7rem;font-size:.87rem;color:var(--text-secondary);cursor:pointer}
 
-  .drop{border:2px dashed rgba(224,0,108,.4);border-radius:16px;background:linear-gradient(160deg,#fff,var(--pink-soft));
-    padding:32px 20px;text-align:center;cursor:pointer;transition:.25s;display:block}
-  .drop:hover,.drop.over{border-color:var(--pink);background:linear-gradient(160deg,#fff,#ffcbe4)}
-  .drop .ic{font-size:2.3rem}
-  .drop b{font-family:var(--serif);font-weight:600;font-size:1.05rem;display:block;margin-top:.35rem}
-  .drop span{font-family:var(--sans);font-size:.83rem;color:var(--ink-soft)}
-  .drop input{display:none}
+.btn{font-family:var(--body);font-size:.92rem;border:none;border-radius:40px;padding:.75rem 1.5rem;cursor:pointer;transition:.28s var(--ease);display:inline-flex;align-items:center;justify-content:center;gap:.4rem;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover:not(:disabled){background:var(--accent-hover)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text-primary)}
+.btn-ghost:hover{border-color:var(--accent-hover);color:var(--accent-hover)}
+@media (pointer:coarse){.btn{min-height:44px}}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.count{font-family:var(--mono);font-size:.76rem;color:var(--text-secondary)}
 
-  .opt{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-top:14px;font-family:var(--sans);font-size:.85rem;color:var(--ink-soft)}
-  .opt label{display:flex;align-items:center;gap:.35rem;cursor:pointer}
+.drop{border:2px dashed rgba(224,0,108,.42);border-radius:16px;background:rgba(224,0,108,.05);
+  padding:34px 20px;text-align:center;cursor:pointer;transition:.25s var(--ease);display:block}
+.drop:hover,.drop.over{border-color:var(--accent);background:rgba(224,0,108,.12)}
+.drop .ic{font-size:2.2rem}
+.drop b{font-family:var(--kr);font-weight:700;font-size:1.04rem;display:block;margin-top:.4rem}
+.drop span{font-size:.83rem;color:var(--text-secondary)}
+.drop input{display:none}
 
-  .stage{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;margin-top:14px}
-  .stage:empty{display:none}
-  .th{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
-  .th img{width:100%;height:100%;object-fit:cover}
-  .th button{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;border:none;background:rgba(0,0,0,.55);color:#fff;cursor:pointer;font-size:.78rem;line-height:1}
-  .th .sz{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);color:#fff;font-family:var(--sans);font-size:.6rem;text-align:center;padding:2px}
+.stage{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:16px}
+.stage:empty{display:none}
+.th{position:relative;aspect-ratio:1;border-radius:11px;overflow:hidden;border:1px solid var(--line);background:var(--panel-2)}
+.th img{width:100%;height:100%;object-fit:cover}
+.th button{position:absolute;top:4px;right:4px;width:23px;height:23px;border-radius:50%;border:none;background:rgba(0,0,0,.65);color:#fff;cursor:pointer;font-size:.78rem;line-height:1}
+.th .sz{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);color:#fff;font-family:var(--mono);font-size:.58rem;text-align:center;padding:2px}
+.th.done{outline:2px solid var(--ok);outline-offset:-2px}
+.th.fail{outline:2px solid var(--warn);outline-offset:-2px}
 
-  .btn{font-family:var(--sans);font-size:.9rem;border:none;border-radius:40px;padding:.7rem 1.4rem;cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap}
-  .btn-primary{background:var(--pink);color:#fff;box-shadow:0 12px 26px -12px rgba(224,0,108,.6)}
-  .btn-primary:hover:not(:disabled){background:var(--pink-deep)}
-  .btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
-  .btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
-  .btn-ghost:hover{border-color:var(--pink);color:var(--pink)}
-  .row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
-  .count{font-family:var(--sans);font-size:.82rem;color:var(--ink-soft)}
+.bar{height:7px;border-radius:8px;background:var(--panel-2);overflow:hidden;margin-top:16px;display:none}
+.bar.show{display:block}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s var(--ease)}
+.note{margin-top:14px;font-size:.9rem;color:var(--text-secondary);word-break:keep-all}
+.note.ok{color:var(--ok)}
+.note.warn{color:var(--warn)}
 
-  .bar{height:8px;border-radius:8px;background:var(--cream-2);overflow:hidden;margin-top:14px;display:none}
-  .bar.show{display:block}
-  .bar i{display:block;height:100%;width:0;background:var(--pink);transition:width .3s}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:8px}
+.item{background:var(--panel-2);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.item .ph{aspect-ratio:1;background:var(--panel)}
+.item .ph img{width:100%;height:100%;object-fit:cover}
+.item .bd{padding:11px 12px;display:flex;flex-direction:column;gap:8px;flex:1}
+.item .tx{font-size:.83rem;color:var(--text-secondary);word-break:break-word;max-height:4.6em;overflow:auto}
+.item .ac{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.item .ac .btn{font-size:.74rem;padding:.4rem .8rem}
+.item .del{color:var(--warn);border-color:rgba(255,107,107,.32)}
+.empty{grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--text-secondary);font-size:.93rem}
+.empty .ic{font-size:2.1rem;opacity:.5}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-top:6px}
-  .item{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 18px 40px -32px rgba(36,26,31,.3);display:flex;flex-direction:column}
-  .item .ph{aspect-ratio:1;background:var(--cream-2)}
-  .item .ph img{width:100%;height:100%;object-fit:cover}
-  .item .bd{padding:12px 13px;display:flex;flex-direction:column;gap:9px;flex:1}
-  .item .tx{font-size:.86rem;color:var(--ink-soft);white-space:pre-wrap;word-break:break-word;max-height:5em;overflow:auto}
-  .item .ac{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
-  .item .ac .btn{font-size:.76rem;padding:.42rem .8rem}
-  .item .del{color:var(--warn);border-color:rgba(192,57,43,.3)}
-  .empty{grid-column:1/-1;text-align:center;padding:44px 20px;color:var(--ink-soft);font-family:var(--sans);font-size:.94rem}
-  .empty .ic{font-size:2.3rem;opacity:.5}
+.help{background:var(--panel-2);border-radius:14px;padding:18px 20px;font-size:.87rem;color:var(--text-secondary);line-height:1.85;margin-top:16px;word-break:keep-all}
+.help b{color:var(--text-primary)}
+.help ol{margin:.5rem 0 .2rem 1.15rem}
+.help a{color:var(--accent-hover);text-decoration:underline}
+details summary{cursor:pointer;font-size:.9rem;color:var(--accent-hover);padding:.3rem 0}
 
-  .social{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}
-  .social a{font-family:var(--sans);font-size:.86rem;padding:.65rem 1.4rem;border-radius:40px;display:inline-flex;align-items:center;gap:.45rem;color:#fff;transition:.25s}
-  .social a:hover{transform:translateY(-2px)}
-  .ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
-  .bl{background:#03c75a}
-
-  .help{background:var(--cream-2);border-radius:14px;padding:18px 20px;font-family:var(--sans);font-size:.86rem;color:var(--ink-soft);line-height:1.85}
-  .help b{color:var(--ink)}
-  .help .h{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:.98rem;margin-bottom:.3rem;display:block}
-  .help ol{margin:.4rem 0 .2rem 1.1rem}
-  .help a{color:var(--pink);text-decoration:underline}
-  details summary{cursor:pointer;font-family:var(--sans);font-size:.9rem;color:var(--pink)}
-
-  #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;
-    font-family:var(--sans);font-size:.9rem;padding:.85rem 1.4rem;border-radius:40px;box-shadow:0 16px 40px -12px rgba(0,0,0,.4);
-    z-index:100;opacity:0;transition:.35s cubic-bezier(.16,1,.3,1);max-width:90vw;text-align:center}
-  #toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-
-  footer{text-align:center;padding:26px 0 36px;font-family:var(--sans);font-size:.8rem;color:var(--ink-soft)}
-  @media(max-width:560px){ .card{padding:22px 17px} .nav{height:auto;padding:12px 0;flex-wrap:wrap} }
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(130px);background:var(--panel-2);border:1px solid var(--line);color:var(--text-primary);
+  font-size:.9rem;padding:.85rem 1.4rem;border-radius:40px;box-shadow:0 18px 44px -14px rgba(0,0,0,.7);
+  z-index:100;opacity:0;transition:.35s var(--ease);max-width:90vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+footer{text-align:center;padding:26px 0 40px;font-size:.79rem;color:var(--text-secondary)}
+@media (max-width:600px){.card{padding:24px 18px}.wrap{padding:0 18px}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="index.html"><img src="logo.png" alt="바닐라 헤어"></a>
+    <a href="index.html" aria-label="홈으로"><img src="logo.png" alt="바닐라 헤어"></a>
     <div class="navr">
-      <span class="pill" id="statePill">연결 확인 중…</span>
-      <a class="back" href="index.html">← 홈으로</a>
+      <span class="pill" id="pill">연결 확인 중</span>
+      <a class="back" href="index.html">홈으로</a>
     </div>
   </div>
 </header>
 
 <div class="top">
   <div class="wrap">
-    <div class="tag">Gallery Manager</div>
-    <h1>사진 올리고 <em>공개</em>하기</h1>
-    <p>사진을 올리면 웹용으로 압축되어 저장되고, 홈페이지 갤러리에 모두에게 공개됩니다.</p>
+    <div class="tag">Gallery Admin</div>
+    <h1>사진 올리면<br><em>홈페이지에 바로</em> 올라갑니다</h1>
+    <p>사진을 고르고 비밀번호만 넣으면 됩니다. 크기는 알아서 줄여드립니다.</p>
   </div>
 </div>
 
 <section>
   <div class="wrap">
 
-    <!-- CONNECT -->
-    <div class="card" id="connectCard">
-      <h2>🔐 관리자 연결</h2>
-      <p class="sub">처음 한 번만 GitHub 토큰을 등록하면, 이후에는 바로 업로드할 수 있어요.</p>
-
-      <label class="fl">GitHub 토큰 (ghp_… 또는 github_pat_…)</label>
-      <input type="password" id="token" placeholder="여기에 토큰을 붙여넣으세요" autocomplete="off">
-
+    <!-- 1. 서버 주소 (최초 1회) -->
+    <div class="card" id="setupCard">
+      <h2>⚙️ 최초 설정</h2>
+      <p class="sub">이 기기에서 처음이라면 업로드 주소를 한 번만 넣어주세요.</p>
+      <label class="fl" for="srv">업로드 주소 (앱스스크립트 웹 앱 URL)</label>
+      <input type="text" id="srv" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" spellcheck="false">
       <div class="row">
-        <label class="count" style="display:flex;align-items:center;gap:.4rem;cursor:pointer">
-          <input type="checkbox" id="remember" checked> 이 기기에 저장(다음부터 자동 로그인)
-        </label>
-        <div style="display:flex;gap:10px">
-          <button class="btn btn-ghost" id="logoutBtn" type="button" style="display:none">연결 해제</button>
-          <button class="btn btn-primary" id="connectBtn" type="button">연결하기</button>
-        </div>
+        <span class="count" id="srvNote">주소는 이 기기에만 저장됩니다</span>
+        <button class="btn btn-primary" id="srvSave" type="button">주소 저장</button>
       </div>
-
-      <details style="margin-top:18px" open>
-        <summary>토큰 발급 방법 (처음이신가요?)</summary>
-        <div class="help" style="margin-top:12px">
-          <b>이 홈페이지는 서버가 없어서</b>, 사진을 저장하려면 GitHub 창고에 직접 넣습니다.
-          토큰은 그 창고 문을 열 <b>출입증</b>이에요. 이 기기에서 한 번만 등록하면 됩니다.
+      <details style="margin-top:16px">
+        <summary>업로드 주소는 어디서 받나요?</summary>
+        <div class="help">
+          한 번만 만들어 두면 계속 씁니다. 자세한 순서는 저장소의
+          <b>갤러리-설정방법.md</b> 파일에 그림처럼 적어두었습니다.
           <ol>
-            <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">이 링크</a>를 눌러 GitHub에 로그인하세요.</li>
-            <li><b>Token name</b>: 아무 이름이나 (예: 바닐라헤어 갤러리)</li>
-            <li><b>Expiration</b>: 원하는 기간 (1년을 권합니다)</li>
-            <li><b>Repository access</b>: <b>Only select repositories</b> 를 고르고 <b>banilla-hair</b> 하나만 선택</li>
-            <li><b>Permissions</b> → <b>Repository permissions</b> → <b>Contents</b> 를 <b>Read and write</b> 로 변경</li>
-            <li>맨 아래 <b>Generate token</b> 클릭 → 나온 토큰을 <b>복사</b></li>
-            <li>위 칸에 붙여넣고 <b>연결하기</b></li>
+            <li>구글 드라이브에서 <b>새로 만들기 → 더보기 → Google Apps Script</b></li>
+            <li><b>갤러리-AppsScript-코드.gs</b> 내용을 붙여넣기</li>
+            <li>프로젝트 설정에서 비밀번호와 GitHub 토큰을 넣기</li>
+            <li><b>배포 → 새 배포 → 웹 앱</b>, 액세스 권한을 <b>모든 사용자</b>로</li>
+            <li>나온 주소를 위 칸에 붙여넣기</li>
           </ol>
-          <b>왜 이렇게 하나요?</b> 이 방식은 <b>바닐라헤어 창고 하나만</b> 열 수 있는 출입증입니다.
-          다른 방식(classic token)은 사장님의 모든 공개 창고를 열 수 있어서 위험합니다.<br>
-          토큰은 사장님 기기에만 저장되고 사진 올리는 데만 쓰입니다.
-          기기를 남에게 넘기실 때는 <b>연결 해제</b>를 눌러 주세요.
         </div>
       </details>
     </div>
 
-    <!-- UPLOAD -->
-    <div class="card" id="uploadCard" style="display:none">
+    <!-- 2. 사진 올리기 -->
+    <div class="card">
       <h2>📷 사진 올리기</h2>
-      <p class="sub">끌어다 놓거나 눌러서 선택하세요. 자동으로 웹용 압축 후 저장됩니다.</p>
+      <p class="sub">여러 장 한 번에 됩니다. 휴대폰에서는 카메라도 바로 열립니다.</p>
 
       <label class="drop" id="drop">
         <div class="ic">🖼️</div>
-        <b>사진 선택 / 끌어다 놓기</b>
-        <span>JPG · PNG · 여러 장 가능</span>
+        <b>사진 고르기</b>
+        <span>고르면 웹에 맞게 자동으로 줄어듭니다</span>
         <input type="file" id="file" accept="image/*" multiple>
       </label>
 
-      <div class="opt">
-        <span>압축 화질:</span>
-        <label><input type="radio" name="q" value="high"> 고화질</label>
-        <label><input type="radio" name="q" value="mid" checked> 표준(권장)</label>
-        <label><input type="radio" name="q" value="low"> 가벼움</label>
-      </div>
-
       <div class="stage" id="stage"></div>
-      <textarea id="cap" placeholder="사진 설명 / 인스타·블로그용 문구 (선택)&#10;예) 오늘의 볼륨매직 ✨ #바닐라헤어 #광양미용실"></textarea>
 
-      <div class="bar" id="bar"><i></i></div>
+      <label class="fl" for="cap">사진 설명 (선택)</label>
+      <textarea id="cap" placeholder="예) 볼륨매직 시술 후. 어깨 아래 중단발."></textarea>
+
+      <label class="fl" for="pw">업로드 비밀번호</label>
+      <input type="password" id="pw" placeholder="설정해 두신 비밀번호" autocomplete="current-password">
+      <label class="chk"><input type="checkbox" id="pwSave" checked> 이 기기에 비밀번호 기억</label>
+
+      <div class="bar" id="bar"><i id="barIn"></i></div>
+      <p class="note" id="status"></p>
+
       <div class="row">
-        <span class="count" id="stageCount">선택된 사진 없음</span>
+        <span class="count" id="stageCount">고른 사진 없음</span>
         <div style="display:flex;gap:10px">
-          <button class="btn btn-ghost" id="clearStage" type="button">비우기</button>
-          <button class="btn btn-primary" id="uploadBtn" type="button" disabled>⬆ 업로드 &amp; 공개</button>
+          <button class="btn btn-ghost" id="clearBtn" type="button">비우기</button>
+          <button class="btn btn-primary" id="upBtn" type="button" disabled>갤러리에 올리기</button>
         </div>
       </div>
     </div>
 
-    <!-- LIST -->
-    <div class="card" id="listCard" style="display:none">
-      <h2>🖼️ 공개된 갤러리 <span class="count" id="galCount"></span></h2>
-      <p class="sub">홈페이지 갤러리에 표시되는 사진입니다. 반영까지 최대 1~2분 걸릴 수 있어요.</p>
-      <div class="grid" id="grid"></div>
-      <div class="social">
-        <a class="ig" href="https://www.instagram.com/" target="_blank" rel="noopener">📸 인스타그램</a>
-        <a class="bl" href="https://blog.naver.com/" target="_blank" rel="noopener">📝 네이버 블로그</a>
+    <!-- 3. 올린 사진 관리 -->
+    <div class="card">
+      <h2>🗂 올린 사진</h2>
+      <p class="sub">홈페이지 갤러리에 보이는 사진들입니다. 지우면 홈페이지에서도 사라집니다.</p>
+      <div class="row" style="margin-top:0">
+        <span class="count" id="listCount"></span>
+        <button class="btn btn-ghost" id="reloadBtn" type="button">목록 새로고침</button>
       </div>
+      <div class="grid" id="grid"></div>
     </div>
 
     <div class="help">
-      <span class="h">💡 참고</span>
-      업로드하면 사진이 <b>홈페이지 갤러리에 자동으로 추가</b>되어 모든 방문자가 볼 수 있습니다.<br>
-      인스타·블로그에 올릴 땐 사진의 <b>[복사]</b> 또는 <b>[저장]</b>을 눌러 붙여넣으세요.
+      <b>알아두실 점</b><br>
+      올리고 나면 홈페이지에 보이기까지 <b>1분에서 2분</b> 걸립니다. 바로 안 보인다고 다시 올리지 마세요.<br>
+      비밀번호는 이 기기에만 저장되고, GitHub 토큰은 구글 서버에만 있어서 휴대폰에는 남지 않습니다.
     </div>
 
   </div>
 </section>
 
 <div id="toast"></div>
-<footer>© 2025 Banilla Hair · 갤러리 관리</footer>
+<footer>© 2025 Banilla Hair · 관리자 전용</footer>
 
 <script>
-const OWNER='brizymedia', REPO='banilla-hair', BRANCH='main';
-const DIR='gallery', MANIFEST='gallery/photos.json';
-const TKEY='banilla_gh_token';
+(function(){
+'use strict';
 const $=s=>document.querySelector(s);
-let token='', staged=[], photos=[], manifestSha=null;
+const SRV_KEY='banilla_srv_url', PW_KEY='banilla_up_pw';
+let 서버주소='', staged=[], photos=[];
 
-const Q={high:{d:1600,q:.86},mid:{d:1280,q:.8},low:{d:1000,q:.7}};
-const qsel=()=>Q[document.querySelector('input[name=q]:checked').value];
+function toast(m,ms){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),ms||2800)}
+function 안내(글,종류){const el=$('#status');el.className='note'+(종류?' '+종류:'');el.textContent=글}
+function 알약(글,종류){const p=$('#pill');p.textContent=글;p.className='pill'+(종류?' '+종류:'')}
+function 용량(b){return b>=1048576?(b/1048576).toFixed(1)+'MB':Math.max(1,Math.round(b/1024))+'KB'}
 
-function toast(m,ms){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),ms||2800);}
-const fmt=b=>b>=1048576?(b/1048576).toFixed(1)+'MB':Math.max(1,Math.round(b/1024))+'KB';
-function setPill(txt,cls){const p=$('#statePill');p.textContent=txt;p.className='pill'+(cls?' '+cls:'');}
+/* ---------- 서버 주소 ---------- */
+서버주소=localStorage.getItem(SRV_KEY)||'';
+if(서버주소){ $('#srv').value=서버주소; $('#setupCard').open=false; 연결확인(); }
+else { 알약('주소 필요','off'); }
 
-async function gh(path,opts={}){
-  const r=await fetch('https://api.github.com/'+path,{
-    ...opts,
-    headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+token,'Content-Type':'application/json',...(opts.headers||{})}
-  });
-  if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.message||('GitHub 오류 '+r.status)); }
-  return r.json();
-}
-
-/* ---------- connect ---------- */
-async function connect(tok,silent){
-  token=tok;
-  try{
-    setPill('연결 중…');
-    await gh('repos/'+OWNER+'/'+REPO);           // verify token + repo access
-    setPill('✓ 연결됨','on');
-    $('#uploadCard').style.display='';
-    $('#listCard').style.display='';
-    $('#connectBtn').textContent='다시 연결';
-    $('#logoutBtn').style.display='';
-    $('#token').value='';
-    $('#token').placeholder='연결됨 (토큰 저장됨)';
-    if($('#remember').checked) localStorage.setItem(TKEY,tok);
-    await loadPhotos();
-    if(!silent) toast('✅ 연결됐어요! 이제 사진을 올려보세요');
-  }catch(e){
-    token=''; localStorage.removeItem(TKEY);
-    setPill('연결 안 됨','off');
-    $('#uploadCard').style.display='none';
-    $('#listCard').style.display='none';
-    if(!silent) toast('❌ '+e.message);
-    else setPill('토큰 만료 · 재연결 필요','off');
+$('#srvSave').onclick=()=>{
+  const v=$('#srv').value.trim();
+  if(!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(v)){
+    toast('앱스스크립트 주소 형식이 아닙니다'); return;
   }
-}
-$('#connectBtn').onclick=()=>{
-  const t=$('#token').value.trim();
-  if(!t){ toast('토큰을 붙여넣어 주세요'); return; }
-  connect(t,false);
-};
-$('#logoutBtn').onclick=()=>{
-  localStorage.removeItem(TKEY); token='';
-  setPill('연결 안 됨','off');
-  $('#uploadCard').style.display='none'; $('#listCard').style.display='none';
-  $('#logoutBtn').style.display='none'; $('#token').placeholder='여기에 토큰을 붙여넣으세요';
-  toast('연결을 해제했어요');
+  서버주소=v; localStorage.setItem(SRV_KEY,v);
+  toast('주소를 저장했습니다'); 연결확인();
 };
 
-/* ---------- load manifest ---------- */
-async function loadPhotos(){
+async function 연결확인(){
+  알약('연결 확인 중');
   try{
-    const f=await gh('repos/'+OWNER+'/'+REPO+'/contents/'+MANIFEST+'?ref='+BRANCH);
-    manifestSha=f.sha;
-    photos=JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))))||[];
-  }catch(e){ photos=[]; manifestSha=null; }
-  renderList();
+    // 앱스스크립트는 GET 요청에서 다른 주소로 넘겨버려 브라우저가 막는다.
+    // 그래서 확인도 POST(text/plain)로 보낸다. upload.html 과 같은 방식.
+    const j=await 보내기({action:'ping'});
+    if(j.ok&&j.ready) 알약('연결됨','on');
+    else if(j.ok) 알약('서버 설정 미완료','off');
+    else 알약('연결 실패','off');
+    목록불러오기();
+  }catch(e){ 알약('연결 실패','off'); }
 }
 
-/* ---------- compress ---------- */
-function compress(file){
-  const {d,q}=qsel();
-  return new Promise((res,rej)=>{
+/* ---------- 비밀번호 ---------- */
+const 저장된비번=localStorage.getItem(PW_KEY);
+if(저장된비번) $('#pw').value=저장된비번;
+
+/* ---------- 사진 고르기 + 줄이기 ---------- */
+function 줄이기(file){
+  return new Promise((resolve,reject)=>{
     const img=new Image();
     img.onload=()=>{
-      let w=img.width,h=img.height;
-      if(Math.max(w,h)>d){const s=d/Math.max(w,h);w=Math.round(w*s);h=Math.round(h*s);}
+      let w=img.width,h=img.height,최대=1600;
+      if(Math.max(w,h)>최대){const s=최대/Math.max(w,h);w=Math.round(w*s);h=Math.round(h*s)}
       const c=document.createElement('canvas');c.width=w;c.height=h;
-      const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,h);x.drawImage(img,0,0,w,h);
+      const ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);
+      ctx.drawImage(img,0,0,w,h);
       URL.revokeObjectURL(img.src);
-      res(c.toDataURL('image/jpeg',q));
+      c.toBlob(b=>b?resolve(b):reject(new Error('변환 실패')),'image/jpeg',0.82);
     };
-    img.onerror=rej; img.src=URL.createObjectURL(file);
+    img.onerror=()=>reject(new Error('이미지를 읽지 못했습니다'));
+    img.src=URL.createObjectURL(file);
   });
 }
-async function handleFiles(files){
+function base64(blob){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>res(String(r.result).split(',')[1]);
+    r.onerror=()=>rej(new Error('파일을 읽지 못했습니다'));
+    r.readAsDataURL(blob);
+  });
+}
+async function 파일받기(files){
   const list=[...files].filter(f=>f.type.startsWith('image/'));
-  if(!list.length)return;
+  if(!list.length) return;
   for(const f of list){
     try{
-      const durl=await compress(f);
-      const b64=durl.split(',')[1];
-      staged.push({b64,preview:durl,label:fmt(f.size)+' → '+fmt(Math.round(b64.length*.75))});
-    }catch(e){ toast('불러올 수 없는 이미지가 있어요'); }
+      const web=await 줄이기(f);
+      staged.push({file:f,web,url:URL.createObjectURL(web),label:용량(f.size)+' → '+용량(web.size),state:''});
+    }catch(e){ toast('불러올 수 없는 사진이 있습니다'); }
   }
-  renderStage();
+  그리기();
 }
-function renderStage(){
+function 그리기(){
   const s=$('#stage'); s.innerHTML='';
   staged.forEach((it,i)=>{
-    const d=document.createElement('div');d.className='th';
-    d.innerHTML='<img src="'+it.preview+'"><span class="sz">'+it.label+'</span><button type="button" data-i="'+i+'">✕</button>';
+    const d=document.createElement('div');
+    d.className='th'+(it.state==='완료'?' done':(it.state==='실패'?' fail':''));
+    d.innerHTML='<img src="'+it.url+'" alt=""><span class="sz">'+(it.state||it.label)+'</span>'+
+      (it.state==='완료'?'':'<button type="button" data-i="'+i+'" aria-label="빼기">✕</button>');
     s.appendChild(d);
   });
-  $('#stageCount').textContent=staged.length?staged.length+'장 준비됨 (압축 완료)':'선택된 사진 없음';
-  $('#uploadBtn').disabled=!staged.length;
+  $('#stageCount').textContent = staged.length?staged.length+'장 고름':'고른 사진 없음';
+  $('#upBtn').disabled = staged.length===0;
+}
+$('#file').addEventListener('change',e=>{파일받기(e.target.files);e.target.value=''});
+const drop=$('#drop');
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>파일받기(e.dataTransfer.files));
+$('#stage').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  e.preventDefault(); staged.splice(+b.dataset.i,1); 그리기();
+});
+$('#clearBtn').onclick=()=>{staged=[];그리기();안내('')};
+
+/* ---------- 서버로 보내기 ---------- */
+async function 보내기(몸통){
+  const r=await fetch(서버주소,{
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(몸통)
+  });
+  const 글=await r.text();
+  try{ return JSON.parse(글); }
+  catch(e){ throw new Error('서버가 이상한 답을 보냈습니다. 웹 앱을 「모든 사용자」로 배포했는지 확인해 주세요.'); }
 }
 
-/* ---------- upload ---------- */
-$('#uploadBtn').onclick=async()=>{
-  if(!staged.length||!token)return;
+$('#upBtn').onclick=async()=>{
+  if(!서버주소){ toast('먼저 업로드 주소를 저장해 주세요'); $('#srv').focus(); return; }
+  const pw=$('#pw').value.trim();
+  if(!pw){ toast('업로드 비밀번호를 넣어주세요'); $('#pw').focus(); return; }
+  if(!staged.length) return;
+
+  if($('#pwSave').checked) localStorage.setItem(PW_KEY,pw); else localStorage.removeItem(PW_KEY);
+
   const cap=$('#cap').value.trim();
-  const btn=$('#uploadBtn'); btn.disabled=true;
-  const bar=$('#bar'); bar.classList.add('show'); const fill=bar.querySelector('i');
-  const total=staged.length+1; let done=0;
-  const step=()=>{done++;fill.style.width=Math.round(done/total*100)+'%';};
+  const 버튼=$('#upBtn'); 버튼.disabled=true;
+  $('#bar').classList.add('show');
+  let 성공=0, 실패=0, 사유='', 올린것=[];
 
-  try{
-    const added=[];
-    for(let i=0;i<staged.length;i++){
-      const name='p'+Date.now()+i+Math.random().toString(36).slice(2,5)+'.jpg';
-      btn.textContent='업로드 중… ('+(i+1)+'/'+staged.length+')';
-      await gh('repos/'+OWNER+'/'+REPO+'/contents/'+DIR+'/'+name,{
-        method:'PUT',
-        body:JSON.stringify({message:'갤러리 사진 추가: '+name,content:staged[i].b64,branch:BRANCH})
-      });
-      added.push({file:name,cap,at:new Date().toISOString()});
-      step();
+  const 대기=staged.filter(p=>p.state!=='완료');
+  for(let i=0;i<대기.length;i++){
+    const p=대기[i];
+    안내('올리는 중… '+(i+1)+' / '+대기.length);
+    p.state='전송중'; 그리기();
+    try{
+      const 결과=await 보내기({pw:pw,action:'photo',web:await base64(p.web),origName:p.file.name});
+      if(!결과.ok) throw new Error(결과.error||'알 수 없는 오류');
+      p.state='완료'; 성공++;
+      올린것.push({file:결과.file,cap:cap,at:new Date().toISOString().slice(0,10)});
+    }catch(err){
+      p.state='실패'; 실패++; 사유=err.message||String(err);
     }
-    btn.textContent='목록 갱신 중…';
-    await saveManifest([...added.reverse(),...photos]);
-    step();
-
-    staged=[];renderStage();$('#cap').value='';
-    toast('✅ 업로드 완료! 홈페이지 갤러리에 곧 표시됩니다 (1~2분)',4200);
-  }catch(e){
-    toast('❌ 업로드 실패: '+e.message,4200);
-  }finally{
-    btn.disabled=!staged.length; btn.textContent='⬆ 업로드 & 공개';
-    setTimeout(()=>{bar.classList.remove('show');fill.style.width='0'},900);
+    그리기();
+    $('#barIn').style.width=Math.round(((i+1)/대기.length)*100)+'%';
   }
+
+  if(올린것.length){
+    try{
+      const 끝=await 보내기({pw:pw,action:'finish',photos:올린것});
+      if(!끝.ok) throw new Error(끝.error||'목록 갱신 실패');
+    }catch(err){
+      안내('사진은 올라갔지만 목록 갱신에 실패했습니다: '+err.message+' — 「갤러리에 올리기」를 한 번 더 눌러주세요.','warn');
+      버튼.disabled=false; return;
+    }
+  }
+
+  버튼.disabled=false;
+  const 말=[];
+  if(성공) 말.push(성공+'장 올렸습니다.');
+  if(실패) 말.push(실패+'장 실패 — '+사유);
+  if(성공&&!실패) 말.push('홈페이지에 1~2분 뒤 보입니다.');
+  안내(말.join(' '), 실패?'warn':'ok');
+  if(성공){ staged=staged.filter(p=>p.state!=='완료'); 그리기(); $('#cap').value=''; 목록불러오기(); }
 };
 
-async function saveManifest(next){
-  const body={
-    message:'갤러리 목록 갱신',
-    content:btoa(unescape(encodeURIComponent(JSON.stringify(next,null,1)))),
-    branch:BRANCH
-  };
-  if(manifestSha) body.sha=manifestSha;
-  const r=await gh('repos/'+OWNER+'/'+REPO+'/contents/'+MANIFEST,{method:'PUT',body:JSON.stringify(body)});
-  manifestSha=r.content.sha;
-  photos=next; renderList();
-}
+/* ---------- 올린 사진 목록 ---------- */
+async function 목록불러오기(){
+  const g=$('#grid');
+  try{
+    const r=await fetch('gallery/photos.json?t='+Date.now(),{cache:'no-store'});
+    photos = r.ok ? (await r.json()) : [];
+    if(!Array.isArray(photos)) photos=[];
+  }catch(e){ photos=[]; }
 
-/* ---------- list ---------- */
-function renderList(){
-  const g=$('#grid'); g.innerHTML='';
-  $('#galCount').textContent=photos.length?'('+photos.length+'장)':'';
+  $('#listCount').textContent = photos.length?photos.length+'장':'';
+  g.innerHTML='';
   if(!photos.length){
-    g.innerHTML='<div class="empty"><div class="ic">🌸</div><br>아직 공개된 사진이 없어요.<br>위에서 첫 사진을 올려보세요!</div>';
+    g.innerHTML='<div class="empty"><div class="ic">🌸</div>아직 올린 사진이 없습니다</div>';
     return;
   }
   photos.forEach(p=>{
-    const url=DIR+'/'+p.file;
-    const el=document.createElement('div');el.className='item';
-    el.innerHTML='<div class="ph"><img src="'+url+'" alt="" loading="lazy"></div>'+
-      '<div class="bd"><div class="tx">'+esc(p.cap||'')+'</div>'+
-      '<div class="ac"><button class="btn btn-ghost" data-a="copy">복사</button>'+
-      '<button class="btn btn-ghost" data-a="save">저장</button>'+
-      '<button class="btn btn-ghost del" data-a="del">삭제</button></div></div>';
-    const [cb,sb,db]=el.querySelectorAll('button');
-    cb.onclick=()=>copyImg(url);
-    sb.onclick=()=>{const a=document.createElement('a');a.href=url;a.download=p.file;document.body.appendChild(a);a.click();a.remove();toast('💾 저장했어요');};
-    db.onclick=()=>delPhoto(p);
-    g.appendChild(el);
+    if(!p||!p.file) return;
+    const d=document.createElement('div'); d.className='item';
+    d.innerHTML='<div class="ph"><img src="gallery/'+p.file+'" alt="" loading="lazy"></div>'+
+      '<div class="bd"><div class="tx">'+(p.cap?p.cap.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])):'<span style="opacity:.6">설명 없음</span>')+'</div>'+
+      '<div class="ac"><button class="btn btn-ghost del" type="button">삭제</button></div></div>';
+    d.querySelector('.del').onclick=()=>지우기(p.file);
+    g.appendChild(d);
   });
 }
-const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+$('#reloadBtn').onclick=()=>{목록불러오기();toast('목록을 새로 불러왔습니다')};
 
-async function copyImg(url){
+async function 지우기(file){
+  if(!confirm('이 사진을 홈페이지에서 지울까요?')) return;
+  const pw=$('#pw').value.trim();
+  if(!pw){ toast('업로드 비밀번호를 넣어주세요'); $('#pw').focus(); return; }
   try{
-    const img=new Image(); img.crossOrigin='anonymous';
-    await new Promise((r,j)=>{img.onload=r;img.onerror=j;img.src=url+'?t='+Date.now();});
-    const c=document.createElement('canvas');c.width=img.width;c.height=img.height;
-    c.getContext('2d').drawImage(img,0,0);
-    const blob=await new Promise(r=>c.toBlob(r,'image/png'));
-    await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
-    toast('🖼️ 사진 복사 완료! 붙여넣기 하세요');
-  }catch(e){ toast('복사 미지원 브라우저예요 → [저장]을 이용하세요'); }
+    const r=await 보내기({pw:pw,action:'delete',files:[file]});
+    if(!r.ok) throw new Error(r.error||'삭제 실패');
+    toast('지웠습니다. 홈페이지에는 1~2분 뒤 반영됩니다');
+    setTimeout(목록불러오기,1200);
+  }catch(e){ toast('삭제 실패: '+e.message,4000); }
 }
 
-async function delPhoto(p){
-  if(!confirm('이 사진을 갤러리에서 삭제할까요?'))return;
-  try{
-    const f=await gh('repos/'+OWNER+'/'+REPO+'/contents/'+DIR+'/'+p.file+'?ref='+BRANCH);
-    await gh('repos/'+OWNER+'/'+REPO+'/contents/'+DIR+'/'+p.file,{
-      method:'DELETE',body:JSON.stringify({message:'갤러리 사진 삭제: '+p.file,sha:f.sha,branch:BRANCH})
-    });
-    await saveManifest(photos.filter(x=>x.file!==p.file));
-    toast('🗑️ 삭제했어요');
-  }catch(e){ toast('❌ 삭제 실패: '+e.message); }
-}
-
-/* ---------- input wiring ---------- */
-$('#file').addEventListener('change',e=>{handleFiles(e.target.files);e.target.value='';});
-const drop=$('#drop');
-['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
-['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
-drop.addEventListener('drop',e=>handleFiles(e.dataTransfer.files));
-$('#stage').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;e.preventDefault();staged.splice(+b.dataset.i,1);renderStage();});
-$('#clearStage').onclick=()=>{staged=[];renderStage();};
-
-const saved=localStorage.getItem(TKEY);
-if(saved) connect(saved,true); else setPill('연결 안 됨','off');
+목록불러오기();
+})();
 </script>
 </body>
 </html>
