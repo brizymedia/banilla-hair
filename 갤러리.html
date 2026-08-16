@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>갤러리 관리 · 바닐라 헤어</title>
 <meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2317110f'/%3E%3Cpath d='M9 7c6-2 13 1 15 7-3-2-6-2-8 0 3 1 5 3 5 6-3-4-8-4-12-6' fill='%23e0006c'/%3E%3Cpath d='M9 7c-3 2-4 6-4 9 0 4 2 7 6 8' stroke='%23e0006c' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
 <meta name="description" content="바닐라 헤어 갤러리 관리 — 사진을 올리면 웹용으로 압축되어 홈페이지 갤러리에 바로 공개됩니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -156,17 +157,24 @@
         </div>
       </div>
 
-      <details style="margin-top:18px">
+      <details style="margin-top:18px" open>
         <summary>토큰 발급 방법 (처음이신가요?)</summary>
         <div class="help" style="margin-top:12px">
+          <b>이 홈페이지는 서버가 없어서</b>, 사진을 저장하려면 GitHub 창고에 직접 넣습니다.
+          토큰은 그 창고 문을 열 <b>출입증</b>이에요. 이 기기에서 한 번만 등록하면 됩니다.
           <ol>
-            <li><a href="https://github.com/settings/tokens/new?scopes=public_repo&description=Banilla%20Hair%20Gallery" target="_blank" rel="noopener">이 링크</a>를 눌러 GitHub에 로그인하세요.</li>
-            <li>Expiration(만료)을 <b>No expiration</b> 또는 원하는 기간으로 선택</li>
-            <li><b>public_repo</b> 체크가 되어 있는지 확인 (링크로 들어오면 자동 체크)</li>
+            <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">이 링크</a>를 눌러 GitHub에 로그인하세요.</li>
+            <li><b>Token name</b>: 아무 이름이나 (예: 바닐라헤어 갤러리)</li>
+            <li><b>Expiration</b>: 원하는 기간 (1년을 권합니다)</li>
+            <li><b>Repository access</b>: <b>Only select repositories</b> 를 고르고 <b>banilla-hair</b> 하나만 선택</li>
+            <li><b>Permissions</b> → <b>Repository permissions</b> → <b>Contents</b> 를 <b>Read and write</b> 로 변경</li>
             <li>맨 아래 <b>Generate token</b> 클릭 → 나온 토큰을 <b>복사</b></li>
             <li>위 칸에 붙여넣고 <b>연결하기</b></li>
           </ol>
-          토큰은 사장님 기기에만 저장되며, 사진 업로드에만 사용됩니다.
+          <b>왜 이렇게 하나요?</b> 이 방식은 <b>바닐라헤어 창고 하나만</b> 열 수 있는 출입증입니다.
+          다른 방식(classic token)은 사장님의 모든 공개 창고를 열 수 있어서 위험합니다.<br>
+          토큰은 사장님 기기에만 저장되고 사진 올리는 데만 쓰입니다.
+          기기를 남에게 넘기실 때는 <b>연결 해제</b>를 눌러 주세요.
         </div>
       </details>
     </div>
